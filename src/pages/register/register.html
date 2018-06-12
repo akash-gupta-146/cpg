@@ -29,7 +29,7 @@
       </ion-item>
 
       <ion-item>
-          <ion-icon name="call" color="primary" item-left></ion-icon>
+        <ion-icon name="call" color="primary" item-left></ion-icon>
         <ion-label floating>Contact No.</ion-label>
         <ion-input [class.invalid]="(contact.dirty || submitAttempt) && !contact.valid" formControlName="contact"></ion-input>
       </ion-item>
@@ -39,7 +39,7 @@
 
 
       <ion-item>
-          <ion-icon name="lock" color="primary" item-left></ion-icon>
+        <ion-icon name="lock" color="primary" item-left></ion-icon>
         <ion-label floating>Password</ion-label>
         <ion-input [class.invalid]="(password.dirty || submitAttempt) && !password.valid" formControlName="password"></ion-input>
       </ion-item>
@@ -48,7 +48,7 @@
       </ion-item>
 
       <ion-item>
-          <ion-icon name="lock" color="primary" item-left></ion-icon>
+        <ion-icon name="lock" color="primary" item-left></ion-icon>
         <ion-label floating>Confirm Password</ion-label>
         <ion-input [class.invalid]="(confirmPassword.dirty || submitAttempt) && (!confirmPassword.valid || !isSameAsPassword())"
           formControlName="confirmPassword"></ion-input>
@@ -62,7 +62,7 @@
 
 
       <ion-item>
-          <ion-icon name="mail" color="primary" item-left></ion-icon>
+        <ion-icon name="mail" color="primary" item-left></ion-icon>
         <ion-label floating>Email</ion-label>
         <ion-input [class.invalid]="(email.dirty || submitAttempt) && !email.valid" formControlName="email"></ion-input>
       </ion-item>
@@ -70,11 +70,27 @@
         <p>Please enter a valid email.</p>
       </ion-item>
 
-      <ion-item>
-          <ion-icon name="home" color="primary" item-left></ion-icon>
-        <ion-label floating>Address</ion-label>
-        <ion-textarea [class.invalid]="(address.dirty || submitAttempt) && !address.valid" formControlName="address"></ion-textarea>
-      </ion-item>
+      
+      
+      <button *ngIf=" addresses.controls.length<=2" ion-button clear right (click)="addAddress()">Add {{addresses.controls.length==0?'Address':'Another Address'}}</button>
+      
+      <div *ngIf="addresses" formArrayName="addresses">
+        <ion-card *ngFor="let address of addresses.controls;let i=index">
+          <button ion-button clear right icon-only (click)="removeAddress()">
+            <ion-icon name="close"></ion-icon>
+          </button>
+          <div [formGroupName]="i">
+            <ion-item>
+              <ion-label>Address Type</ion-label>
+              <ion-select interface="popover" formControlName="type">
+                <ion-option *ngFor="let type of addressTypes" [disabled]="isAddressTypeAlreadySelected(type)" [value]="type">
+                  {{type}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+          </div>
+        </ion-card>
+      </div>
 
       <button ion-button full (click)="onSubmit()">Register</button>
     </form>
