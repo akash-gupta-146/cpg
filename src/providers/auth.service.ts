@@ -19,7 +19,11 @@ export class AuthService {
 
     // login(loginCredentials: any) {
     //     return this.http.postForLogin(loginCredentials);
-    // }
+    // }      
+
+    register(data:any){
+        return this.http.postForRegister('/customer-signup',data); 
+    }
 
     // isLoggedIn() {
     //     return localStorage.getItem('access_token') ? true : false;

@@ -31,9 +31,9 @@
       <ion-item>
         <ion-icon name="call" color="primary" item-left></ion-icon>
         <ion-label floating>Contact No.</ion-label>
-        <ion-input [class.invalid]="(contact.dirty || submitAttempt) && !contact.valid" formControlName="contact"></ion-input>
+        <ion-input [class.invalid]="(contactNo.dirty || submitAttempt) && !contactNo.valid" formControlName="contactNo"></ion-input>
       </ion-item>
-      <ion-item no-lines *ngIf="(contact.dirty || submitAttempt) && !contact.valid">
+      <ion-item no-lines *ngIf="(contactNo.dirty || submitAttempt) && !contactNo.valid">
         <p>Please enter a valid Contact No.</p>
       </ion-item>
 
@@ -41,7 +41,7 @@
       <ion-item>
         <ion-icon name="lock" color="primary" item-left></ion-icon>
         <ion-label floating>Password</ion-label>
-        <ion-input [class.invalid]="(password.dirty || submitAttempt) && !password.valid" formControlName="password"></ion-input>
+        <ion-input type="password" [class.invalid]="(password.dirty || submitAttempt) && !password.valid" formControlName="password"></ion-input>
       </ion-item>
       <ion-item no-lines *ngIf="(password.dirty || submitAttempt) && !password.valid">
         <p>Please enter a valid password.</p>
@@ -70,26 +70,75 @@
         <p>Please enter a valid email.</p>
       </ion-item>
 
-      
-      
-      <button *ngIf=" addresses.controls.length<=2" ion-button clear right (click)="addAddress()">Add {{addresses.controls.length==0?'Address':'Another Address'}}</button>
-      
+
+
+
       <div *ngIf="addresses" formArrayName="addresses">
         <ion-card *ngFor="let address of addresses.controls;let i=index">
           <button ion-button clear right icon-only (click)="removeAddress()">
             <ion-icon name="close"></ion-icon>
           </button>
           <div [formGroupName]="i">
-            <ion-item>
-              <ion-label>Address Type</ion-label>
-              <ion-select interface="popover" formControlName="type">
-                <ion-option *ngFor="let type of addressTypes" [disabled]="isAddressTypeAlreadySelected(type)" [value]="type">
-                  {{type}}
-                </ion-option>
-              </ion-select>
-            </ion-item>
+            <ion-list>
+              <ion-list-header>Address {{i+1}}</ion-list-header>
+              <ion-item>
+                <ion-label>Type</ion-label>
+                <ion-select interface="popover" formControlName="addressType" [class.invalid]="(typeControl(i).dirty || submitAttempt) && !typeControl(i).valid">
+                  <ion-option *ngFor="let type of addressTypes" [disabled]="isAddressTypeAlreadySelected(type)" [value]="type">
+                    {{type}}
+                  </ion-option>
+                </ion-select>
+              </ion-item>
+              <ion-item no-lines *ngIf="(typeControl(i).dirty || submitAttempt) && !typeControl(i).valid">
+                <p>Please enter a valid type.</p>
+              </ion-item>
+
+              <ion-item>
+                <ion-input placeholder="Address" [class.invalid]="(addressControl(i).dirty || submitAttempt) && !addressControl(i).valid"
+                  formControlName="address"></ion-input>
+              </ion-item>
+              <ion-item no-lines *ngIf="(addressControl(i).dirty || submitAttempt) && !addressControl(i).valid">
+                <p>Please enter a valid address.</p>
+              </ion-item>
+
+              <ion-item>
+                <ion-input placeholder="City" formControlName="city" [class.invalid]="(cityControl(i).dirty || submitAttempt) && !cityControl(i).valid"></ion-input>
+              </ion-item>
+              <ion-item no-lines *ngIf="(cityControl(i).dirty || submitAttempt) && !cityControl(i).valid">
+                <p>Please enter a valid city.</p>
+              </ion-item>
+
+              <ion-item>
+                <ion-input placeholder="State" formControlName="state" [class.invalid]="(stateControl(i).dirty || submitAttempt) && !stateControl(i).valid"></ion-input>
+              </ion-item>
+              <ion-item no-lines *ngIf="(stateControl(i).dirty || submitAttempt) && !stateControl(i).valid">
+                <p>Please enter a valid state.</p>
+              </ion-item>
+
+              <ion-item>
+                <ion-input placeholder="Country" formControlName="country" [class.invalid]="(countryControl(i).dirty || submitAttempt) && !countryControl(i).valid"></ion-input>
+              </ion-item>
+              <ion-item no-lines *ngIf="(countryControl(i).dirty || submitAttempt) && !countryControl(i).valid">
+                <p>Please enter a valid country.</p>
+              </ion-item>
+
+              <ion-item>
+                <ion-input type="number" placeholder="Postal Code" formControlName="postalCode" [class.invalid]="(postalCodeControl(i).dirty || submitAttempt) && !postalCodeControl(i).valid"></ion-input>
+              </ion-item>
+              <ion-item no-lines *ngIf="(postalCodeControl(i).dirty || submitAttempt) && !postalCodeControl(i).valid">
+                <p>Please enter a valid Postal code.</p>
+              </ion-item>
+
+              <ion-item>
+                <ion-input type="tel" placeholder="Phone" formControlName="phone"></ion-input>
+              </ion-item>
+            </ion-list>
           </div>
         </ion-card>
+      </div>
+
+      <div text-right>
+        <button *ngIf=" addresses.controls.length <= addressTypes.length-1" ion-button clear (click)="addAddress()">Add {{addresses.controls.length==0?'Address':'Another Address'}}</button>
       </div>
 
       <button ion-button full (click)="onSubmit()">Register</button>

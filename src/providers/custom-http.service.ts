@@ -25,8 +25,8 @@ export class CustomHttpService {
     private addHeaders(optionalHeaders?: HttpHeaders) {
 
         let requestHeaders = new HttpHeaders()
-            .set('Authorization', this.getAccessToken())
-            .set('X-Content', 'customer');
+            .set('Authorization', this.getAccessToken());
+
         if (optionalHeaders) {
             for (const header of optionalHeaders.keys()) {
                 requestHeaders = requestHeaders.append(header, optionalHeaders.get(header));
@@ -41,7 +41,7 @@ export class CustomHttpService {
 
         const headers = this.addHeaders(options);
 
-        return this.httpClient.get(BASEURL+url, { headers: headers, observe: 'response' })
+        return this.httpClient.get(BASEURL + url, { headers: headers, observe: 'response' })
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -49,8 +49,15 @@ export class CustomHttpService {
     post(url: string, body: any, options?: HttpHeaders) {
 
         const headers = this.addHeaders(options);
-    
-        return this.httpClient.post(BASEURL+url, body, { headers: headers, observe: 'response' })
+
+        return this.httpClient.post(BASEURL + url, body, { headers: headers, observe: 'response' })
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    postForRegister(url: string, body: any) {
+        // no header is required for register 
+        return this.httpClient.post(BASEURL + url, body, { observe: 'response' })
             .map(this.extractData)
             .catch(this.handleError);
     }
