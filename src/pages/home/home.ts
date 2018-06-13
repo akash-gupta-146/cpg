@@ -25,9 +25,9 @@ export class HomePage {
     console.log('ionViewDidLoad HomePage');
   }
 
-  openAddProductPage() {
-    const modal = this.modalCtrl.create("AddProductPage");
-    modal.present();
-  }
+  // openAddProductPage() {
+  //   const modal = this.modalCtrl.create("AddProductPage");
+  //   modal.present();
+  // }
 
 }

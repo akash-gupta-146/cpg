@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { ProductService } from '../../providers/product.service';
 
 /**
@@ -19,22 +19,27 @@ export class ProductsPage {
   products: Array<any>;
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,     
+    public navParams: NavParams,
+    private modalCtrl: ModalController,
     private productService: ProductService
   ) { }
 
   ionViewDidLoad() {
-    console.log('iiiiiiiiiiiiiiiiii');
-    
     this.products = this.productService.getProducts();
+  }
+
+
+  openAddProductPage() {
+    const modal = this.modalCtrl.create("AddProductPage");
+    modal.present();
   }
 
   onSortFilterSelect(event: any) {
 
-  }    
+  }
 
-  openProductDetailPage(index:number) {
-    this.navCtrl.push('ProductDetailPage',{'product':this.products[index]});
+  openProductDetailPage(index: number) {
+    this.navCtrl.push('ProductDetailPage', { 'product': this.products[index] });
   }
 
 }

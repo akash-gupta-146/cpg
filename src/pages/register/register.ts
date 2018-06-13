@@ -80,6 +80,7 @@ export class RegisterPage {
   countryControl(index: number) { return (<FormArray>this.registerForm.get('addresses')).at(index).get('country'); }
   postalCodeControl(index: number) { return (<FormArray>this.registerForm.get('addresses')).at(index).get('postalCode'); }
 
+  // for showing the password didn't match error
   isSameAsPassword() {
     if (this.password.value.trim() && this.confirmPassword.value.trim()) {
       return this.password.value === this.confirmPassword.value;
@@ -91,7 +92,6 @@ export class RegisterPage {
     
     this.submitAttempt = true;
     if (this.registerForm.invalid) { return; }
-
 
     delete this.registerForm.value['confirmPassword'];
 

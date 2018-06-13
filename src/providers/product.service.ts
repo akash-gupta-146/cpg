@@ -1,11 +1,12 @@
 
 import { Injectable } from '@angular/core';
+import { CustomHttpService } from './custom-http.service';
 
 @Injectable()
 export class ProductService {
     
     constructor(
-
+private http: CustomHttpService
     ) { }
 
     getProducts() {
@@ -35,6 +36,11 @@ export class ProductService {
                 scheduledDate:'25 Jun, 2018'
             },
         ];
+    }
+
+
+    getInfoForProductRegister(){
+        return this.http.get('/c/register-product/save-info');
     }
 
 }

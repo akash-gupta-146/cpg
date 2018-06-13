@@ -19,7 +19,7 @@ export class LoginPage {
     public navCtrl: NavController,
     public formBuilder: FormBuilder,
     private customService: CustomService,
-    // private authService: AuthService,
+    private authService: AuthService,
     private events: Events,
     private menu: MenuController,
     private modalCtrl: ModalController
@@ -30,8 +30,8 @@ export class LoginPage {
   ngOnInit() {
     this.menu.swipeEnable(false);
     this.loginForm = this.formBuilder.group({
-      contactNo: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+$')])],
-      password: ['', Validators.required]
+      contactNo: ['8527466046', Validators.compose([Validators.required, Validators.pattern('^[0-9]+$')])],
+      password: ['q', Validators.required]
     });
   }
 
@@ -46,58 +46,43 @@ export class LoginPage {
 
     if (this.loginForm.valid) {
 
-      //TO BE REMOVED 
-      if (this.loginForm.value.contactNo === '11') {
-        ROLE = 'customer';
-        this.navigate();
-      } else if (this.loginForm.value.contactNo === '12') {
-        ROLE = 'engineer';
-        this.navigate();
-      } else {
-        this.customService.showToast('Invalid Credentials');
-      }
+      this.customService.showLoader("Authenticating...");
+      this.authService.login(this.loginForm.value)
+        .subscribe((res: any) => {
 
+          this.authService.saveToken(res.access_token);
 
-      // this.customService.showLoader("Authenticating...");
-      // this.authService.login(this.loginForm.value)
-      //   .subscribe((res: any) => {
+          this.authService.fetchUserDetails()
+            .subscribe((res: any) => {
+              this.customService.hideLoader();
+              this.authService.saveUserDetails(res);
+              this.navigate();
+            }, (err) => {
 
-      //     this.authService.saveToken(res.access_token);
-      //     this.authService.fetchUserDetails()
-      //       .subscribe((res: any) => {
-
-      //         this.customService.hideLoader();
-      //         // this.authService.saveUserDetails(res);
-      //         this.navigate();
-      //       }, (err) => {
-
-      //         this.customService.hideLoader();
-      //         localStorage.clear();
-      //       });
-      //   }, (err) => {
-
-      //     this.customService.hideLoader();
-      //     this.loginFailed(err);
-      //   });
+              this.customService.hideLoader();
+              this.customService.showToast(err.msg);
+              localStorage.clear();
+            });
+        }, (err) => {
+     
+          this.customService.hideLoader();
+          this.loginFailed(err);
+        });
     }
   }
 
   navigate() {
-
     this.events.publish('user:login');
-
   }
 
 
   loginFailed(err) {
 
-    // if (err.status == 400) {
-
-    //   this.customService.showToast("Please enter valid Contact No. or Password.");
-    // } else {
-
-    //   this.customService.showToast(err.msg);
-    // }
+    if (err.status == 400) {
+      this.customService.showToast("Contact No. or Password is invalid");
+    } else {
+      this.customService.showToast(err.msg);
+    }
   }
 
   onRegister() {

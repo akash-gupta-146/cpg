@@ -52,27 +52,28 @@ export class UserSessionManage {
 
 
     public hasLoggedIn() {
-        this.setRootPage();
-        // if (this.authService.isLoggedIn()) {
-        //     this.authService.fetchUserDetails()
-        //         .subscribe((res) => {
-        //             // no need to do any thing as userdetails would have been saved in service
-        //             this.setRootPage();
-        //             // this.enablePushNotifications();
-        //         }, (err: any) => {
-        //             this.customService.showToast('Some error occured, Please Reopen the App or Logout');
-        //         });
+        if (this.authService.isLoggedIn()) {
+            this.authService.fetchUserDetails()
+                .subscribe((res) => {
+                    // no need to do any thing as userdetails would have been saved in service
+                    this.rootPage = "HomePage";
+                    this.decideSideMenuContent();
+                    this.menu.enable(true);
+                    // this.enablePushNotifications();
+                }, (err: any) => {
+                    this.customService.showToast('Some error occured, Please Reopen the App or Logout');
+                });
 
-        // } else {
-        //     this.rootPage = "LoginPage";
-        // }
+        } else {
+            this.rootPage = "LoginPage";
+        }
     }
 
     public login() {
         // this.setRootPage();
-        this.appCtrl.getRootNavs()[0].setRoot("HomePage");
+        this.appCtrl.getRootNavs()[0].setRoot("HomePage",{},{animate:true,direction:'forward'});
         this.decideSideMenuContent();
-
+        this.menu.enable(true);
         // this.enablePushNotifications();
         // this.imageUpdate();
     }
@@ -81,46 +82,9 @@ export class UserSessionManage {
     //     this.pushMsgService.initializeFCM();
     // }
 
-    setRootPage() {
-        this.rootPage = "LoginPage";
-        this.decideSideMenuContent();
-
-        // this.appCtrl.getRootNavs()[0].setRoot("LoginPage");
-
-
-        //check role and set root page
-
-        // switch (role) {
-        //     case 'g':
-        //         this.menu.enable(false);
-        //         // this.rootPage = HomePage;
-        //         this.appCtrl.getRootNavs()[0].setRoot(HomePage);
-        //         this.isGuest = true;
-        //         break;
-
-        //     case 'sa':
-        //         // this.rootPage = DashboardPage;
-        //         this.appCtrl.getRootNavs()[0].setRoot(DashboardPage);
-        //         this.decideSideMenuContent();
-        //         this.menu.enable(true);
-        //         this.isGuest = false;
-        //         break;
-
-        //     case 'a':
-        //         // this.rootPage = DashboardPage;
-        //         this.appCtrl.getRootNavs()[0].setRoot(DashboardPage);
-        //         this.decideSideMenuContent();
-        //         this.menu.enable(true);
-        //         this.isGuest = false;
-        //         break;
-        // }
-        // this.imageUpdate();
-    }
-
 
     decideSideMenuContent() {
 
-        if(ROLE==='customer'){
         this.sideMenuOptions = [
 
             { title: 'Home', component: "HomePage", icon: 'home' },
@@ -128,15 +92,7 @@ export class UserSessionManage {
             { title: 'Incidents', component: "IncidentsPage", icon: 'megaphone' },
             { title: 'Logout', component: 'NA', icon: 'log-out' }
         ];
-    }else{
-        this.sideMenuOptions = [
 
-            { title: 'Home', component: "HomePage", icon: 'home' },
-            // { title: 'Products', component: "ProductsPage", icon: 'phone-portrait' },
-            { title: 'Incidents', component: "EngineerIncidentsPage", icon: 'megaphone' },
-            { title: 'Logout', component: 'NA', icon: 'log-out' }
-        ];
-    }
     }
 
     public imageUpdate() {
@@ -150,8 +106,8 @@ export class UserSessionManage {
         localStorage.clear();
         
         // URLPREFIX = undefined;
-        ROLE = undefined;
-        this.appCtrl.getRootNavs()[0].setRoot("LoginPage");
+        // ROLE = undefined;
+        this.appCtrl.getRootNavs()[0].setRoot("LoginPage",{},{animate:true,direction:'forward'});
     }
 
     public offline() {
