@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { ProductService } from '../../providers/product.service';
-
-/**
- * Generated class for the ProductsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { CustomService } from '../../providers/custom.service';
+import { Product } from '../../Classes/Models/product.model';
 
 @IonicPage()
 @Component({
@@ -16,22 +11,38 @@ import { ProductService } from '../../providers/product.service';
 })
 export class ProductsPage {
 
-  products: Array<any>;
+  products: Array<Product>=[];   
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private modalCtrl: ModalController,
-    private productService: ProductService
+    private productService: ProductService,
+    private customService:CustomService
   ) { }
 
-  ionViewDidLoad() {
-    this.products = this.productService.getProducts();
+  ionViewDidLoad() {this.getProductList();  }
+  
+  getProductList(){
+    this.customService.showLoader();
+    this.productService.getProducts()
+      .subscribe((res: any) => {
+        this.customService.hideLoader();
+        this.products = res;
+      }, (err: any) => {
+        this.customService.hideLoader();
+        this.customService.showToast(err.msg);
+      });
   }
 
 
   openAddProductPage() {
     const modal = this.modalCtrl.create("AddProductPage");
     modal.present();
+    modal.onDidDismiss((newProduct:any)=>{
+      if(newProduct){
+        this.products.push(newProduct);
+      }
+    });
   }
 
   onSortFilterSelect(event: any) {

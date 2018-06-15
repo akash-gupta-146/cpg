@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Product } from '../../Classes/Models/product.model';
 
-/**
- * Generated class for the ProductDetailPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -15,7 +10,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 })
 export class ProductDetailPage {
 
-  product: any;
+  product: Product;
 
   constructor(
     public navCtrl: NavController,
@@ -27,9 +22,9 @@ export class ProductDetailPage {
   ionViewDidLoad() {
     this.product = this.navParams.get('product');
 
-    this.product.status==='Installed' && setTimeout(() => {
-      this.showWarrantyExpireAlert();
-    }, 1000);
+    // this.product.status==='Installed' && setTimeout(() => {
+    //   this.showWarrantyExpireAlert();
+    // }, 1000);
   }
 
   openReportIncidentPage() {

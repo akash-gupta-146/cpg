@@ -18,9 +18,9 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
 
-@NgModule({
+@NgModule({     
   declarations: [     
-    MyApp,
+    MyApp,   
   ],
   imports: [
     BrowserModule,
