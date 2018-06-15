@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ActionSheetController } from 'ionic-angular';
 import { CustomService } from '../../providers/custom.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { ProductService } from '../../providers/product.service';
+import { Camera } from '@ionic-native/camera';
 
-
+interface Category {
+  id: number;
+  name: string;
+  categoryId: number;
+  childCategory?: Array<Category>
+}
 
 @IonicPage()
 @Component({
@@ -12,41 +19,276 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 })
 export class AddProductPage {
 
-  brands = ['Samsung', 'Apple', 'HTC', 'Bajaj', 'LG'];
-  categories = ['Home Appliance', 'Electrical', 'Smartphone & Tablets'];
+  brands: Array<{ name: string, id: number }>; // store the brand list from the server
+  categories: Array<Category>; // stores the categorylist from the server
   models = ['Iphone 6', 'Galaxy 7', 'Ceiling Fan 453', "32' LED TV"];
+  warranties = ['None', '6 Months', '1 Year', '2 Year', '3 Year', '5 Year', 'Other'];
+
+  // used for writing scalable code i.e. however deep the category hierarchy is, it will work
+  categoriesList: Array<{ label: string, catgsData: Array<Category> }> = [];
+  productTypes: Array<any>;
 
   //ngModal variables
+  productDetailMethod = '';
+
+  //optional details to be filled by user
+  purchaseDate = '';
+  warrantyPeriod = this.warranties[0];
+  warrantyPeriodOther = '';
+  dealerName = '';
+  dealerContact = '';
+  billNumber = '';
+  // used in case user is not scanning the barcode
+  selectedBrandId: number;
+  selectedCategoryId: number;
+  selectedProductTypeId: number;
+  selectedProduct: any;
+
+  showSpinner = false; // for showing spinner during bill upload
+  billPic: any;
+
+  get today() { return new Date().toISOString().slice(0, 10); }
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private viewCtrl: ViewController,
     private customService: CustomService,
-    private barcodeScanner: BarcodeScanner
+    private productService: ProductService,
+    private barcodeScanner: BarcodeScanner,
+    private camera: Camera,
+    private actionSheetCtrl: ActionSheetController
   ) {
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddProductPage');
+    this.getInfoForRegistration();
   }
 
-  dismiss() {
-    this.viewCtrl.dismiss();
+  getInfoForRegistration() {
+    this.customService.showLoader();
+    this.productService.getInfoForProductRegister()
+      .subscribe((res: any) => {
+        this.customService.hideLoader();
+        this.brands = res.brands;
+        this.categories = res.productCategories;
+        this.categoriesList.push({ label: 'Category', catgsData: this.categories });
+      }, (err: any) => {
+        this.customService.hideLoader();
+        this.customService.showToast(err.msg);
+        this.dismiss();
+      });
   }
+
+  onProductDetailMethodChange() {
+    this.selectedProduct = null;
+    if (this.productDetailMethod == 'manual') {
+      this.selectedBrandId = this.selectedCategoryId = this.selectedProductTypeId = null;
+    }
+  }
+
+  onCatgSelect(catg: Category, index: number) {
+    if (catg.childCategory) {
+      const label = `Subcategory ${index + 1}`;
+      this.categoriesList.splice(index + 1);
+      this.categoriesList.push({ label: label, catgsData: catg.childCategory });
+      this.selectedCategoryId = null;
+      this.productTypes = null;
+    } else {
+      this.categoriesList.splice(index + 1);
+      this.selectedCategoryId = catg.id;
+      this.getCategoryType(this.selectedCategoryId);
+    }
+  }
+
+  onProductTypeSelect(type: any) {
+    this.selectedProductTypeId = type.id;
+    this.getProductId();
+  }
+
+
+  getCategoryType(selectedCId: number) {
+    this.customService.showLoader();
+    this.productService.getCategoryTypes(selectedCId)
+      .subscribe((res: any) => {
+        this.customService.hideLoader();
+        this.productTypes = res;
+      }, (err: any) => {
+        this.customService.hideLoader();
+        this.customService.showToast(err.msg);
+      });
+  }
+
+  // usinng brand Id and product type id
+  getProductId() {
+    this.customService.showLoader();
+    this.productService.getProductId(this.selectedBrandId, this.selectedProductTypeId)
+      .subscribe((res: any) => {
+        this.customService.hideLoader();
+        this.selectedProduct = res[0];
+        if (!this.selectedProduct) { this.customService.showToast('No product found for selected brand and product type. Please check and try again', 'bottom', true); }
+      }, (err: any) => {
+        this.customService.hideLoader();
+        this.customService.showToast(err.msg);
+      });
+  }
+
+  onBillUpload() {
+    const actionSheet = this.actionSheetCtrl.create({
+
+      title: 'Select File Using',
+      buttons: [
+        {
+          text: 'Camera',
+          handler: () => {
+            this.fromCamera(this.camera.PictureSourceType.CAMERA);
+          }
+
+        },
+        {
+          text: 'Gallery',
+          handler: () => {
+            this.fromCamera(this.camera.PictureSourceType.PHOTOLIBRARY);
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  fromCamera(source: any) {
+    this.showSpinner = true;
+    this.camera.getPicture(this.cameraOptions(source))
+      .then((imageData) => {
+
+        // imageData is either a base64 encoded string or a file URI
+        // If it's base64:
+        // console.log('inside camera clbl');
+        this.billPic = 'data:image/jpeg;base64,' + imageData;
+        this.showSpinner = false;
+      }, (err: any) => {
+
+        /**handle the case when camera opened, but pitcure not taken */
+        // console.log('inisde camera 2nd clbk');
+        this.showSpinner = false;
+      })
+      .catch((err: any) => {
+        this.showSpinner = false;
+        this.customService.showToast('Error occured,Try again');
+      });
+  }
+
+
+  cameraOptions(source: any) {
+    return {
+      quality: 30,
+      destinationType: this.camera.DestinationType.DATA_URL,  // 0-DATA-URL, 1-FILE-URI
+      sourceType: source,       // 0-PHOTOLIBRARY, 1- CAMERA
+      encodingType: this.camera.EncodingType.JPEG,     // 0-JPEG, 1-PNG
+      allowEdit: true,
+      correctOrientation: true
+    }
+  }
+
+  onRemoveImage() { this.billPic = null; }
 
   onProductAdd() {
-    this.customService.showToast('Product added successfully');
-    this.dismiss();
+    if (!this.selectedProduct) { this.customService.showToast('Please enter product details'); return; }
+
+    //construct payLoad in which productId is mandatory
+    let payLoad: any = { productId: this.selectedProduct.id };
+    // add other info if available
+    if (this.purchaseDate) { payLoad['purchaseDate'] = this.purchaseDate; }
+    if (this.warrantyPeriod) { payLoad['warrantyPeriod'] = this.warrantyPeriod != 'Other' ? this.warrantyPeriod : this.warrantyPeriodOther; }
+    if (this.dealerName) { payLoad['dealerName'] = this.dealerName; }
+    if (this.dealerContact) { payLoad['dealerContact'] = this.dealerContact; }
+    if (this.billNumber) { payLoad['billNumber'] = this.billNumber; }
+    // payLoad['billPic'] = '';    
+
+    if (this.billPic) {
+      this.addWithBill(payLoad);
+    } else {
+      this.addWithoutBill(payLoad);
+    }
+  }
+
+  addWithBill(payLoad: any) {
+
+    this.customService.showLoader();
+    this.productService.registerProductWithBill(payLoad, this.billPic)
+      .then((res: any) => {
+
+        this.customService.hideLoader();
+        // alert(JSON.stringify(res));
+        // let res1 = JSON.parse(res.response);
+        this.dismiss(JSON.parse(res.response));
+        this.customService.showToast('Product registerd successfully');
+      })
+      .catch((err: any) => {
+        console.log('inside finally submit catch');
+        this.customService.hideLoader();
+        alert(JSON.stringify(err));
+
+        try {
+          let error = JSON.parse(err.body);
+          let errMsg = error.message || error.error || "Some Error Occured,Couldn't Register Product";
+          this.customService.showToast(errMsg);
+        } catch (e) {
+          this.customService.showToast(e.toString() || 'Some unexpected error occured');
+        }
+      });
+  }
+
+  addWithoutBill(payLoad) {
+    const fd = new FormData();
+    for (let key in payLoad) {
+      fd.append(key, payLoad[key]);
+    }
+    this.customService.showLoader();
+    this.productService.registerProductWithoutBill(fd)
+      .subscribe((res: any) => {
+        this.customService.hideLoader();
+        this.dismiss(res);
+        this.customService.showToast('Product registerd successfully');
+      }, (err: any) => {
+        this.customService.hideLoader();
+        this.customService.showToast(err.msg);
+      });
   }
 
   openScanner() {
-    this.barcodeScanner.scan().then(barcodeData => {
-      alert(JSON.stringify(barcodeData));
-      console.log('Barcode data', barcodeData);
-    }).catch(err => {
-      console.log('Error', err);
-    });
+    this.barcodeScanner.scan()
+      .then(barcodeData => {
+        // alert(JSON.stringify(barcodeData));
+        barcodeData && barcodeData.text && this.getProductIdUsingBarcode(barcodeData.text);
+      }).catch(err => {
+        this.customService.showToast('Error occured in scanning barcode');
+      });
+  }
+
+  getProductIdUsingBarcode(barcode: string) {
+    this.customService.showLoader();
+    this.productService.getProductIdUsingBarcode(barcode)
+      .subscribe((res: any) => {
+        this.customService.hideLoader();
+        // alert(JSON.stringify(res));
+        this.selectedProduct = Array.isArray(res) ? res[0] : res;
+      }, (err: any) => {
+        this.customService.hideLoader();
+        this.customService.showToast(err.msg);
+      });
+  }
+
+
+  dismiss(res?: any) {
+    this.viewCtrl.dismiss(res);
   }
 
 }

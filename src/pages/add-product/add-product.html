@@ -1,123 +1,137 @@
-<!--
-  Generated template for the AddProductPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar color="primary">
     <ion-toolbar>
-      <ion-buttons item-left>
+      <ion-buttons start>
         <button ion-button (click)="dismiss()">
           <span>Cancel</span>
         </button>
       </ion-buttons>
-      <ion-title>Add Product</ion-title>
+      <ion-title>Register Product</ion-title>
     </ion-toolbar>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content>
 
-  <div text-center padding>
-    <img src="https://www.iconshock.com/image/Stroke/Computer_gadgets/barcode_scanner" class="status-image center-block"/>
-    <button ion-button round (click)="openScanner()">
-      Scan Code
-    </button>
-
-    <h2 color="light">OR</h2>
-
-  </div>
-
+  <!-- SCAN BARCODE OR FILL FORM TO FETCH THE PRODUCT DETAILS  -->
   <ion-card>
+
+    <ion-item>
+      <ion-label>Product Details</ion-label>
+      <ion-select  interface="popover" [(ngModel)]="productDetailMethod" (ionChange)="onProductDetailMethodChange()">
+        <ion-option value="barcode">Using Barcode</ion-option>
+        <ion-option value="manual">Enter Manually</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-card>
+
+  <ion-card *ngIf="productDetailMethod=='barcode'">
+    <div text-center padding>
+      <img src="https://www.iconshock.com/image/Stroke/Computer_gadgets/barcode_scanner" class="status-image center-block" />
+      <button ion-button round (click)="openScanner()">
+        Scan Code
+      </button>
+    </div>
+  </ion-card>
+
+  <ion-card *ngIf="productDetailMethod=='manual'">
     <ion-list-header>
-      Add product
+      Tell us Product Details
     </ion-list-header>
+
     <ion-item>
-      <ion-label>Select Brand</ion-label>
-      <ion-select>
-        <ion-option *ngFor="let b of brands" [value]="b">{{b}}</ion-option>
+      <ion-label>Brand</ion-label>
+      <ion-select [(ngModel)]="selectedBrandId">
+        <ion-option *ngFor="let b of brands" [value]="b.id">{{b.name}}</ion-option>
       </ion-select>
     </ion-item>
-  
 
-  
-    <ion-item>
-      <ion-label>Select Category</ion-label>
-      <ion-select>
-        <ion-option *ngFor="let c of categories" [value]="c">{{c}}</ion-option>
+
+    <ion-item *ngFor="let catgs of categoriesList;let i=index">
+      <ion-label>{{catgs.label}}</ion-label>
+      <ion-select (ionChange)="onCatgSelect($event,i)">
+        <ion-option *ngFor="let c of catgs.catgsData" [value]="c">{{c.name}}</ion-option>
       </ion-select>
     </ion-item>
-  
 
-  
-    <ion-item>
-      <ion-label>Select Model</ion-label>
-      <ion-select>
-        <ion-option *ngFor="let m of models" [value]="m">{{m}}</ion-option>
+
+    <ion-item *ngIf="productTypes">
+      <ion-label>Product Type</ion-label>
+      <ion-select (ionChange)="onProductTypeSelect($event)">
+        <ion-option *ngFor="let pt of productTypes" [value]="pt">{{pt.name}}</ion-option>
       </ion-select>
     </ion-item>
   </ion-card>
 
+  <!-- SHOW THE DETAILS OF PRODUCT, WHEN FETCHED FROM SERVER-->
+  <ion-card *ngIf="selectedProduct">
+    <ion-item no-lines class="shadow" text-wrap>
+      <img item-start style="height: 70px;width: 70px" [src]="selectedProduct.picUrl">
+      <h3>
+        <b>Brand : </b>{{selectedProduct.brandName}}
+      </h3>
+      <h3>
+        <b>Model : </b>{{selectedProduct.modelNumber}}
+      </h3>
+      <h3>
+        <b>Category : </b>{{selectedProduct.categoryName}}</h3>
+    </ion-item>
+  </ion-card>
+
   <ion-card>
+    <ion-list>
 
       <ion-list-header>
-          Registration details
-        </ion-list-header>
+        Other Details (optional)
+      </ion-list-header>
+
+      <div style="border-bottom:1px solid black">
         <ion-item>
-            <ion-label>Registration No.</ion-label>
-            <ion-input></ion-input>
-          </ion-item>
-    <ion-item>
-      <ion-label>Purchase Date</ion-label>
-      <ion-datetime displayFormat="MMM DD, YYYY" pickerFormat="MMM DD, YYYY"></ion-datetime>
-    </ion-item>
-  
+          <ion-label>Purchase Date</ion-label>
+          <ion-datetime [(ngModel)]="purchaseDate" [max]="today" displayFormat="MMM DD, YYYY" pickerFormat="MMM DD, YYYY" placeholder="MMM DD, YYYY"></ion-datetime>
+        </ion-item>
 
+        <ion-item>
+          <ion-label>Warranty</ion-label>
+          <ion-select interface="popover" [(ngModel)]="warrantyPeriod">
+            <ion-option *ngFor="let w of warranties" [value]="w">{{w}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item *ngIf="warrantyPeriod=='Other'">
+          <ion-input [(ngModel)]="warrantyPeriodOther" placeholder="Enter Warranty"></ion-input>
+        </ion-item>
+      </div>
 
-    <ion-item>
-      <ion-label>Warranty</ion-label>
-      <ion-select>
-        <ion-option value="6 months">6 months</ion-option>
-        <ion-option value="1 years">1 years</ion-option>
-        <ion-option value="2 years">2 years</ion-option>
-        <ion-option value="3 years">3 years</ion-option>
-        <ion-option value="5 years">5 years</ion-option>
-      </ion-select>
-    </ion-item>
-  
+      <ion-item>
+        <ion-label floating>Dealer Name</ion-label>
+        <ion-input [(ngModel)]="dealerName"></ion-input>
+      </ion-item>
 
-  
+      <ion-item>
+        <ion-label floating>Dealer Contact</ion-label>
+        <ion-input [(ngModel)]="dealerContact"></ion-input>
+      </ion-item>
 
-  </ion-card> 
+      <ion-item>
+        <ion-label floating>Bill Number</ion-label>
+        <ion-input  [(ngModel)]="billNumber"></ion-input>
+      </ion-item>
 
-  <ion-card>
-      <ion-list-header>
-          Owner Details
-        </ion-list-header>
+      <button *ngIf="!billPic;else image" float-right ion-button clear (click)="onBillUpload()">Upload Bill</button>
+      <ion-spinner name="bubbles" *ngIf="showSpinner"></ion-spinner>
 
-    <ion-item>
-      <ion-label stacked>Buyer Name</ion-label>
-      <ion-input placeholder='Optional'></ion-input>
-    </ion-item> 
+      <ng-template #image>
+        <ion-card>
+          <button ion-button clear float-right (click)="onRemoveImage()">Remove Bill</button>
+          <img [src]="billPic" alt="Bill Pic">
+        </ion-card>
+      </ng-template>
 
-  
-    <ion-item>
-      <ion-label stacked>Dealer Name</ion-label>
-      <ion-input placeholder='Optional'></ion-input>
-    </ion-item>
-  
+    </ion-list>
 
-  
-    <ion-item>
-      <ion-label stacked>Address</ion-label>
-      <ion-input placeholder='Optional'></ion-input>
-    </ion-item>
   </ion-card>
 
-  <button ion-button full (click)="onProductAdd()">Continue</button>
+
+  <button ion-button full (click)="onProductAdd()">Register</button>
 
 </ion-content>

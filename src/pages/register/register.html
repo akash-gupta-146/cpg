@@ -31,7 +31,7 @@
       <ion-item>
         <ion-icon name="call" color="primary" item-left></ion-icon>
         <ion-label floating>Contact No.</ion-label>
-        <ion-input [class.invalid]="(contactNo.dirty || submitAttempt) && !contactNo.valid" formControlName="contactNo"></ion-input>
+        <ion-input type="number" [class.invalid]="(contactNo.dirty || submitAttempt) && !contactNo.valid" formControlName="contactNo"></ion-input>
       </ion-item>
       <ion-item no-lines *ngIf="(contactNo.dirty || submitAttempt) && !contactNo.valid">
         <p>Please enter a valid Contact No.</p>

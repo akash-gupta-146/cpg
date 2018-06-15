@@ -29,11 +29,11 @@ export class CustomService {
 
     public showToast(msg, pos?: string, showCloseBtn?: boolean) {
 
-        
+
         this.toast = this.toastCtrl.create({
             message: msg,
-            duration: 3000,
-            position:pos || 'bottom',
+            duration: showCloseBtn ? 5000 : 3000,
+            position: pos || 'bottom',
             showCloseButton: showCloseBtn,
             closeButtonText: 'Ok'
         });
