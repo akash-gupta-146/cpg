@@ -72,7 +72,7 @@ export class RegisterPage {
   get confirmPassword() { return this.registerForm.get('confirmPassword'); }
   get addresses() { return this.registerForm.get('addresses') as FormArray; }
 
-  // methods for easy access of controls of addresses formarray in html, getter property can't accept parameters.hence they havn't been used
+  // methods for easy access of controls of addresses formarray in html, getter property can't accept parameters.hence getter properties havn't been used
   typeControl(index: number) { return (<FormArray>this.registerForm.get('addresses')).at(index).get('addressType'); }
   addressControl(index: number) { return (<FormArray>this.registerForm.get('addresses')).at(index).get('address'); }
   cityControl(index: number) { return (<FormArray>this.registerForm.get('addresses')).at(index).get('city'); }

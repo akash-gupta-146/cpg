@@ -22,7 +22,7 @@ export class AddProductPage {
   brands: Array<{ name: string, id: number }>; // store the brand list from the server
   categories: Array<Category>; // stores the categorylist from the server
   models = ['Iphone 6', 'Galaxy 7', 'Ceiling Fan 453', "32' LED TV"];
-  warranties = ['None', '6 Months', '1 Year', '2 Year', '3 Year', '5 Year', 'Other'];
+  warranties = ['None', '6 Months', '1 Year', '2 Years', '3 Years', '5 Years', 'Other'];
 
   // used for writing scalable code i.e. however deep the category hierarchy is, it will work
   categoriesList: Array<{ label: string, catgsData: Array<Category> }> = [];

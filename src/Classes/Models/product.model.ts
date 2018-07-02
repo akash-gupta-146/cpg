@@ -23,3 +23,14 @@ export interface Product {
     warrantyPeriodEnd: string;
     warrentyPeriodStart: string;
 };
+
+export interface Address{
+    addressType: string;
+    address: string;
+    city: string;
+    state: string;
+    country: string;
+    postalCode: number | string;
+    phone: number | string;
+    id?:number | string
+}

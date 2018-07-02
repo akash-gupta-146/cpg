@@ -31,7 +31,7 @@ export class LoginPage {
     this.menu.swipeEnable(false);
     this.loginForm = this.formBuilder.group({
       contactNo: ['8527466046', Validators.compose([Validators.required, Validators.pattern('^[0-9]+$')])],
-      password: ['q', Validators.required]
+      password: ['abc123', Validators.required]
     });
   }
 

@@ -9,58 +9,120 @@
 
 <ion-content>
 
-  <ion-card>
-    <ion-list>
+  <form #incidentForm="ngForm" (ngSubmit)="onSubmit()">
+    <ion-card>
+
+      <ion-list>
         <ion-item>
-            <ion-label>Select Category</ion-label>
-            <ion-select>
-              <ion-option *ngFor="let c of categories" [value]="c">{{c}}</ion-option>
-            </ion-select>
-          </ion-item>
-    
-          <ion-item>
-            <ion-label>Select Subcategory</ion-label>
-            <ion-select>
-              <ion-option *ngFor="let s of subCategories" [value]="s">{{s}}</ion-option>
-            </ion-select>
-          </ion-item>
-        <ion-item *ngIf="fromFabBtn">
-            <ion-label>Select Product</ion-label>
-            <ion-select>
-              <ion-option *ngFor="let p of products" [value]="p">{{p}}</ion-option>
-            </ion-select>
-          </ion-item>
-      <ion-item>
-          <ion-label stacked>Description</ion-label>
-          <ion-textarea></ion-textarea>
+          <ion-label>Product</ion-label>
+          <ion-select [ngModel]="selectedProduct" (ionChange)="onProductSelect($event)" name="product" required>
+            <ion-option *ngFor="let p of products" [value]="p">{{p.productName}}</ion-option>
+          </ion-select>
         </ion-item>
-    </ion-list>
-  </ion-card>
+
+        <ion-item *ngFor="let catgs of categoriesList;let i=index">
+          <ion-label>{{catgs.label}}</ion-label>
+          <ion-select (ionChange)="onCatgSelect($event,i)" required ngModel name="catgs{{i}}">
+            <ion-option *ngFor="let c of catgs.catgsData" [value]="c">{{c.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+
+    <ion-card>
+      <ion-list>
+
+        <ion-item>
+          <ion-label stacked>Title</ion-label>
+          <ion-input [(ngModel)]="title" name="title" required placeholder="Enter Title"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Description</ion-label>
+          <ion-textarea [(ngModel)]="description" name="description" required placeholder="Tell us about the incident"></ion-textarea>
+        </ion-item>
+      </ion-list>
+    </ion-card>
 
 
-  <div margin text-center>
-    <button text-center ion-button>Add Image (optional)</button>
-  </div>
+    <button type="button" *ngIf="!img;else image" float-right ion-button clear (click)="onImgUpload()">Add Image (optional)</button>
 
-  <ion-list>
-    <ion-list-header>User Details</ion-list-header>
-    <ion-item>
-      <ion-icon name="person" item-left color="primary"></ion-icon>
-      <ion-label stacked>Name</ion-label>
-      <ion-input value="Vijay"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-icon name="call" item-left color="primary"></ion-icon>
-      <ion-label stacked>Phone</ion-label>
-      <ion-input value="9563214578"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-icon name="home" item-left color="primary"></ion-icon>
-      <ion-label stacked>Address</ion-label>
-      <ion-input value="A-456, Sec 46, Dwarka"></ion-input>
-    </ion-item>
-  </ion-list>
-  <div padding>
-    <button ion-button full round>Submit</button>
-  </div>
+    <ion-spinner name="bubbles" *ngIf="showSpinner"></ion-spinner>
+
+    <ng-template #image>
+      <ion-card>
+        <button type="button" ion-button clear float-right (click)="onRemoveImage()">Remove Image</button>
+        <img [src]="img">
+      </ion-card>
+    </ng-template>
+
+    <ion-card>
+      <div *ngIf="addresses.length">
+        <ion-list radio-group [(ngModel)]="selectedAddress" name="address">
+          <ion-list-header>Select Address</ion-list-header>
+          <ion-row *ngFor="let addr of addresses" (tap)="selectedAddress=addr">
+
+            <ion-col col-10  text-wrap padding>
+              <h5 style="font-weight: bold">{{addr.addressType}}</h5>
+              <p>{{addr.address}}, {{addr.postalCode}}</p>
+              <p>{{addr.city}}, {{addr.state}}, {{addr.country}}</p>
+              <div *ngIf="addr.phone">
+                <ion-icon name="call" float-left></ion-icon>
+                {{addr.phone}}
+              </div>
+            </ion-col>
+            <ion-col col-2>
+              <ion-radio style="top:50%;left: 50%;transform: translate(-50%,-50%)" [value]="addr"></ion-radio>
+            </ion-col>
+          </ion-row>
+          <!-- <ion-item>
+            <ion-label>Cord</ion-label>
+            <ion-radio value="cord"></ion-radio>
+          </ion-item> -->
+        </ion-list>
+
+        </div>
+
+          <div *ngIf="!addresses.length">
+
+            <div>
+              <ion-list>
+                <ion-list-header>Address (Fill all fields)</ion-list-header>
+                <ion-item>
+                  <ion-label>Type</ion-label>
+                  <ion-select interface="popover" [(ngModel)]="selectedAddress.addressType" name="addressType" required>
+                    <ion-option *ngFor="let type of addressTypes" [value]="type">
+                      {{type}}
+                    </ion-option>
+                  </ion-select>
+                </ion-item>
+                <ion-item>
+                  <ion-input placeholder="Address" [(ngModel)]="selectedAddress.address" name="address" required></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input placeholder="City" [(ngModel)]="selectedAddress.city" name="city" required></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input placeholder="State" [(ngModel)]="selectedAddress.state" name="state" required></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input placeholder="Country" [(ngModel)]="selectedAddress.country" name="country" required></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input type="number" placeholder="Postal Code" [(ngModel)]="selectedAddress.postalCode" name="postalCode" required></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input type="tel" placeholder="Phone" [(ngModel)]="selectedAddress.phone" name="phone"></ion-input>
+                </ion-item>
+              </ion-list>
+            </div>
+          </div>
+
+    </ion-card>
+
+    <div padding>
+      <button ion-button full round [disabled]="incidentForm.invalid">Submit</button>
+    </div>
+
+  </form>
 </ion-content>
