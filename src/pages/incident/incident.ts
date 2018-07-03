@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CustomService } from '../../providers/custom.service';
+import { Incident } from '../../Classes/Models/incident.model';
 
 
 @IonicPage()
@@ -10,7 +11,7 @@ import { CustomService } from '../../providers/custom.service';
 })
 export class IncidentPage {
 
-  incident: any;
+  incident: Incident;
   rescheduleConfirmed=false;
 
   constructor(

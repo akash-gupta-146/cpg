@@ -14,6 +14,7 @@ export interface Product {
     productBrand: string;
     productId: 1;
     productModelNumber: string;
+    productCategoryId:number;
     productName: string;
     productPicUrl: string;
     productType: string;

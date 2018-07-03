@@ -10,40 +10,42 @@
   <div *ngIf="incident">
 
     <ion-item no-lines class="shadow">
-      <img item-start style="height: 70px;width: 70px" [src]="incident.img">
-      <h3>
-        <b>Model : </b>{{incident.name}}</h3>
-      <h3>
-        <b>Category : </b>{{incident.category}}
-      </h3>
-      <h3>
-        <b>Purchase Date : </b>{{incident.purDate}}</h3>
-      <h3>
-        <b>MRP : </b>{{incident.mrp}}</h3>
+        <img item-start style="height: 70px;width: 70px" [src]="incident.productPicUrl">
+        <h3>
+            <b>Name: </b>{{incident.productBrand}} {{incident.productName}}</h3>
+            <h3>
+                <b>Model: </b>{{incident.productModelNumber}}</h3>
+          <h3>
+            <b>Purchase Date: </b>{{incident.productPurchaseDate | date:'mediumDate'}}</h3>
     </ion-item>
 
     <ion-card>
       <ion-item text-wrap>
         <ion-icon item-start name="checkmark-circle" color="primary"></ion-icon>
         <ion-label>Warranty : </ion-label>
-        <p item-end>{{incident.warranty}}</p>
+        <p item-end>{{incident.productWarrantyStart}}-{{incident.productWarrantyEnd}}</p>
       </ion-item>
     </ion-card>     
 
     <ion-card>
+      <ion-card-header>Incident</ion-card-header>
+        <ion-item text-wrap>
+            <small>Title</small>
+            <p>{{incident.title}}</p>
+          </ion-item>
       <ion-item text-wrap>
         <small>Description</small>
-        <p>{{incident.incident.description}}</p>
+        <p>{{incident.description}}</p>
       </ion-item>
       <ion-item>
         <ion-icon item-start name="checkmark-circle" color="primary"></ion-icon>
         <ion-label>Status : </ion-label>
-        <b item-end>{{incident.incident.status}}</b>
+        <b item-end>{{incident.statusName}}</b>
       </ion-item>
     </ion-card>
 
 
-    <div [ngSwitch]="incident.incident.status">
+    <!-- <div [ngSwitch]="incident.statusName">
 
       <div *ngSwitchCase="'New'"></div>
 
@@ -65,7 +67,7 @@
 
       </ion-card>
 
-      <!-- <ion-list no-lines>
+      <ion-list no-lines>
           <ion-list-header> Engineer Details </ion-list-header>
           <ion-item>
             <ion-icon  item-start name="person"></ion-icon>
@@ -75,7 +77,7 @@
             <ion-icon  item-start name="call"></ion-icon>
             <p>{{incident.incident.engineer.phone}}</p>
           </ion-item>
-        </ion-list> -->
+        </ion-list>
 
 
       <ion-card *ngSwitchCase="'Rescheduled'">
@@ -99,11 +101,11 @@
 
       <div *ngSwitchCase="'Engineer Assigned'">
         <ion-card>
-          <!-- <ion-item>
+          <ion-item>
             <ion-icon item-start name="time" color="primary"></ion-icon>
             <ion-label>Scheduled : </ion-label>
             <p item-end>{{incident.incident.scheduledDate}}</p>
-          </ion-item> -->
+          </ion-item>
         </ion-card>
         <ion-card>
           <ion-list-header> Engineer Details </ion-list-header>
@@ -175,14 +177,14 @@
           </ion-item>
         </ion-card>
       </div>
-    </div>
+    </div> -->
 
-    <ion-list-header *ngIf="incident.incident.images.length">Images</ion-list-header>
-    <ion-slides *ngIf="incident.incident.images.length" pager autoplay="1000">
+    <ion-list-header *ngIf="incident.complaintPicUrl">Image</ion-list-header>
+    <img *ngIf="incident.complaintPicUrl" [src]="incident.complaintPicUrl">
+    <!-- <ion-slides *ngIf="incident.incident.images.length" pager autoplay="1000">
       <ion-slide *ngFor="let img of incident.incident.images">
-        <img [src]="img">
       </ion-slide>
-    </ion-slides>
+    </ion-slides> -->
 
   </div>
 

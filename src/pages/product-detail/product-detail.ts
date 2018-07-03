@@ -27,8 +27,8 @@ export class ProductDetailPage {
     // }, 1000);
   }
 
-  openReportIncidentPage() {
-    this.navCtrl.push('AddIncidentPage');
+  openReportIncidentPage() {        
+    this.navCtrl.push('AddIncidentPage',{'product':this.product});
   }
 
   openFeedbackPage(){

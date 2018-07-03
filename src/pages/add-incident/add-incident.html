@@ -15,7 +15,7 @@
       <ion-list>
         <ion-item>
           <ion-label>Product</ion-label>
-          <ion-select [ngModel]="selectedProduct" (ionChange)="onProductSelect($event)" name="product" required>
+          <ion-select [ngModel]="selectedProduct" [disabled]="product" (ionChange)="onProductSelect($event)" name="product" required>
             <ion-option *ngFor="let p of products" [value]="p">{{p.productName}}</ion-option>
           </ion-select>
         </ion-item>
@@ -58,7 +58,7 @@
 
     <ion-card>
       <div *ngIf="addresses.length">
-        <ion-list radio-group [(ngModel)]="selectedAddress" name="address">
+        <ion-list radio-group [(ngModel)]="selectedAddress" name="address" required>
           <ion-list-header>Select Address</ion-list-header>
           <ion-row *ngFor="let addr of addresses" (tap)="selectedAddress=addr">
 

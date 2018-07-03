@@ -4,6 +4,7 @@ import { IncidentService } from '../../providers/incidents.service';
 import { CustomService } from '../../providers/custom.service';
 import { Address } from '../../Classes/Models/product.model';
 import { Camera } from '@ionic-native/camera';
+import { Incident } from '../../Classes/Models/incident.model';
 
 interface Category {
   id: number;
@@ -50,8 +51,9 @@ export class AddIncidentPage {
   img: any = null; // to store the image if uploaded
   showSpinner = false;// to show/hide the spinner during img upload
 
-
-  fromFabBtn = false;// to decide if this page is opened through fab btn or incident -detail page
+  // NAVPARAMS
+  callback = null;// contains logic to add newly created incident to incident list
+product:any=null; // product detail when navigated via product-detail page
 
   constructor(
     public navCtrl: NavController,
@@ -64,8 +66,17 @@ export class AddIncidentPage {
   }
 
   ionViewDidLoad() {
-    this.fromFabBtn = this.navParams.get('fromFabBtn');
-    this.fetchProductList();
+    this.callback = this.navParams.get('callback');
+    this.product = this.navParams.get('product');
+    console.log(this.product);
+    
+    if(this.product){
+      this.selectedProduct=this.product;
+      this.products=[this.selectedProduct];
+      this.fetchCategories(this.product.productCategoryId);
+    }else{
+      this.fetchProductList();
+    }
   }
 
   fetchProductList() {
@@ -118,24 +129,20 @@ export class AddIncidentPage {
   }
 
   onSubmit() {
-    console.log(this.selectedProduct, this.selectedCategory);
-    console.log(this.title, this.description);
-    console.log(this.selectedAddress);
+
     if (this.img) {
       this.postWithImg();
     } else {
       this.postWithoutImg();
     }
-
-
   }
 
   postWithImg() {
 
     let payLoad: any = {
       title: this.title,
-      descriptionL: this.description,
-      againstCategoryId: this.selectedProduct.productCategoryId,
+      description: this.description,
+      againstCategoryId: this.selectedCategory.id,
       productRegistrationId: this.selectedProduct.id
     };
     if (this.addresses.length) {
@@ -152,6 +159,7 @@ export class AddIncidentPage {
         // alert(JSON.stringify(res));
         // let res1 = JSON.parse(res.response);
         this.customService.showToast('Incident registerd successfully');
+        this.addNewIncidentAndPop(res);
       })
       .catch((err: any) => {
         console.log('inside finally submit catch');
@@ -188,6 +196,7 @@ export class AddIncidentPage {
     this.incidentService.postIncident(fd)
       .subscribe((res: any) => {
         this.customService.hideLoader();
+        this.addNewIncidentAndPop(res);
       },
         (err: any) => {
           this.customService.hideLoader();
@@ -259,5 +268,10 @@ export class AddIncidentPage {
   }
 
   onRemoveImage() { this.img = null; }
+
+  addNewIncidentAndPop(newIncident: Incident) {
+    if (this.callback) { this.callback(newIncident); }
+    this.navCtrl.pop();
+  }
 
 }
