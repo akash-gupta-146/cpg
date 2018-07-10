@@ -55,6 +55,15 @@ export class CustomHttpService {
             .catch(this.handleError);
     }
 
+    put(url: string, body: any, options?: HttpHeaders) {
+
+        const headers = this.addHeaders(options);
+
+        return this.httpClient.put(BASEURL + url, body, { headers: headers, observe: 'response' })
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     postForRegister(url: string, body: any) {
         // no header is required for register 
         return this.httpClient.post(BASEURL + url, body, { observe: 'response' })

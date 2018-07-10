@@ -30,11 +30,15 @@ export interface Incident {
     productRegistrationId:number | string;
     productWarrantyEnd: string;
     productWarrantyStart: string;
+    registeredProductPicUrl:string;
+    rating:number;
     rca: string;
     reopenCount:number;
     statusColor: string;
-    statusId:number
+    statusId:number;
     statusName: string;
     title: string;
     complaintPicUrl:string;
+    lastModifiedAt:string;
+    lastScheduleDate:string;
 };

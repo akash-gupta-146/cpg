@@ -1,28 +1,43 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>Schedule/Reschedule</ion-title>
-  </ion-navbar>
-</ion-header>
-
-
-<ion-content>
-    <img src="https://i.pinimg.com/originals/67/19/0b/67190b2076ccdf40951b613878e6bdf8.png" class="status-image center-block" margin-top />
-  <ion-card>
-  <ion-item>
-    <ion-icon name="calendar" item-left color="primary"></ion-icon>
-    <ion-label>Select Date</ion-label>
-    <ion-datetime displayFormat="MMM DD, YYYY" pickerFormat="MMM DD, YYYY "></ion-datetime>
-  </ion-item>
-  <ion-item>
-      <ion-icon name="clock" item-left color="primary"></ion-icon>
-      <ion-label>Select Time</ion-label>
-      <ion-datetime displayFormat="hh:mm A" pickerFormat="hh:mm A"></ion-datetime>
-    </ion-item>
-  </ion-card>
-
-  <div padding>
-      <button ion-button block round (click)="onChangeTime()">Schedule</button>
-  </div>
-
-
-</ion-content>     
+    <ion-navbar>
+      <ion-title>Change Date/Time</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  
+  <ion-content padding>
+    <img src="https://i.pinimg.com/originals/67/19/0b/67190b2076ccdf40951b613878e6bdf8.png" class="status-image center-block"
+      margin-top />
+  
+    <form #form="ngForm" novalidate (ngSubmit)="onChangeTime(form.value)">
+      <ion-card>
+        <ion-item>
+          <ion-icon name="calendar" item-left color="primary"></ion-icon>
+          <ion-label>Select Date</ion-label>
+          <ion-datetime [ngModel]="currentDate" #date="ngModel" name="date" [min]="minDate" required displayFormat="MMM DD, YYYY" pickerFormat="MMM DD, YYYY "></ion-datetime>
+        </ion-item>
+        <ion-item no-lines *ngIf="date.dirty && date.invalid ">
+          <p style="color: red">Date is required.</p>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="clock" item-left color="primary"></ion-icon>
+          <ion-label>Select Time</ion-label>
+          <ion-datetime ngModel [ngModel]="currentTime" #time="ngModel" name="time" required displayFormat="hh:mm A" pickerFormat="hh:mm A"></ion-datetime>
+        </ion-item>
+        <ion-item no-lines *ngIf="time.dirty && time.invalid ">
+          <p style="color: red">Time is required.</p>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="chatbubbles" item-left color="primary"></ion-icon>
+            <ion-label stacked>Enter Comment</ion-label>
+            <ion-input ngModel #comment="ngModel" name="comment" required ></ion-input>
+          </ion-item>
+          <ion-item no-lines *ngIf="comment.dirty && comment.invalid ">
+            <p style="color: red">Comment is required.</p>
+          </ion-item>
+      </ion-card>
+      <div padding>
+        <button ion-button block round type="submit" [disabled]="form.invalid">Change</button>
+      </div>
+    </form>
+  </ion-content>
