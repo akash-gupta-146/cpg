@@ -35,8 +35,8 @@ export class FeedbackPage {
   onSubmit() {
     const info = {
       comment:this.comment,
-      updateInfo: 'feedback',
-
+      rating:this.rating,
+      updateInfo: 'feedback'
     };
 
     this.customService.showLoader();
@@ -44,7 +44,7 @@ export class FeedbackPage {
       .subscribe((res: any) => {
         if (this.callback) { this.callback(res.rating || this.rating); }
         this.customService.hideLoader();
-        this.customService.showToast('Feedback submitted successfully');
+        this.customService.showToast('Thank you for giving feedback ');
         this.navCtrl.pop();
       }, (err: any) => {
 

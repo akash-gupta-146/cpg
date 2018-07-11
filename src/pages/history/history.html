@@ -1,0 +1,22 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>History</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-item *ngFor="let h of history" text-wrap>
+      <p><b>Status: </b>{{h.statusName}}</p>
+      <p><b>Date: </b>{{h.createdAt | date}}</p>
+      <p><b>Comment: </b>{{h.comment}} ({{h.autoComment}})</p>
+      <a *ngIf="h.fileUrl" (click)='openImage(h)'>View Attachment</a>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

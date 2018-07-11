@@ -62,8 +62,9 @@ export class IncidentService {
 
     // requests to be used after creating incident
 
-    changeDateTime(data: any, id: number) {
-        //todo
+
+    getHistory(id: number) {
+        return this.http.get(`/c/complaint/${id}/history`);
     }
 
     increasePriority(data: any, id: number) {

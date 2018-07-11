@@ -21,15 +21,14 @@ export class AddProductPage {
 
   brands: Array<{ name: string, id: number }>; // store the brand list from the server
   categories: Array<Category>; // stores the categorylist from the server
-  models = ['Iphone 6', 'Galaxy 7', 'Ceiling Fan 453', "32' LED TV"];
   warranties = ['None', '6 Months', '1 Year', '2 Years', '3 Years', '5 Years', 'Other'];
 
   // used for writing scalable code i.e. however deep the category hierarchy is, it will work
   categoriesList: Array<{ label: string, catgsData: Array<Category> }> = [];
   productTypes: Array<any>;
 
-  //ngModal variables
-  productDetailMethod = '';
+  //ngModel variables
+  productDetailMethod = 'barcode'; // intial value is barcode
 
   //optional details to be filled by user
   purchaseDate = '';
@@ -62,10 +61,6 @@ export class AddProductPage {
 
   }
 
-  ionViewDidLoad() {
-    this.getInfoForRegistration();
-  }
-
   getInfoForRegistration() {
     this.customService.showLoader();
     this.productService.getInfoForProductRegister()
@@ -85,6 +80,10 @@ export class AddProductPage {
     this.selectedProduct = null;
     if (this.productDetailMethod == 'manual') {
       this.selectedBrandId = this.selectedCategoryId = this.selectedProductTypeId = null;
+      // fetch data only first time, when not available
+      if(!this.brands && !this.categories){
+        this.getInfoForRegistration();
+      }
     }
   }
 

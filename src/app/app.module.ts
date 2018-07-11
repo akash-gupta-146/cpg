@@ -17,6 +17,8 @@ import { EngineerIncidentService } from '../providers/engineer.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import * as ionicGalleryModal from 'ionic-gallery-modal';
+import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 @NgModule({     
   declarations: [     
@@ -48,7 +50,11 @@ import { FileTransfer } from '@ionic-native/file-transfer';
     EngineerIncidentService,
     BarcodeScanner,
     Camera,
-    FileTransfer
+    FileTransfer,
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: ionicGalleryModal.GalleryModalHammerConfig,
+    },
   ]
 })
 export class AppModule { }

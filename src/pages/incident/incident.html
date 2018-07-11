@@ -84,10 +84,14 @@
           <!-- <p><ion-icon item-start name="call" color="primary"></ion-icon>1234567890</p> -->
         </ion-item>
 
+        <div>
+          <button ion-button small clear (click)="onHistory()">History</button>
+        </div>
+
         <ion-grid>
           <ion-row>
             <ion-col col-6>
-              <button ion-button small (click)="onChangeTimeBtn()" round>Change Time </button>
+              <button ion-button small (click)="onNotAvailableBtn()" round>Not Available</button>
             </ion-col>
             <ion-col col-6>
               <button ion-button small (click)="onChangePriority()" round>Increase Priority </button>
@@ -101,7 +105,7 @@
       <div *ngSwitchCase="'Fixed'">
         <ion-item>
           <ion-icon item-start name="hammer" color="primary"></ion-icon>
-          <ion-label>Fixed : </ion-label>
+          <ion-label>Fixed On: </ion-label>
           <p item-end>{{incident.lastModifiedAt | date}}</p>
         </ion-item>
         <ion-card>
@@ -112,13 +116,16 @@
             </ion-thumbnail>
             <h4>{{incident.assignedServiceEngineerName}}</h4>
           </ion-item>
+          <ion-col col-4>
+            <button ion-button small round (click)="onHistory()">History</button>
+          </ion-col>
           <div text-center *ngIf="!incident.rating">
             <button ion-button small round (click)="onFeedback()">Feedback</button>
           </div>
         </ion-card>
       </div>
 
-      <div *ngSwitchCase="'Not Fixed'">   
+      <div *ngSwitchCase="'Not Fixed'">
         <ion-item>
           <ion-icon item-start name="hammer" color="primary"></ion-icon>
           <ion-label>Not Fixed : </ion-label>
@@ -132,9 +139,23 @@
             </ion-thumbnail>
             <h4>{{incident.assignedServiceEngineerName}}</h4>
           </ion-item>
+          <ion-col col-4>
+            <button ion-button small round (click)="onHistory()">History</button>
+          </ion-col>
           <div text-center *ngIf="!incident.rating">
             <button ion-button small round (click)="onFeedback()">Feedback</button>
           </div>
+        </ion-card>
+      </div>
+
+      <div *ngSwitchCase="'onHold'">
+        <ion-card>
+          <ion-item text-wrap>
+            <p>Your complaint has been put on hold after recieving your unavailablity message. Will be rescheduled soon.</p>
+          </ion-item>
+          <ion-col col-4>
+            <button ion-button small round (click)="onHistory()">History</button>
+          </ion-col>
         </ion-card>
       </div>
     </div>

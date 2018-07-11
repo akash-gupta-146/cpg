@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <ion-navbar color="primary">
@@ -15,13 +14,21 @@
     <ion-item no-lines class="shadow">
       <img item-start style="height: 70px;width: 70px" [src]="product.productPicUrl">
       <h3>
-          <b>Name: </b>{{product.productBrand}} {{product.productName}}</h3>
-          <h3>
-              <b>Model: </b>{{product.productModelNumber}}</h3>
-        <h3>
-          <b>Purchase Date: </b>{{product.purchaseDate | date:'mediumDate'}}</h3>
-        <!-- <span *ngIf="product.status==='Installed'"><a><small> Renew</small></a></span> -->
+        <b>Name: </b>{{product.productBrand}} {{product.productName}}</h3>
+      <h3>
+        <b>Model: </b>{{product.productModelNumber}}</h3>
+      <h3>
+        <b>Purchase Date: </b>{{product.purchaseDate | date:'mediumDate'}}</h3>
     </ion-item>
+
+    <ion-card>
+      <ion-item text-wrap>
+        <ion-icon item-start name="checkmark-circle" color="primary"></ion-icon>
+        <ion-label>Warranty : </ion-label>
+        <p *ngIf="product.warrentyPeriodStart && product.warrantyPeriodEnd" item-end>{{product.warrentyPeriodStart +' - '+ product.warrantyPeriodEnd}}</p>
+        <p *ngIf="!(product.warrentyPeriodStart && product.warrantyPeriodEnd)" item-end>NA</p>
+      </ion-item>
+    </ion-card>
 
     <!-- <div text-center padding>
 
@@ -65,29 +72,24 @@
       <ion-label>Installed : {{product.scheduledDate}}</ion-label>
     </ion-item> -->
 
-    <!-- <ion-list>
+    <ion-list>
       <ion-list-header>Dealer Details</ion-list-header>
       <ion-item>
         <ion-icon item-start name="person" color="primary"></ion-icon>
         <ion-label>Name : </ion-label>
-        <p item-end>{{product.dealer.name}}</p>
-      </ion-item>
-      <ion-item>
-        <ion-icon item-start name="home" color="primary"></ion-icon>
-        <ion-label>Address : </ion-label>
-        <p item-end>{{product.dealer.address}}</p>
+        <p item-end>{{product.dealerName}}</p>
       </ion-item>
       <ion-item>
         <ion-icon item-start name="call" color="primary"></ion-icon>
         <ion-label>Phone : </ion-label>
-        <p item-end>{{product.dealer.phone}}</p>
+        <p item-end>{{product.dealerContact}}</p>
       </ion-item>
-    </ion-list> -->
+    </ion-list>
 
-    <div padding >
+  </div>
+    <div padding style="bottom:0px;position: absolute;width:100%">
       <button ion-button block (click)="openReportIncidentPage()">Report Incident</button>
     </div>
-  </div>
 
 
 
