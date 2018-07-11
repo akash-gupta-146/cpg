@@ -52,24 +52,25 @@
 
 
 
-    <div [ngSwitch]="incident.statusName">
+    <div [ngSwitch]="incident.statusId">
 
-      <div *ngSwitchCase="'New'"></div>
+      <div *ngSwitchCase="1"></div>
 
-
-      <div *ngSwitchCase="'Assigned Service Engineer'">
+<!--  ASSIGNED SERVICE ENGINNER -->
+      <div *ngSwitchCase="2">
         <ion-card>
           <ion-list-header> Engineer Details </ion-list-header>
           <ion-item>
             <ion-thumbnail item-start>
-              <img [src]="incident.assignedServiceEngineerPicUrl">
+              <img [src]="incident.assignedServiceEngineerPicUrl || 'assets/imgs/default_pic.png' || 'assets/imgs/default_pic.png'">
             </ion-thumbnail>
             <h4>{{incident.assignedServiceEngineerName}}</h4>
           </ion-item>
         </ion-card>
       </div>
 
-      <ion-card *ngSwitchCase="'Schedule'">
+      <!-- SCHEDULED -->
+      <ion-card *ngSwitchCase="4">
         <ion-item>
           <ion-icon item-start name="time" color="primary"></ion-icon>
           <ion-label>Scheduled : </ion-label>
@@ -78,7 +79,7 @@
         <ion-list-header> Engineer Details </ion-list-header>
         <ion-item>
           <ion-thumbnail item-start>
-            <img [src]="incident.assignedServiceEngineerPicUrl">
+            <img [src]="incident.assignedServiceEngineerPicUrl || 'assets/imgs/default_pic.png'">
           </ion-thumbnail>
           <h4>{{incident.assignedServiceEngineerName}}</h4>
           <!-- <p><ion-icon item-start name="call" color="primary"></ion-icon>1234567890</p> -->
@@ -101,8 +102,8 @@
 
       </ion-card>
 
-
-      <div *ngSwitchCase="'Fixed'">
+<!-- FIXED -->
+      <div *ngSwitchCase="7">
         <ion-item>
           <ion-icon item-start name="hammer" color="primary"></ion-icon>
           <ion-label>Fixed On: </ion-label>
@@ -112,7 +113,7 @@
           <ion-list-header> Engineer Details </ion-list-header>
           <ion-item>
             <ion-thumbnail item-start>
-              <img [src]="incident.assignedServiceEngineerPicUrl">
+              <img [src]="incident.assignedServiceEngineerPicUrl || 'assets/imgs/default_pic.png'">
             </ion-thumbnail>
             <h4>{{incident.assignedServiceEngineerName}}</h4>
           </ion-item>
@@ -125,7 +126,8 @@
         </ion-card>
       </div>
 
-      <div *ngSwitchCase="'Not Fixed'">
+<!-- NOT FIXED -->
+      <div *ngSwitchCase="6">
         <ion-item>
           <ion-icon item-start name="hammer" color="primary"></ion-icon>
           <ion-label>Not Fixed : </ion-label>
@@ -135,7 +137,7 @@
           <ion-list-header> Engineer Details </ion-list-header>
           <ion-item>
             <ion-thumbnail item-start>
-              <img [src]="incident.assignedServiceEngineerPicUrl">
+              <img [src]="incident.assignedServiceEngineerPicUrl || 'assets/imgs/default_pic.png'">
             </ion-thumbnail>
             <h4>{{incident.assignedServiceEngineerName}}</h4>
           </ion-item>
@@ -148,7 +150,7 @@
         </ion-card>
       </div>
 
-      <div *ngSwitchCase="'onHold'">
+      <div *ngSwitchCase="9">
         <ion-card>
           <ion-item text-wrap>
             <p>Your complaint has been put on hold after recieving your unavailablity message. Will be rescheduled soon.</p>
