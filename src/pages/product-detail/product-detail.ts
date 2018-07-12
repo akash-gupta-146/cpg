@@ -15,7 +15,7 @@ export class ProductDetailPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private alertCtrl:AlertController
+    private alertCtrl: AlertController
   ) {
   }
 
@@ -27,28 +27,47 @@ export class ProductDetailPage {
     // }, 1000);
   }
 
-  openReportIncidentPage() {        
-    this.navCtrl.push('AddIncidentPage',{'product':this.product});
+  openReportIncidentPage() {
+    this.navCtrl.push('AddIncidentPage', { 'product': this.product });
   }
 
-  openFeedbackPage(){
+  openFeedbackPage() {
     this.navCtrl.push('FeedbackPage');
   }
 
-  showWarrantyExpireAlert(){
-    const alert = this.alertCtrl.create({
-      title:'Warranty Expire',
-      subTitle:"This product's warranty is about to expire in 1 month. Warranty renewal is recommended.",
-      buttons:[{
-        text:'Cancel',
-        role:'cancel'
-      },{
-        text:'Renew Now',
-        handler:()=>{}
-      }]
-    });
+  // showWarrantyExpireAlert(){
+  //   const alert = this.alertCtrl.create({
+  //     title:'Warranty Expire',
+  //     subTitle:"This product's warranty is about to expire in 1 month. Warranty renewal is recommended.",
+  //     buttons:[{
+  //       text:'Cancel',
+  //       role:'cancel'
+  //     },{
+  //       text:'Renew Now',
+  //       handler:()=>{}
+  //     }]
+  //   });
 
-    alert.present();
+  //   alert.present();
+  // }
+
+  giveWarranty(endDate: string | null) {
+
+    // if endDate is null
+    if (!endDate) { return 'N.A' }
+
+    const ed = new Date(endDate);
+    ed.setHours(0);
+    ed.setMinutes(0);
+    ed.setSeconds(0);
+    ed.setMilliseconds(0);
+
+    const today = new Date();
+    if (today < ed) {
+      return `Expires on ${ed.toLocaleDateString()}`;
+    } else {
+      return 'Expired';
+    }
   }
 
 }
