@@ -88,10 +88,10 @@ $colors: (
 @import "noto-sans";
 
 
-.content-ios, .content-md{
-  background:lighten(color($colors,primary),45) !important;
-  box-shadow:4px 6px 12px 2px #fe650136;
-}
+// .content-ios, .content-md{
+//   background:lighten(color($colors,primary),45) !important;
+//   box-shadow:4px 6px 12px 2px #fe650136;
+// }
 
 .centerv{
   position:relative;
@@ -107,17 +107,17 @@ $colors: (
   margin:auto;
 }
 
-form{
-  .toolbar-title{
-    font-size: 25px;
-    color: color($colors,primary);
-    margin: 50px auto 20px auto;
-  }
-}
+// form{
+//   .toolbar-title{
+//     font-size: 25px;
+//     color: color($colors,primary);
+//     margin: 50px auto 20px auto;
+//   }
+// }
 
-.shadow{
-  box-shadow:0 0 10px rgba(0, 0, 0, 0.27058823529411763);
-}
+// .shadow{
+//   box-shadow:0 0 10px rgba(0, 0, 0, 0.27058823529411763);
+// }
 
 .sidebar{
   .activePage{
@@ -134,7 +134,7 @@ form{
   li{
     ion-icon{
       font-size:25px;
-      color:#ffbe00;
+      // color:#ffbe00;
     }
   }
 }

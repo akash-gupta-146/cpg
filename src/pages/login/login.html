@@ -2,12 +2,19 @@
 
 
 <ion-content>
+
   <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
     <ion-title>
       Login
     </ion-title>
-    <ion-card>
-
+     
+        
+     <div style="position: relative;"> 
+        <div class="avatar">
+            <img src="/assets/imgs/avatar.png" class="avtarImage">
+        </div>
+      <ion-card class="loginCard">
+      
       <ion-item>
         <ion-icon color="primary" name="person" item-left></ion-icon>
         <ion-label stacked>Contact No.</ion-label>
@@ -29,8 +36,12 @@
       <button type="submit" ion-button full>Log In</button>
 
     </ion-card>
+  </div> 
 
-    <button type="button" ion-button clear (click)="onRegister()" float-right>Register</button>
+    <button type="button" ion-button round small margin-right (click)="onRegister()" float-right>Register</button>
+
+    
+
 
 
   </form>
