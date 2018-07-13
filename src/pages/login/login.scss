@@ -1,61 +1,80 @@
-page-login{
-    ion-content{
-        // background:red !important;
- 
-   
-        background-image: url("/assets/imgs/loginImage.jpg");
-        background-size: cover;
-        background-position: center;
-   
-}}
-form{
-    .toolbar-title{
-        color:color($colors,light);;
-        text-align: center;
-        margin-bottom: 50px;
-    }
-    
-        margin-top: 100px;
-        .avatar{
-            text-align: center;
-            // position: absolute;
+page-login {
+  ion-content {
+    // background:red !important;
+    background-image: url("/assets/imgs/loginImage.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+}
 
-        }
-        
+form {
+  .toolbar-title {
+    color: color($colors, light);
+    ;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .avatar {
+    text-align: center; // position: absolute;
+  }
 }
-.userIcon{
-    font-size: 4em!important;
+
+.userIcon {
+  font-size: 4em !important;
 }
-.avtarImage{
-    width: 100px;
-    border-radius: 50%;
-//     border: 2px solid black;
-//     background: white;
+
+.avtarImage {
+  width: 100px;
+  border-radius: 50%;
+  //     border: 2px solid black;
+  //     background: white;
 }
-.avatar{
-    position: absolute;
-    z-index: 5;
-    top: -58px;
+
+.avatar {
+  position: absolute;
+  z-index: 5;
+  top: -58px;
 }
- .card-md{
-    padding-top: 50px 20px;
-    box-shadow: 2px 7px 27px rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
-   
-    
+
+.card-md {
+  padding-top: 50px 20px;
+  box-shadow: 2px 7px 27px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
 }
-.loginCard{
-    padding: 50px 20px;
-    ion-item{
+
+.loginCard {
+  padding: 50px 20px;
+  ion-item {
     margin: 10px 0px;
-    }
+  }
 }
-.button-full-md{
-    padding: 27px 0px;
-    margin-top: 32px;
+
+.button-full-md {
+  padding: 27px 0px;
+  margin-top: 32px;
 }
-.avatar{
-    width:100%;
+
+.avatar {
+  width: 100%;
 }
+.contactValid{
+    border-radius: 10px;
+    padding: 2px;
+    background: color($colors, primary);
+    color: white;
+    text-align: center;
+}
+.pwdValid{
+    border-radius: 10px;
+    padding: 2px;
+    background: color($colors, primary);
+    color: white;
+    text-align: center;
+    margin-bottom: 10px;
+
+}
+  .loginForm{
+      margin-top: 100px;
+  }
 
 
