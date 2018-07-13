@@ -15,10 +15,10 @@ export class IncidentService {
         private fileTransfer: FileTransfer
     ) { }
 
-    
+
 
     getIncidents(pageNo) {
-     return this.http.get(`/c/complaint/page/${pageNo}`)
+        return this.http.get(`/c/complaint/page/${pageNo}`)
     }
 
 
@@ -59,5 +59,34 @@ export class IncidentService {
         return 'IMG_' + date.substring(0, date.indexOf('.')) + '.jpg';
     }
 
+
+    // requests to be used after creating incident
+
+
+    getHistory(id: number) {
+        return this.http.get(`/c/complaint/${id}/history`);
+    }
+
+    increasePriority(data: any, id: number) {
+        return this.http.put(`/c/complaint/${id}`, this.convertToFormData(data));
+
+    }
+
+    giceFeedback(data: any, id: number) {
+        return this.http.put(`/c/complaint/${id}`,  this.convertToFormData(data));
+    }
+
+    customerNotAvailable(data:any,id:number){
+        return this.http.put(`/c/complaint/${id}`,  this.convertToFormData(data));
+    }
+
+    convertToFormData(data: any) {
+
+        const fd = new FormData();
+        for (const key in data) {
+            fd.append(key, data[key]);
+        }
+        return fd;
+    }
 }
 

@@ -1,4 +1,4 @@
-export interface Product {
+export interface    Product {
     billNumber: string;
     billPicUrl: string;
     customerContactNo: string;
