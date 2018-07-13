@@ -17,7 +17,7 @@
   <ion-card>
 
     <ion-item>
-      <ion-label>Product Details</ion-label>
+      <ion-label>Product Details *</ion-label>
       <ion-select  interface="popover" [(ngModel)]="productDetailMethod" (ionChange)="onProductDetailMethodChange()">
         <ion-option value="barcode">Using Barcode</ion-option>
         <ion-option value="manual">Enter Manually</ion-option>
@@ -87,18 +87,16 @@
 
       <div style="border-bottom:1px solid black">
         <ion-item>
-          <ion-label>Purchase Date</ion-label>
+          <ion-label>Purchase Date *</ion-label>
           <ion-datetime [(ngModel)]="purchaseDate" [max]="today" displayFormat="MMM DD, YYYY" pickerFormat="MMM DD, YYYY" placeholder="MMM DD, YYYY"></ion-datetime>
         </ion-item>
 
         <ion-item>
           <ion-label>Warranty</ion-label>
-          <ion-select interface="popover" [(ngModel)]="warrantyPeriod">
-            <ion-option *ngFor="let w of warranties" [value]="w">{{w}}</ion-option>
+          <ion-input type="number" placeholder="Enter a integer"  [(ngModel)]="warrantyPeriod"></ion-input>
+          <ion-select interface="popover" placeholder='M/Y' [(ngModel)]="warrantyDurationType">
+            <ion-option *ngFor="let type of warrantyDurationTypes" [value]="type">{{type}}</ion-option>
           </ion-select>
-        </ion-item>
-        <ion-item *ngIf="warrantyPeriod=='Other'">
-          <ion-input [(ngModel)]="warrantyPeriodOther" placeholder="Enter Warranty"></ion-input>
         </ion-item>
       </div>
 

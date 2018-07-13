@@ -21,7 +21,7 @@ export class AddProductPage {
 
   brands: Array<{ name: string, id: number }>; // store the brand list from the server
   categories: Array<Category>; // stores the categorylist from the server
-  warranties = ['None', '6 Months', '1 Year', '2 Years', '3 Years', '5 Years', 'Other'];
+  warrantyDurationTypes = ['Years', 'Months'];
 
   // used for writing scalable code i.e. however deep the category hierarchy is, it will work
   categoriesList: Array<{ label: string, catgsData: Array<Category> }> = [];
@@ -32,8 +32,9 @@ export class AddProductPage {
 
   //optional details to be filled by user
   purchaseDate = '';
-  warrantyPeriod = this.warranties[0];
-  warrantyPeriodOther = '';
+  warrantyPeriod:number; // either in months or years
+  warrantyDurationType:string; 
+  // warrantyPeriodOther = '';  REMOVE
   dealerName = '';
   dealerContact = '';
   billNumber = '';
@@ -42,6 +43,7 @@ export class AddProductPage {
   selectedCategoryId: number;
   selectedProductTypeId: number;
   selectedProduct: any;
+  barcodeNumber: string;
 
   showSpinner = false; // for showing spinner during bill upload
   billPic: any;
@@ -133,6 +135,20 @@ export class AddProductPage {
       });
   }
 
+    // usinng barcode scanner number
+    getProductIdForBarcode() {
+      this.customService.showLoader();
+      this.productService.getProductIdUsingBarcode(this.barcodeNumber)
+        .subscribe((res: any) => {
+          this.customService.hideLoader();
+          this.selectedProduct = res[0];
+          if (!this.selectedProduct) { this.customService.showToast('No product found for selected brand and product type. Please check and try again', 'bottom', true); }
+        }, (err: any) => {
+          this.customService.hideLoader();
+          this.customService.showToast(err.msg);
+        });
+    }
+
   onBillUpload() {
     const actionSheet = this.actionSheetCtrl.create({
 
@@ -199,17 +215,29 @@ export class AddProductPage {
   onRemoveImage() { this.billPic = null; }
 
   onProductAdd() {
+    //validations
     if (!this.selectedProduct) { this.customService.showToast('Please enter product details'); return; }
+    if (!this.purchaseDate) { this.customService.showToast('Please enter purchase date'); return; }
 
     //construct payLoad in which productId is mandatory
-    let payLoad: any = { productId: this.selectedProduct.id };
+    let payLoad: any = { productId: this.selectedProduct.id,purchaseDate:this.purchaseDate };
     // add other info if available
-    if (this.purchaseDate) { payLoad['purchaseDate'] = this.purchaseDate; }
-    if (this.warrantyPeriod) { payLoad['warrantyPeriod'] = this.warrantyPeriod != 'Other' ? this.warrantyPeriod : this.warrantyPeriodOther; }
+
+    // warranty validations
+    if (this.warrantyPeriod) {
+      if(!this.warrantyDurationType){ this.customService.showToast('Please select warranty duration'); return;}
+      if(!Number.isInteger(Number(this.warrantyPeriod))){this.customService.showToast('Enter a integer in warranty'); return;}
+      payLoad['warrantyPeriod'] = this.warrantyPeriod;
+      payLoad['warrantyPeriodType'] = this.warrantyDurationType.toUpperCase() ;
+    }
+    
     if (this.dealerName) { payLoad['dealerName'] = this.dealerName; }
     if (this.dealerContact) { payLoad['dealerContact'] = this.dealerContact; }
     if (this.billNumber) { payLoad['billNumber'] = this.billNumber; }
-    // payLoad['billPic'] = '';    
+    // payLoad['billPic'] = '';  
+    
+    console.log(payLoad);
+    
 
     if (this.billPic) {
       this.addWithBill(payLoad);
@@ -266,13 +294,16 @@ export class AddProductPage {
     this.barcodeScanner.scan()
       .then(barcodeData => {
         // alert(JSON.stringify(barcodeData));
-        barcodeData && barcodeData.text && this.getProductIdUsingBarcode(barcodeData.text);
+        // barcodeData && barcodeData.text && this.getProductIdUsingBarcode(barcodeData.text);
+        this.getProductIdUsingBarcode(barcodeData.text);  // REMOVE LATER
       }).catch(err => {
         this.customService.showToast('Error occured in scanning barcode');
+        this.getProductIdUsingBarcode('5');  // REMOVE LATE
       });
   }
 
   getProductIdUsingBarcode(barcode: string) {
+    barcode = 'WAW28790IN'; //REMOVE LATER
     this.customService.showLoader();
     this.productService.getProductIdUsingBarcode(barcode)
       .subscribe((res: any) => {

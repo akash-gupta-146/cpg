@@ -25,8 +25,7 @@
       <ion-item text-wrap>
         <ion-icon item-start name="checkmark-circle" color="primary"></ion-icon>
         <ion-label>Warranty : </ion-label>
-        <p *ngIf="product.warrentyPeriodStart && product.warrantyPeriodEnd" item-end>{{product.warrentyPeriodStart +' - '+ product.warrantyPeriodEnd}}</p>
-        <p *ngIf="!(product.warrentyPeriodStart && product.warrantyPeriodEnd)" item-end>NA</p>
+        <p item-end>{{giveWarranty(product.warrantyPeriodEnd)}}</p>
       </ion-item>
     </ion-card>
 
