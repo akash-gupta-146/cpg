@@ -107,6 +107,7 @@ product:any=null; // product detail when navigated via product-detail page
       .subscribe((res: any) => {
         this.customService.hideLoader();
         this.categories = res;
+        this.categoriesList=  []; // reset the categorieslist every time a different product is selected
         this.categoriesList.push({ label: 'Category', catgsData: this.categories });
       },
         (err: any) => {

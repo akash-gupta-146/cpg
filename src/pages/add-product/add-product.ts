@@ -226,7 +226,7 @@ export class AddProductPage {
     // warranty validations
     if (this.warrantyPeriod) {
       if(!this.warrantyDurationType){ this.customService.showToast('Please select warranty duration'); return;}
-      if(!Number.isInteger(Number(this.warrantyPeriod))){this.customService.showToast('Enter a integer in warranty'); return;}
+      if(!Number.isInteger(Number(this.warrantyPeriod))){this.customService.showToast('Enter an integer in warranty'); return;}
       payLoad['warrantyPeriod'] = this.warrantyPeriod;
       payLoad['warrantyPeriodType'] = this.warrantyDurationType.toUpperCase() ;
     }
