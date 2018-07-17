@@ -4,6 +4,7 @@ import { CustomService } from '../../providers/custom.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ProductService } from '../../providers/product.service';
 import { Camera } from '@ionic-native/camera';
+import { Address } from '../../Classes/Models/product.model';
 
 interface Category {
   id: number;
@@ -32,9 +33,8 @@ export class AddProductPage {
 
   //optional details to be filled by user
   purchaseDate = '';
-  warrantyPeriod:number; // either in months or years
-  warrantyDurationType:string; 
-  // warrantyPeriodOther = '';  REMOVE
+  warrantyPeriod: number; // either in months or years
+  warrantyDurationType: string;
   dealerName = '';
   dealerContact = '';
   billNumber = '';
@@ -47,6 +47,26 @@ export class AddProductPage {
 
   showSpinner = false; // for showing spinner during bill upload
   billPic: any;
+
+  installationRequest = false; // to ask if product being registered is already installed or not
+
+  // address list that user has provided at registration time, if not provided, this is empty array
+  addresses: Array<Address> = JSON.parse(localStorage.getItem('userInfo')).addresses;
+  // addresses: Array<Address> = [];
+
+  // if address list is available, choose from that list, otherwise enter the address details
+  selectedAddress: Address = this.addresses.length ? null : {
+    addressType: '',
+    address: '',
+    city: '',
+    state: '',
+    country: '',
+    postalCode: '',
+    phone: '',
+  };
+  readonly addressTypes: Array<any> = ['Home', 'Office', 'Permanent'];
+  installationComment = '';
+
 
   get today() { return new Date().toISOString().slice(0, 10); }
 
@@ -83,7 +103,7 @@ export class AddProductPage {
     if (this.productDetailMethod == 'manual') {
       this.selectedBrandId = this.selectedCategoryId = this.selectedProductTypeId = null;
       // fetch data only first time, when not available
-      if(!this.brands && !this.categories){
+      if (!this.brands && !this.categories) {
         this.getInfoForRegistration();
       }
     }
@@ -135,19 +155,19 @@ export class AddProductPage {
       });
   }
 
-    // usinng barcode scanner number
-    getProductIdForBarcode() {
-      this.customService.showLoader();
-      this.productService.getProductIdUsingBarcode(this.barcodeNumber)
-        .subscribe((res: any) => {
-          this.customService.hideLoader();
-          this.selectedProduct = res[0];
-          if (!this.selectedProduct) { this.customService.showToast('No product found for selected brand and product type. Please check and try again', 'bottom', true); }
-        }, (err: any) => {
-          this.customService.hideLoader();
-          this.customService.showToast(err.msg);
-        });
-    }
+  // usinng barcode scanner number
+  getProductIdForBarcode() {
+    this.customService.showLoader();
+    this.productService.getProductIdUsingBarcode(this.barcodeNumber)
+      .subscribe((res: any) => {
+        this.customService.hideLoader();
+        this.selectedProduct = res[0];
+        if (!this.selectedProduct) { this.customService.showToast('No product found for selected brand and product type. Please check and try again', 'bottom', true); }
+      }, (err: any) => {
+        this.customService.hideLoader();
+        this.customService.showToast(err.msg);
+      });
+  }
 
   onBillUpload() {
     const actionSheet = this.actionSheetCtrl.create({
@@ -214,36 +234,56 @@ export class AddProductPage {
 
   onRemoveImage() { this.billPic = null; }
 
-  onProductAdd() {
+  onProductAdd(addressForm: any) {
+    console.log(addressForm);
+    
     //validations
     if (!this.selectedProduct) { this.customService.showToast('Please enter product details'); return; }
     if (!this.purchaseDate) { this.customService.showToast('Please enter purchase date'); return; }
+    if (this.installationRequest) {
+      if (this.addresses.length && !this.selectedAddress) {
+        this.customService.showToast('Please select an address'); return;
+      }
+      if (!this.addresses.length && addressForm.invalid) {
+
+        this.customService.showToast('Please fill all required address fields'); return;
+      }
+    }
 
     //construct payLoad in which productId is mandatory
-    let payLoad: any = { productId: this.selectedProduct.id,purchaseDate:this.purchaseDate };
+    let payLoad: any = { productId: this.selectedProduct.id, purchaseDate: this.purchaseDate };
     // add other info if available
 
     // warranty validations
     if (this.warrantyPeriod) {
-      if(!this.warrantyDurationType){ this.customService.showToast('Please select warranty duration'); return;}
-      if(!Number.isInteger(Number(this.warrantyPeriod))){this.customService.showToast('Enter an integer in warranty'); return;}
+      if (!this.warrantyDurationType) { this.customService.showToast('Please select warranty duration'); return; }
+      if (!Number.isInteger(Number(this.warrantyPeriod))) { this.customService.showToast('Enter an integer in warranty'); return; }
       payLoad['warrantyPeriod'] = this.warrantyPeriod;
-      payLoad['warrantyPeriodType'] = this.warrantyDurationType.toUpperCase() ;
+      payLoad['warrantyPeriodType'] = this.warrantyDurationType.toUpperCase();
     }
-    
+
     if (this.dealerName) { payLoad['dealerName'] = this.dealerName; }
     if (this.dealerContact) { payLoad['dealerContact'] = this.dealerContact; }
     if (this.billNumber) { payLoad['billNumber'] = this.billNumber; }
-    // payLoad['billPic'] = '';  
-    
-    console.log(payLoad);
-    
+    if(this.installationRequest){
+      payLoad['installation']={};
+      payLoad['installation']['description']=this.installationComment;
+      if(this.addresses.length){
+        payLoad['installation']['customerAddressId'] = this.selectedAddress.id
+      }else{
+        payLoad['installation']['customerAddress'] = this.selectedAddress;
 
-    if (this.billPic) {
-      this.addWithBill(payLoad);
-    } else {
-      this.addWithoutBill(payLoad);
+      }
     }
+
+    console.log(payLoad);
+
+
+    // if (this.billPic) {
+    //   this.addWithBill(payLoad);
+    // } else {
+    //   this.addWithoutBill(payLoad);
+    // }
   }
 
   addWithBill(payLoad: any) {
