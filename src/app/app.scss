@@ -22,3 +22,34 @@
 }
 
 //shows which option is selected in sidebar
+.sidebar{
+    background-size: cover;
+    background-position: right;
+    background-image: url("/assets/imgs/loginImage.jpg");
+}
+.sidebarContent{
+    padding-right: px;
+
+    color: white;
+    background:  color($colors, transparent);
+}
+.bgcolorDiv{
+    background-color:rgba(0, 0, 0, 0.38);
+    height: 100%;
+    background-size: cover;
+}
+.sideMenu{
+   padding-top: 40px;
+}
+.sideBarAvatar{
+   
+    height: 100px;
+    width: 100px;
+}
+.sideImage{
+    margin-bottom: 30px;
+    text-align: center;
+}
+.sidebarContent:last-child{
+    border-bottom: 0px !important;
+}

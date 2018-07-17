@@ -6,12 +6,17 @@
         </div>
     </ion-header> -->
     <ion-content class="sidebar">
-        <ion-list>
-            <button ion-item *ngFor="let option of sideMenuOptions" (click)="openPage(option)" [ngClass]="{'activePage': activePage == option.component}">
-                <ion-icon  [name]="option.icon" color="primary" item-left></ion-icon>{{option.title}}
+     <div class="bgcolorDiv">
+        
+        <ion-list class="sideMenu" >
+            <div class="sideImage"><img src="/assets/imgs/avatar.png" class="sideBarAvatar"></div>
+            <button   class="sidebarContent" ion-item *ngFor="let option of sideMenuOptions" (click)="openPage(option)" [ngClass]="{'activePage': activePage == option.component}">
+                <ion-icon  [name]="option.icon"  item-left></ion-icon>{{option.title}}
             </button>
         </ion-list>
+    </div>
     </ion-content>
+
 </ion-menu>
 
 
