@@ -4,7 +4,7 @@
 <ion-content>
 
   <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate class="loginForm">
-    <ion-title>
+    <ion-title class="logintitle"> 
       Login
     </ion-title>
      
@@ -33,7 +33,7 @@
       <div no-lines *ngIf="(password.dirty || submitAttempt) && !password.valid" class="pwdValid">
         <span>Password is required.</span>
       </div>
-      <button type="submit" ion-button full>Log In</button>
+      <button type="submit" class="loginSubmit" ion-button full>Log In</button>
 
     </ion-card>
   </div> 
