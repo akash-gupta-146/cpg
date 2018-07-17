@@ -16,7 +16,7 @@ ion-navbar {
   background-color: transparent;
 }
 
-.toolbar-title {
+.registerTitlle .toolbar-title {
   font-size: 1.5em;
   font-weight: 300;
   color: white;
@@ -70,9 +70,7 @@ ion-navbar {
   background: transparent;
 }
 
-// .item-inner {
-//     border-bottom: 1px solid white;
-// }
+
 input::placeholder {
   color: white !important;
   font-weight: 200;
@@ -83,9 +81,6 @@ input::placeholder {
   color: white;
 }
 
-// .label-md {
-//     padding-left: 9px;
-// }
 .addresBorder {
   text-align: right;
   border-bottom: 2px solid white;
