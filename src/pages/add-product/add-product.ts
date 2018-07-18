@@ -266,24 +266,24 @@ export class AddProductPage {
     if (this.dealerContact) { payLoad['dealerContact'] = this.dealerContact; }
     if (this.billNumber) { payLoad['billNumber'] = this.billNumber; }
     if(this.installationRequest){
-      payLoad['installation']={};
-      payLoad['installation']['description']=this.installationComment;
+      // following key names have been used as payLoad object is to be converted eventually into formdata object
+      payLoad['installation.description']=this.installationComment;
       if(this.addresses.length){
-        payLoad['installation']['customerAddressId'] = this.selectedAddress.id
+        payLoad['installation.customerAddressId'] = this.selectedAddress.id
       }else{
-        payLoad['installation']['customerAddress'] = this.selectedAddress;
+        payLoad['installation.customerAddress'] = this.selectedAddress;
 
       }
     }
 
-    console.log(payLoad);
+    // console.log(payLoad);
 
 
-    // if (this.billPic) {
-    //   this.addWithBill(payLoad);
-    // } else {
-    //   this.addWithoutBill(payLoad);
-    // }
+    if (this.billPic) {
+      this.addWithBill(payLoad);
+    } else {
+      this.addWithoutBill(payLoad);
+    }
   }
 
   addWithBill(payLoad: any) {
