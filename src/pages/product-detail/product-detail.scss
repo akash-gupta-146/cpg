@@ -1,3 +1,117 @@
 page-product-detail {
+    .product-card{
+        border-radius: 10px;
+        .productImage{
+            width:50%;
+            margin: auto;
+           
+        }
+        .product-details{
+           
+            .brand{
+                
+            }
+        }
+    }
+     
+    .warrantyCard{
+        border-radius: 10px;
+        .warrantyIcon{
+          text-align: center;
+            .timeIcon{
+                font-size: 3em;
+            }
+           
+           
+        }
+        
+        .border-right{
+            position:relative;
+            &:before{
+                position: absolute;
+                content: '';
+                /* width: 1px; */
+                height: 50px;
+                border-right: 1px solid $borderColor;
+                right: 0;
+                top: 50%;
+                transform: translatey(-50%);
+            }
+            // border-right: 1px solid $borderColor;
+            // text-align: center;
+        }
+        .gridrow{
+            ion-row{
+                padding-bottom: 13px;
+                text-align: center;
+               position: relative;
+               &:before{
+                position: absolute;
+                content: '';
+                 width: 50%; 
+                // height: 50px;
+                border-bottom: 1px solid $borderColor;
+                bottom: 0;
+                left: 50%;
+                transform: translatex(-50%);
+               }
+            }
+        } 
+        .warantyRow{
+            ion-row{
+                text-align: center; 
+                
+            }
+        }
+    }
+    .dealerDetails{
+        border-radius: 10px;
+         .dealerIcon{
+             text-align: center;
+         }
+         ion-item{
+            .item-inner{
+                border-bottom: 1px solid $borderColor!important;
+            }
+       
 
+         }
+         .dealer{
+             text-align: center;
+             .dealerIcon{
+                 font-size: 3em;
+             }
+         }
+         .billDetails{
+             padding-top: 10px;
+             text-align: center;
+         }
+        
+    }
+    
+   
+
+    .cusomerDetails{
+        border-radius: 10px;
+        .customerpic{
+            text-align: center;
+            font-size: 3em;
+            
+        }
+        ion-item{
+            .item-inner{
+                border-bottom: 1px solid $borderColor!important;
+            }
+        }
+      
+        img{
+            height: 100px;
+           width: auto;
+           margin: 10px auto;
+        }
+        .billDetails{
+            color: color($colors,primary)
+        }
+    } 
+    
 }

@@ -43,6 +43,11 @@ $colors: (
   transparent:transparent
 );
 
+// color
+$backgroundColor: #f5f1f1;
+//border-left
+$borderColor:lightgray;
+
 
 // App iOS Variables
 // --------------------------------------------------
@@ -139,4 +144,12 @@ $colors: (
       // color:#ffbe00;
     }
   }
+}
+
+.background-color{
+  background:$backgroundColor!important;
+}
+
+ion-card{
+  box-shadow: 0px 7px 25px rgba(0, 0, 0, 0.35)!important;
 }
