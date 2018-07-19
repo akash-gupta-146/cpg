@@ -1,95 +1,118 @@
 <ion-header>
-
   <ion-navbar color="primary">
     <ion-title>Product Details</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content>
-
+<ion-content class="background-color">
   <div *ngIf="product">
+    <ion-card class="product-card">
+      <img [src]="product.productPicUrl" class="productImage">
+      <ion-card-content class="product-details">
+        <ion-card-title class="brand">
+          <h4>
+            <b>{{product.productBrand}}</b>
+            <span> {{product.productModelNumber}} </span>
+          </h4>
+          <p>
+            {{product.productName}}
+            <p>
+              <p>
+                <b> Product type</b>:{{product.productType}}
+              </p>
+              <p>
+                <b>Barcode</b>:{{product.productBarcode}}
+              </p>
 
-    <ion-item no-lines class="shadow">
-      <img item-start style="height: 70px;width: 70px" [src]="product.productPicUrl">
-      <h3>
-        <b>Name: </b>{{product.productBrand}} {{product.productName}}</h3>
-      <h3>
-        <b>Model: </b>{{product.productModelNumber}}</h3>
-      <h3>
-        <b>Purchase Date: </b>{{product.purchaseDate | date:'mediumDate'}}</h3>
-    </ion-item>
-
-    <ion-card>
-      <ion-item text-wrap>
-        <ion-icon item-start name="checkmark-circle" color="primary"></ion-icon>
-        <ion-label>Warranty : </ion-label>
-        <p item-end>{{giveWarranty(product.warrantyPeriodEnd)}}</p>
-      </ion-item>
+        </ion-card-title>
+      </ion-card-content>
     </ion-card>
-
-    <!-- <div text-center padding>
-
-      <div *ngIf="product.status==='NotScheduled'">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Circle-icons-hourglass.svg/768px-Circle-icons-hourglass.svg.png"
-          class="status-image center-block" />
-        <h4>
-          <b>Not Scheduled For Installation</b>
-        </h4>
+    <ion-card class="warrantyCard">
+      <div class="warrantyIcon">
+        <ion-icon name="time" color="primary" class="timeIcon"></ion-icon>
       </div>
-      <div *ngIf="product.status==='Scheduled'">
-        <img src="http://icons.iconarchive.com/icons/graphicloads/100-flat/256/check-icon.png" class="status-image center-block"
-        />
-        <h4>
-          <b>Scheduled For Installation</b>
-        </h4>
+      <ion-grid class="gridrow">
+        <ion-row>
+          <p col-4 class="border-right">
+            <b> Purchase</b>
+            <br> {{product.purchaseDate | date:'mediumDate'}}
+          </p>
+
+          <p col-4 class="border-right">
+            <b>Registered</b>
+            <br> {{product.registeredAt | date:'mediumDate'}}
+          </p>
+          <p col-4>
+            <b> Installation </b>
+            <br>
+            <span *ngIf="product.installationDateTime"> {{product.installationDateTime | date:'mediumDate'}}</span>
+            <span *ngIf="!product.installationDateTime"> Not Installed</span>
+          </p>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="warantyRow">
+        <ion-row>
+          <p col-6 class="border-right">
+            <b>WarantyStart</b>
+            <br> {{product.warrentyPeriodStart}}
+          </p>
+          <p col-6>
+            <b>WarantyEnd</b>
+            <br> {{product.warrantyPeriodEnd}}
+          </p>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+    <ion-card class="dealerDetails">
+      <div class="dealer">
+        <ion-icon color="primary" name="md-contacts" class="dealerIcon"></ion-icon>
+        <br>
+        <span>DealerDetail</span>
       </div>
-      <div *ngIf="product.status==='Installed'">
-        <img src="http://bestfreeantiviruss.com/wp-content/uploads/2015/10/shield-ok-icon.png" class="status-image center-block"
-        />
-        <h4>
-          <b>Installed</b>
-        </h4>
-      </div>
-      <div *ngIf="product.status==='ProblemInInstallation'">
-        <img src='http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-warning-icon.png' class="status-image center-block"
-        />
-        <h4>
-          <b>Problem in Installing Product</b>
-        </h4>
-      </div>
-
-      <button ion-button small *ngIf="product.status==='Scheduled'" round>Escalate Process</button>
-      <button ion-button small *ngIf="product.status==='Installed'" (click)="openFeedbackPage()" round>Feedback</button>
-      <button ion-button small *ngIf="product.status==='ProblemInInstallation'">View Details</button>
-
-    </div> -->
-
-    <!-- <ion-item *ngIf="product.status==='Installed'">
-      <ion-icon item-start name="checkmark-circle" color="primary"></ion-icon>
-      <ion-label>Installed : {{product.scheduledDate}}</ion-label>
-    </ion-item> -->
-
-    <ion-list>
-      <ion-list-header>Dealer Details</ion-list-header>
       <ion-item>
         <ion-icon item-start name="person" color="primary"></ion-icon>
-        <ion-label>Name : </ion-label>
+        <ion-label>Name </ion-label>
         <p item-end>{{product.dealerName}}</p>
       </ion-item>
       <ion-item>
         <ion-icon item-start name="call" color="primary"></ion-icon>
-        <ion-label>Phone : </ion-label>
+        <ion-label>Phone </ion-label>
         <p item-end>{{product.dealerContact}}</p>
       </ion-item>
-    </ion-list>
-
+      <div *ngIf="product.billPicUrl">
+        <h4 class="billDetails">Bill</h4>
+        <img [src]="product.billPicUrl">
+      </div>
+    </ion-card>
   </div>
-    <div padding style="bottom:0px;position: absolute;width:100%">
-      <button ion-button block (click)="openReportIncidentPage()">Report Incident</button>
-    </div>
+  <div *ngIf="product">
 
+    <ion-card class="cusomerDetails">
 
+      <div class="customerpic">
+        <ion-icon name="md-contact" color="primary" *ngIf="!customerPicUrl"></ion-icon>
+        <img *ngIf="customerPicUrl" [src]="product.customerPicUrl" />
 
+      </div>
+      <ion-item>
+        <ion-icon item-start name="person" color="primary"></ion-icon>
+        <ion-label>Name </ion-label>
+        <p item-end>{{product.customerName}}</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon item-start name="call" color="primary"> </ion-icon>
+        <ion-label>Phone</ion-label>
+        <p item-end>{{product.customerContactNo}}</p>
+      </ion-item>
+      <ion-item>
+        <ion-icon item-start name="md-mail" color="primary"></ion-icon>
+        <ion-label>Email</ion-label>
+        <p item-end>{{product.customerEmail}}</p>
+      </ion-item>
+    </ion-card>
+  </div>
+  <div padding>
+    <button ion-button block (click)="openReportIncidentPage()">Report Incident</button>
+  </div>
 </ion-content>
