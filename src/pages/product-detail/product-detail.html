@@ -67,7 +67,7 @@
       <div class="dealer">
         <ion-icon color="primary" name="md-contacts" class="dealerIcon"></ion-icon>
         <br>
-        <span>DealerDetail</span>
+        <span class="dealerName">Dealer</span>
       </div>
       <ion-item>
         <ion-icon item-start name="person" color="primary"></ion-icon>
@@ -92,23 +92,23 @@
       <div class="customerpic">
         <ion-icon name="md-contact" color="primary" *ngIf="!customerPicUrl"></ion-icon>
         <img *ngIf="customerPicUrl" [src]="product.customerPicUrl" />
-
+        <div color="primary" class="customerName">Customer</div>
       </div>
       <ion-item>
         <ion-icon item-start name="person" color="primary"></ion-icon>
-        <ion-label>Name </ion-label>
-        <p item-end>{{product.customerName}}</p>
+        <small class="primaryColor">Name </small>
+        <div>{{product.customerName}}</div>
       </ion-item>
 
       <ion-item>
         <ion-icon item-start name="call" color="primary"> </ion-icon>
-        <ion-label>Phone</ion-label>
-        <p item-end>{{product.customerContactNo}}</p>
+        <small class="primaryColor">Phone</small>
+        <div>{{product.customerContactNo}}</div>
       </ion-item>
       <ion-item>
         <ion-icon item-start name="md-mail" color="primary"></ion-icon>
-        <ion-label>Email</ion-label>
-        <p item-end>{{product.customerEmail}}</p>
+        <small class="primaryColor">Email</small>
+        <div>{{product.customerEmail}}</div>
       </ion-item>
     </ion-card>
   </div>
