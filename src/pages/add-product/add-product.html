@@ -137,6 +137,11 @@
     <p style="font-size: small" *ngIf="installationRequest"> Your request for installation will be forwarded. Please make sure you have provided your address .</p>
   </ion-card>
 
+  <ion-item  *ngIf="installationRequest">
+    <ion-label stacked>Comment (optional)</ion-label>
+    <ion-input placeholder="Write any comment regarding installation" [(ngModel)]="installationComment"></ion-input>
+  </ion-item>
+
   <ion-card *ngIf="installationRequest">
     <div *ngIf="addresses.length">
       <ion-list radio-group [(ngModel)]="selectedAddress" name="address" required>
@@ -195,10 +200,7 @@
         </ion-list>
       </form>
 
-      <ion-item>
-        <ion-label>Comment (optional)</ion-label>
-        <ion-input placeholder="Write any comment regarding installation" [(ngModel)]="installationComment"></ion-input>
-      </ion-item>
+  
 
       <button ion-button full (click)="onProductAdd(addressForm)">Register</button>
     </div>

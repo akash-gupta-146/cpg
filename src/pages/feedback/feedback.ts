@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CustomService } from '../../providers/custom.service';
 import { Incident } from '../../Classes/Models/incident.model';
 import { IncidentService } from '../../providers/incidents.service';
+import { InstallationService } from '../../providers/installation.service';
 
 
 @IonicPage()
@@ -13,6 +14,7 @@ import { IncidentService } from '../../providers/incidents.service';
 export class FeedbackPage {
 
   incident: Incident;
+  installing=false;
 
   // form fields
   rating: number;
@@ -25,10 +27,12 @@ export class FeedbackPage {
     private customService: CustomService,
     public navCtrl: NavController,
     public navParams: NavParams,
-    private incidentService:IncidentService
+    private incidentService:IncidentService,
+    private installationService:InstallationService
   ) {
     this.incident = this.navParams.get('incident');
     this.callback = this.navParams.get('callback');
+    this.installing = this.navParams.get('installing');
   }
 
 
@@ -39,8 +43,9 @@ export class FeedbackPage {
       updateInfo: 'feedback'
     };
 
+    const service = this.installing?this.installationService:this.incidentService;
     this.customService.showLoader();
-    this.incidentService.giceFeedback(info, this.incident.id)
+    service.giceFeedback(info, this.incident.id)
       .subscribe((res: any) => {
         if (this.callback) { this.callback(res.rating || this.rating); }
         this.customService.hideLoader();
