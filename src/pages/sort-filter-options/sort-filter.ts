@@ -25,13 +25,7 @@ import { IonicPage, ActionSheetController } from 'ionic-angular';
     </ion-grid>
             `,
     styles: [`
-        button{
-            margin: 0rem 0rem !important;
-            height:45px;
-        }
-        ion-grid{
-            position:fixed;
-        }
+
     `]
 
 

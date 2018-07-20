@@ -1,211 +1,158 @@
+
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-toolbar>
+    <ion-toolbar color="primary">
+      <ion-title>
+          Register Product
+      </ion-title>
       <ion-buttons start>
         <button ion-button (click)="dismiss()">
-          <span>Cancel</span>
+          <span ion-text  showWhen="ios">Cancel</span>
+          <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
         </button>
       </ion-buttons>
-      <ion-title>Register Product</ion-title>
     </ion-toolbar>
-  </ion-navbar>
-</ion-header>
+  </ion-header>
+  
 
-<ion-content>
+<ion-content class="background-color">
 
   <!-- SCAN BARCODE OR FILL FORM TO FETCH THE PRODUCT DETAILS  -->
-  <ion-card>
 
-    <ion-item>
-      <ion-label>Product Details *</ion-label>
-      <ion-select interface="popover" [(ngModel)]="productDetailMethod" (ionChange)="onProductDetailMethodChange()">
-        <ion-option value="barcode">Using Barcode</ion-option>
-        <ion-option value="manual">Enter Manually</ion-option>
-      </ion-select>
-    </ion-item>
-  </ion-card>
+  <ion-item no-lines>
+    <ion-label>Registration mode
+      <span class="star">*</span>
+    </ion-label>
+    <ion-select [(ngModel)]="productDetailMethod" (ionChange)="onProductDetailMethodChange()">
+      <ion-option value="barcode">Using Barcode</ion-option>
+      <ion-option value="manual">Enter Manually</ion-option>
+    </ion-select>
+  </ion-item>
 
-  <ion-card *ngIf="productDetailMethod=='barcode'">
+  <div *ngIf="productDetailMethod=='barcode'" class="barcodeScanner">
     <div text-center padding>
-      <img src="https://www.iconshock.com/image/Stroke/Computer_gadgets/barcode_scanner" class="status-image center-block" />
+      <img src="/assets/imgs/barcode.png" class="status-image center-block" />
       <button ion-button round (click)="openScanner()">
         Scan Code
       </button>
     </div>
-  </ion-card>
+  </div>
 
-  <ion-card *ngIf="productDetailMethod=='manual'">
-    <ion-list-header>
-      Tell us Product Details
-    </ion-list-header>
+  <div *ngIf="productDetailMethod=='manual'">
 
-    <ion-item>
-      <ion-label>Brand</ion-label>
-      <ion-select [(ngModel)]="selectedBrandId">
-        <ion-option *ngFor="let b of brands" [value]="b.id">{{b.name}}</ion-option>
-      </ion-select>
-    </ion-item>
+    <ion-card class="product-card" *ngIf="selectedProduct">
+      <img [src]="selectedProduct.picUrl" class="productImage">
+      <ion-card-content class="product-details">
+        <ion-card-title class="brand">
+          <h4>
+            <b>{{selectedProduct.brandName}}</b>
+            <span> {{selectedProduct.modelNumber}} </span>
+          </h4>
+
+          <p>
+            <b>Category</b>{{selectedProduct.categoryName}}
+          </p>
+          <p>
+            <b>Name</b>{{selectedProduct.name}}
+          </p>
+          <p>
+            <b>Type</b>{{selectedProduct.typeName}}
+          </p>
+        </ion-card-title>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-label>Brand</ion-label>
+        <ion-select [(ngModel)]="selectedBrandId">
+          <ion-option *ngFor="let b of brands" [value]="b.id">{{b.name}}</ion-option>
+        </ion-select>
+      </ion-item>
 
 
-    <ion-item *ngFor="let catgs of categoriesList;let i=index">
-      <ion-label>{{catgs.label}}</ion-label>
-      <ion-select (ionChange)="onCatgSelect($event,i)">
-        <ion-option *ngFor="let c of catgs.catgsData" [value]="c">{{c.name}}</ion-option>
-      </ion-select>
-    </ion-item>
+      <ion-item *ngFor="let catgs of categoriesList;let i=index">
+        <ion-label>{{catgs.label}}</ion-label>
+        <ion-select (ionChange)="onCatgSelect($event,i)">
+          <ion-option *ngFor="let c of catgs.catgsData" [value]="c">{{c.name}}</ion-option>
+        </ion-select>
+      </ion-item>
 
 
-    <ion-item *ngIf="productTypes">
-      <ion-label>Product Type</ion-label>
-      <ion-select (ionChange)="onProductTypeSelect($event)">
-        <ion-option *ngFor="let pt of productTypes" [value]="pt">{{pt.name}}</ion-option>
-      </ion-select>
-    </ion-item>
-  </ion-card>
+      <ion-item *ngIf="productTypes">
+        <ion-label>Product Type</ion-label>
+        <ion-select (ionChange)="onProductTypeSelect($event)">
+          <ion-option *ngFor="let pt of productTypes" [value]="pt">{{pt.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-card>
+  </div>
 
-  <!-- SHOW THE DETAILS OF PRODUCT, WHEN FETCHED FROM SERVER-->
-  <ion-card *ngIf="selectedProduct">
-    <ion-item no-lines class="shadow" text-wrap>
-      <img item-start style="height: 70px;width: 70px" [src]="selectedProduct.picUrl">
-      <h3>
-        <b>Brand : </b>{{selectedProduct.brandName}}
-      </h3>
-      <h3>
-        <b>Model : </b>{{selectedProduct.modelNumber}}
-      </h3>
-      <h3>
-        <b>Category : </b>{{selectedProduct.categoryName}}</h3>
-    </ion-item>
-  </ion-card>
 
   <ion-card>
-    <ion-list>
-
-      <ion-list-header>
-        Other Details (optional)
-      </ion-list-header>
-
-      <div style="border-bottom:1px solid black">
+    <ion-list no-lines>
+      <div class="addproduct">
+        <ion-icon name="cube" class="icon" color="primary"></ion-icon>
+        <div>Product</div>
+      </div>
+      <div class="purchaseDetail">
         <ion-item>
-          <ion-label>Purchase Date *</ion-label>
+          <ion-label>Purchase Date
+            <span class="star">*</span>
+          </ion-label>
           <ion-datetime [(ngModel)]="purchaseDate" [max]="today" displayFormat="MMM DD, YYYY" pickerFormat="MMM DD, YYYY" placeholder="MMM DD, YYYY"></ion-datetime>
         </ion-item>
-
-        <ion-item>
+        <ion-item class="warranty">
           <ion-label>Warranty</ion-label>
-          <ion-input type="number" placeholder="Enter a integer" [(ngModel)]="warrantyPeriod"></ion-input>
+          <ion-input class="warrantyDetails" type="number" placeholder="Add warranty" text-right [(ngModel)]="warrantyPeriod"></ion-input>
           <ion-select interface="popover" placeholder='M/Y' [(ngModel)]="warrantyDurationType">
             <ion-option *ngFor="let type of warrantyDurationTypes" [value]="type">{{type}}</ion-option>
           </ion-select>
         </ion-item>
       </div>
+    </ion-list>
+  </ion-card>
 
+  <ion-card class="dealer">
+    <ion-list>
+      <div class="addproduct ">
+        <ion-icon name="contact" class="icon" color="primary"></ion-icon>
+        <div color="primary">Dealer</div>
+      </div>
       <ion-item>
+        <ion-icon item-start name="md-person" color="primary"></ion-icon>
         <ion-label floating>Dealer Name</ion-label>
         <ion-input [(ngModel)]="dealerName"></ion-input>
       </ion-item>
 
       <ion-item>
+        <ion-icon name="md-call" item-start color="primary"></ion-icon>
         <ion-label floating>Dealer Contact</ion-label>
-        <ion-input [(ngModel)]="dealerContact"></ion-input>
+        <ion-input no-margin [(ngModel)]="dealerContact" type="number"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label floating>Bill Number</ion-label>
+        <ion-icon item-start name="barcode" color="primary"></ion-icon>
+        <ion-label floating no-margin>Bill Number</ion-label>
         <ion-input [(ngModel)]="billNumber"></ion-input>
       </ion-item>
 
+      <div *ngIf="!billPic;else image" (click)="onBillUpload()" class="addproduct uploadBill">
+        <ion-icon name="cloud-upload"></ion-icon>
+        <br>
+        <div>Upload Bill</div>
+      </div>
+      <ion-spinner name="bubbles" *ngIf="showSpinner"></ion-spinner>
 
-
+      <ng-template #image *ngIf="billPic">
+        <ion-card>
+          <button ion-button clear float-right (click)="onRemoveImage()">Remove Bill</button>
+          <img [src]="billPic" alt="Bill Pic">
+        </ion-card>
+      </ng-template>
     </ion-list>
   </ion-card>
 
-  <button *ngIf="!billPic;else image" float-right ion-button clear (click)="onBillUpload()">Upload Bill</button>
-  <ion-spinner name="bubbles" *ngIf="showSpinner"></ion-spinner>
-  <ng-template #image>
-    <ion-card>
-      <button ion-button clear float-right (click)="onRemoveImage()">Remove Bill</button>
-      <img [src]="billPic" alt="Bill Pic">
-    </ion-card>
-  </ng-template>
-
-  <ion-card>
-    <ion-item>
-      <ion-label>Request Installation </ion-label>
-      <ion-toggle [(ngModel)]="installationRequest"></ion-toggle>
-    </ion-item>
-    <p style="font-size: small" *ngIf="installationRequest"> Your request for installation will be forwarded. Please make sure you have provided your address .</p>
-  </ion-card>
-
-  <ion-item  *ngIf="installationRequest">
-    <ion-label stacked>Comment (optional)</ion-label>
-    <ion-input placeholder="Write any comment regarding installation" [(ngModel)]="installationComment"></ion-input>
-  </ion-item>
-
-  <ion-card *ngIf="installationRequest">
-    <div *ngIf="addresses.length">
-      <ion-list radio-group [(ngModel)]="selectedAddress" name="address" required>
-        <ion-list-header>Select Address</ion-list-header>
-        <ion-row *ngFor="let addr of addresses" (tap)="selectedAddress=addr">
-
-          <ion-col col-10 text-wrap padding>
-            <h5 style="font-weight: bold">{{addr.addressType}}</h5>
-            <p>{{addr.address}}, {{addr.postalCode}}</p>
-            <p>{{addr.city}}, {{addr.state}}, {{addr.country}}</p>
-            <div *ngIf="addr.phone">
-              <ion-icon name="call" float-left></ion-icon>
-              {{addr.phone}}
-            </div>
-          </ion-col>
-          <ion-col col-2>
-            <ion-radio style="top:50%;left: 50%;transform: translate(-50%,-50%)" [value]="addr"></ion-radio>
-          </ion-col>
-        </ion-row>
-      </ion-list>
-      <button ion-button full (click)="onProductAdd(addressForm)">Register</button>
-
-    </div>
-
-    <div *ngIf="!addresses.length">
-
-      <form #addressForm="ngForm" novalidate>
-        <ion-list>
-          <ion-list-header>Address (Fill all fields)</ion-list-header>
-          <ion-item>
-            <ion-label>Type</ion-label>
-            <ion-select interface="popover" [(ngModel)]="selectedAddress.addressType" name="addressType" required>
-              <ion-option *ngFor="let type of addressTypes" [value]="type">
-                {{type}}
-              </ion-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-input placeholder="Address" [(ngModel)]="selectedAddress.address" name="address" required></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input placeholder="City" [(ngModel)]="selectedAddress.city" name="city" required></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input placeholder="State" [(ngModel)]="selectedAddress.state" name="state" required></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input placeholder="Country" [(ngModel)]="selectedAddress.country" name="country" required></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input type="number" placeholder="Postal Code" [(ngModel)]="selectedAddress.postalCode" name="postalCode" required></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input type="tel" placeholder="Phone" [(ngModel)]="selectedAddress.phone" name="phone"></ion-input>
-          </ion-item>
-        </ion-list>
-      </form>
-
-  
-
-      <button ion-button full (click)="onProductAdd(addressForm)">Register</button>
-    </div>
-  </ion-card>
-
-  <button *ngIf="!installationRequest" ion-button full (click)="onProductAdd(addressForm)">Register</button>
-
+  <div padding>
+    <button ion-button full (click)="onProductAdd()" round>Register</button>
+  </div>
 </ion-content>

@@ -20,7 +20,7 @@
         <ion-label stacked>Contact No.</ion-label>
         <ion-input type="text" formControlName="contactNo" placeholder="Add phone number"></ion-input>
       </ion-item>
-      <div *ngIf="(contactNo.dirty || submitAttempt) && !contactNo.valid" class="contactValid">
+      <div *ngIf="(contactNo.dirty || submitAttempt) && !contactNo.valid" class="valid">
         <span *ngIf="contactNo.hasError('required')" >Contact No. is required.</span>
         <span *ngIf="contactNo.hasError('pattern')" >Contact No. is invalid.</span>
       </div>
@@ -30,7 +30,7 @@
         <ion-label stacked>Password</ion-label>
         <ion-input type="password" formControlName="password" placeholder="Add Password"></ion-input>
       </ion-item>
-      <div no-lines *ngIf="(password.dirty || submitAttempt) && !password.valid" class="pwdValid">
+      <div no-lines *ngIf="(password.dirty || submitAttempt) && !password.valid" class="valid" margin-bottom>
         <span>Password is required.</span>
       </div>
       <button type="submit" class="loginSubmit" ion-button full>Log In</button>

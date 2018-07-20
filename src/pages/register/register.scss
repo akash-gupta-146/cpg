@@ -2,7 +2,6 @@ page-register {
   ion-content {
     background-image: url("/assets/imgs/loginImage.jpg");
     background-size: cover;
-    background-position: center;
     .bakgroundContent {
       position: absolute; // overflow: scroll;
       width: 100%;
@@ -72,14 +71,14 @@ ion-navbar {
 
 
 input::placeholder {
-  color: white !important;
+  // color: white !important;
   font-weight: 200;
 }
 
-.label-md[stacked],
-.label-md[floating] {
-  color: white;
-}
+// .label-md[stacked],
+// .label-md[floating] {
+//   color: white;
+// }
 
 .addresBorder {
   text-align: right;

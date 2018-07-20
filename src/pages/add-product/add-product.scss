@@ -1,3 +1,44 @@
 page-add-product {
-
+  .barcodeScanner {
+    img {
+      margin-bottom: 18px;
+    }
+  }
+  .purchaseDetail {
+    margin-top: 20px;
+  }
+  .warrantyDetails {
+    .text-input {
+      border-bottom: 1px solid $borderColor;
+      ;
+    }
+  }
+  .dealer {
+    img {
+      width: 50%;
+    }
+    ion-item {
+      outline: 0 !important;
+      .item-inner {
+        border-bottom: 2px solid $borderColor !important;
+      }
+      .item-inner:last-child {
+        border: 0 !important;
+      }
+    }
+  }
+  .addproduct {
+    color: color($colors, primary);
+    padding-top: 10px;
+    text-align: center;
+    .icon {
+      font-size: 3em;
+    }
+  }
+  .uploadBill {
+    margin-bottom: 10px;
+  }
+  .star {
+    color: color($colors, danger);
+  }
 }
