@@ -152,12 +152,12 @@ $borderColor:lightgray;
 
 ion-card{
   box-shadow: 0px 7px 25px rgba(0, 0, 0, 0.35)!important;
+  border-radius: 10px!important;
 }
 .primaryColor{
   color: color($colors,primary);
 }
 .product-card{
-  border-radius: 10px;
   .productImage {
     width: 50%;
     margin: auto;

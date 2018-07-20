@@ -3,83 +3,53 @@ page-login {
     // background:red !important;
     background-image: url("/assets/imgs/loginImage.jpg");
     background-size: cover;
-    background-position: center;
   }
-}
-
-form {
-  .logintitle {
-    color: color($colors, light);
-    text-align: center;
-    margin-bottom: 63px;
+  form {
+    .logintitle {
+      color: color($colors, light);
+      text-align: center;
+      margin-bottom: 63px;
+    }
+    .avatar {
+      text-align: center;
+    }
+  }
+  .userIcon {
+    font-size: 4em !important;
+  }
+  .avtarImage {
+    width: 100px;
+    border-radius: 50%;
   }
   .avatar {
-    text-align: center; 
-}
-}
-
-.loginForm .toolbar-title {
-  font-size: 1.5em;
-  font-weight: 300;
-  color: white;
-}
-
-.userIcon {
-  font-size: 4em !important;
-}
-
-.avtarImage {
-  width: 100px;
-  border-radius: 50%; 
-}
-
-.avatar {
-  position: absolute;
-  z-index: 5;
-  top: -58px;
-}
-
-.card-md {
-  padding-top: 50px 20px;
-  box-shadow: 2px 7px 27px rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
-}
-
-.loginCard {
-  padding: 50px 20px;
-  ion-item {
-    margin: 10px 0px;
+    position: absolute;
+    z-index: 5;
+    top: -58px;
+    width: 100%;
   }
-}
-
-.loginSubmit {
-  padding: 27px 0px;
-  margin-top: 32px;
-}
-
-.avatar {
-  width: 100%;
-}
-
-.contactValid {
-  border-radius: 10px;
-  padding: 2px;
-  background: color($colors, primary);
-  color: white;
-  text-align: center;
-}
-
-.pwdValid {
-  border-radius: 10px;
-  padding: 2px;
-  background: color($colors, primary);
-  color: white;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.loginForm {
-  position: relative;
-  top: 50%;
-  transform: translatey(-50%);
+  .loginCard {
+    padding: 50px 20px;
+    ion-item {
+      margin: 10px 0px;
+    }
+  }
+  .loginSubmit {
+    padding: 27px 0px;
+    margin-top: 32px;
+  } ///need to see it
+  .valid {
+    border-radius: 10px;
+    padding: 2px;
+    background: color($colors, primary);
+    color: white;
+    text-align: center;
+  }
+  .loginForm {
+    margin-top: 50px;
+    .toolbar-title {
+      font-size: 1.5em;
+      font-weight: 300;
+      color: white;
+    }
+  }
 }
