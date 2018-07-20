@@ -1,65 +1,54 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Button } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { CustomService } from '../../providers/custom.service';
-import { Incident } from '../../Classes/Models/incident.model';
-import { IncidentService } from '../../providers/incidents.service';
+import { InstallationService } from '../../providers/installation.service';
+import { Installation } from '../../Classes/Models/product.model';
 
 
 @IonicPage()
 @Component({
-  selector: 'page-incident',
-  templateUrl: 'incident.html',
+  selector: 'page-installation',
+  templateUrl: 'installation.html',
 })
-export class IncidentPage {
+export class InstallationPage {
 
-  incident: Incident;
+  installation: Installation;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private customService: CustomService,
-    private alert: AlertController,
-    private incidentService: IncidentService
-  ) {
+    private alert:AlertController,
+    private installationService: InstallationService) {
   }
 
   ionViewDidLoad() {
-    this.incident = this.navParams.get('incident');
+    this.installation = this.navParams.get('installation');
   }
 
   onFeedback() {
-    const clbk = (rating: number) => { this.incident.rating = rating; }
-    this.navCtrl.push('FeedbackPage', { 'incident': this.incident, 'callback': clbk });
+    const clbk = (rating: number) => { this.installation.rating = rating; }
+    this.navCtrl.push('FeedbackPage', { 'incident': this.installation, 'callback': clbk,'installing':true });
   }
 
-/**old method :use this when otpion to change time is also to be given to customer */
-  // onNotAvailableBtn() {
-  //   const clbk = (res) => {
-  //     if (res) {
-  //       this.updateStatusInfo(res);
-  //     }
-  //   }
-  //   this.navCtrl.push('ChangeTimePage', { 'incident': this.incident, 'callback': clbk, 'lastScheduleDate': this.incident.lastScheduleDate });
-  // }
-
-  onHistory(){
+  onHistory() {
     this.customService.showLoader();
-    this.incidentService.getHistory( this.incident.id)
+    this.installationService.getHistory(this.installation.id)
       .subscribe((res: any) => {
         this.customService.hideLoader();
-        this.navCtrl.push("HistoryPage",{'history':res});
+        this.navCtrl.push("HistoryPage", { 'history': res });
       }, (err: any) => {
 
         this.customService.hideLoader();
         this.customService.showToast(err.msg);
       });
   }
-         
-  onNotAvailableBtn(){
+
+  onNotAvailableBtn() {
     const alert = this.alert.create({
       title: 'Reschedule',
       subTitle: 'Please give reason. You can specify when you will be available.',
-      inputs: [ 
+      inputs: [
         {
           type: 'text',
         }
@@ -70,12 +59,13 @@ export class IncidentPage {
           role: 'cancel'
         }, {
           text: 'Submit',
-          handler: (data) => { 
-            if(data[0].trim()==''){
+          handler: (data) => {
+            if (data[0].trim() == '') {
               this.customService.showToast('Comment can not be empty');
               return false;
             }
-            this.sendNotAvailableRequest(data[0]); }
+            this.sendNotAvailableRequest(data[0]);
+          }
         }
       ]
     });
@@ -97,11 +87,12 @@ export class IncidentPage {
           role: 'cancel'
         }, {
           text: 'Submit',
-          handler: (data) => { 
-            if(data[0].trim()==''){
+          handler: (data) => {
+            if (data[0].trim() == '') {
               this.customService.showToast('Reason can not be empty');
               return false;
-            }this.sendPriortyChangeRequest(data[0]); }
+            } this.sendPriortyChangeRequest(data[0]);
+          }
         }
       ]
     });
@@ -116,7 +107,7 @@ export class IncidentPage {
     };
 
     this.customService.showLoader();
-    this.incidentService.customerNotAvailable(info, this.incident.id)
+    this.installationService.customerNotAvailable(info, this.installation.id)
       .subscribe((res: any) => {
         this.updateStatusInfo(res);
         this.customService.hideLoader();
@@ -136,9 +127,9 @@ export class IncidentPage {
     };
 
     this.customService.showLoader();
-    this.incidentService.increasePriority(info, this.incident.id)
+    this.installationService.increasePriority(info, this.installation.id)
       .subscribe((res: any) => {
-        this.incident.priority = res.priority;
+        this.installation.priority = res.priority;
         this.customService.hideLoader();
         this.customService.showToast('Priority updated successfully');
       }, (err: any) => {
@@ -149,9 +140,9 @@ export class IncidentPage {
   }
 
   updateStatusInfo(updatedIncident: any) {
-    this.incident.statusColor = updatedIncident.statusColor;
-    this.incident.statusId = updatedIncident.statusId;
-    this.incident.statusName = updatedIncident.statusName;
+    this.installation.statusColor = updatedIncident.statusColor;
+    this.installation.statusId = updatedIncident.statusId;
+    this.installation.statusName = updatedIncident.statusName;
   }
 
   giveWarranty(endDate: string | null) {
@@ -172,5 +163,6 @@ export class IncidentPage {
       return 'Expired';
     }
   }
+
 
 }

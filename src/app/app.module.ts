@@ -19,6 +19,7 @@ import { Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import * as ionicGalleryModal from 'ionic-gallery-modal';
 import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { InstallationService } from '../providers/installation.service';
 
 @NgModule({     
   declarations: [     
@@ -47,6 +48,7 @@ import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
     NetworkService,
     ProductService,
     IncidentService,
+    InstallationService,
     EngineerIncidentService,
     BarcodeScanner,
     Camera,

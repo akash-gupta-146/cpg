@@ -1,4 +1,4 @@
-export interface    Product {
+export interface Product {
     billNumber: string;
     billPicUrl: string;
     customerContactNo: string;
@@ -14,7 +14,7 @@ export interface    Product {
     productBrand: string;
     productId: 1;
     productModelNumber: string;
-    productCategoryId:number;
+    productCategoryId: number;
     productName: string;
     productPicUrl: string;
     productType: string;
@@ -25,7 +25,7 @@ export interface    Product {
     warrentyPeriodStart: string;
 };
 
-export interface Address{
+export interface Address {
     addressType: string;
     address: string;
     city: string;
@@ -33,5 +33,40 @@ export interface Address{
     country: string;
     postalCode: number | string;
     phone: number | string;
-    id?:number | string
+    id?: number | string
+}
+
+export interface Installation {
+    lastModifiedAt: string;
+    productBillUrl: string,
+    statusColor: string;
+    assignedServiceEngineerId: number;
+    assignedServiceEngineerName: string;
+    assignedServiceEngineerPicUrl: string;
+    billNumber: string;
+    createdAt: string;
+    customerContactNo: string;
+    customerEmail: string;
+    customerId: number;
+    customerName: string;
+    dealerContact: string;
+    dealerName: string;
+    id: number;
+    installationPicUrl: string;
+    isCustomerAvailable: boolean;
+    isProductVerified: boolean;
+    lastScheduleDate: string;
+    priority: string;
+    productInstallationDateTime: string;
+    productModelNumber: string;
+    productName: string;
+    productPurchaseDate: string;
+    productRegistrationId: number
+    productWarrantyEnd: string;
+    productWarrantyStart: string;
+    rating: number;
+    registeredProductPicUrl: string;
+    signatureUrl: string;
+    statusId: number;
+    statusName: string;
 }
