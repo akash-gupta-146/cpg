@@ -156,3 +156,10 @@ ion-card{
 .primaryColor{
   color: color($colors,primary);
 }
+.product-card{
+  border-radius: 10px;
+  .productImage {
+    width: 50%;
+    margin: auto;
+  }
+}
