@@ -7,13 +7,14 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content class="background-color">
 
   <form #incidentForm="ngForm" (ngSubmit)="onSubmit()">
     <ion-card>
-
+        <img src="/assets/imgs/report.png" class="reportImage">
       <ion-list>
         <ion-item>
+  
           <ion-label>Product</ion-label>
           <ion-select [ngModel]="selectedProduct" [disabled]="product" (ionChange)="onProductSelect($event)" name="product" required>
             <ion-option *ngFor="let p of products" [value]="p">{{p.productName}}</ion-option>
@@ -27,14 +28,14 @@
           </ion-select>
         </ion-item>
       </ion-list>
-    </ion-card>
+    <!-- </ion-card>
 
-    <ion-card>
+    <ion-card> -->
       <ion-list>
 
-        <ion-item>
-          <ion-label stacked>Title</ion-label>
-          <ion-input [(ngModel)]="title" name="title" required placeholder="Enter Title"></ion-input>
+        <ion-item class="border-bottom">
+          <ion-label stacked >Title</ion-label>
+          <ion-input [(ngModel)]="title" name="title" required placeholder="Enter Title" ></ion-input>
         </ion-item>
 
         <ion-item>
@@ -44,9 +45,11 @@
       </ion-list>
     </ion-card>
 
-
-    <button type="button" *ngIf="!img;else image" float-right ion-button clear (click)="onImgUpload()">Add Image (optional)</button>
-
+    
+    <div  *ngIf="!img;else image"  (click)="onImgUpload()" class="addImage"><ion-icon name="camera" class="cameraIcon" color="primary"></ion-icon>
+      <div >Add Image</div>
+    </div>
+  
     <ion-spinner name="bubbles" *ngIf="showSpinner"></ion-spinner>
 
     <ng-template #image>
