@@ -1,28 +1,23 @@
 page-add-incident {
-    ion-card{
-        .reportImage{
-            width: 30%;
-            margin: auto;
-            margin-top: 10px;
-
-        }
-       
-    }
-   .addImage{
-       text-align: center;
-      .cameraIcon{
-           font-size: 3em;
-       }
-       div{
-           color: color($colors,primary);
-       }
-   }
-  
- .border-bottom{
-    .item-inner{
-     border-bottom: 1px solid $borderColor!important;
+  ion-card {
+    .reportImage {
+      width: 30%;
+      margin: auto;
+      margin-top: 10px;
     }
   }
-
-
+  .addImage {
+    text-align: center;
+    .cameraIcon {
+      font-size: 3em;
+    }
+    div {
+      color: color($colors, primary);
+    }
+  }
+  .border-bottom {
+    .item-inner {
+      border-bottom: 1px solid $borderColor !important;
+    }
+  }
 }
