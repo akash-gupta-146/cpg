@@ -1,49 +1,77 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>installation</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content>
+<ion-content class="background-color">
   <div *ngIf="installation">
-
-    <ion-item no-lines class="shadow">
-      <img item-start style="height: 70px;width: 70px" [src]="installation.registeredProductPicUrl">
-      <h3>
-        <b>Name: </b>{{installation.productName}}</h3>
-      <h3>
-        <b>Model: </b>{{installation.productModelNumber}}</h3>
-      <h3>
-        <b>Purchase Date: </b>{{installation.productPurchaseDate | date:'mediumDate'}}</h3>
-    </ion-item>
-
-    <ion-card>
-      <ion-item text-wrap>
-        <ion-icon item-start name="checkmark-circle" color="primary"></ion-icon>
-        <ion-label>Warranty : </ion-label>
-        <p item-end>{{giveWarranty(installation.productWarrantyEnd)}}</p>
-      </ion-item>
+    <ion-card class="product-card">
+      <img [src]="installation.registeredProductPicUrl" class="productImage">
+      <ion-card-content class="product-details">
+        <ion-card-title class="brand">
+          <h4>
+            <b>{{installation.productModelNumber}}</b>
+          </h4>
+          <p>
+            {{installation.productName}}
+            <p>
+              <p>
+                <b> Purchase Date</b>{{installation.productPurchaseDate | date:'mediumDate'}}
+              </p>
+        </ion-card-title>
+      </ion-card-content>
     </ion-card>
+    <div [ngSwitch]="installation.statusId">
+        <ion-card *ngSwitchCase="11">
+            <div class="centerIcon">
+                <ion-icon  name="hammer" color="primary" class="iconSize"></ion-icon>
+                <div>Installed On </div>
+                </div>
+                <div text-center margin>{{installation.productInstallationDateTime | date}}</div>
+                
+            </ion-card>
 
-    <ion-card>
+    </div>
 
-      <ion-item>
-        <ion-icon item-start name="checkmark-circle" color="primary"></ion-icon>
-        <ion-label>Status : </ion-label>
-        <b item-end>{{installation.statusName}}</b>
-      </ion-item>
-      <ion-item>
-        <ion-icon item-start name="information-circle" color="primary"></ion-icon>
-        <ion-label>Priority : </ion-label>
-        <b item-end>{{installation.priority}}</b>
-      </ion-item>
-      <!-- <ion-item text-wrap *ngIf="installation.description">
-        <small>Customer Comment</small>
-        <p>{{installation.description}}</p>
-      </ion-item> -->
+    <ion-card class="warrantyCard">
+      <div class="centerIcon">
+        <ion-icon name="time" color="primary" class="iconSize"></ion-icon>
+      </div>
+      <ion-grid class="gridrow">
+        <ion-row>
+          <p col-4 class="border-right">
+            <b>Installation</b>
+            <br>
+            <span *ngIf="installation.installationDateTime"> {{installation.installationDateTime | date:'mediumDate'}}</span>
+            <span *ngIf="!installation.installationDateTime"> Not Installed</span>
+          </p>
+
+          <p col-4 class="border-right">
+            <b>Status</b>
+            <br> {{installation.statusName}}
+          </p>
+          <p col-4>
+            <b> Priority </b>
+            <br> {{installation.priority}}
+          </p>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="warantyRow">
+        <ion-row>
+          <p col-6 class="border-right">
+            <b>WarantyStart</b>
+            <br> {{installation.productWarrantyStart}}
+          </p>
+          <p col-6>
+            <b>WarantyEnd</b>
+            <br> {{installation.productWarrantyEnd}}
+          </p>
+        </ion-row>
+      </ion-grid>
     </ion-card>
 
 
@@ -51,11 +79,9 @@
     <div [ngSwitch]="installation.statusId">
       <!-- NEW -->
       <div *ngSwitchCase="1">
-        <ion-card>
-          <div padding>
-            <p>Your request for installation has been received. Same will be assigned to a service engineer soon</p>
-          </div>
-        </ion-card>
+        <div class="notePrimary">
+          Your request for installation has been received. Same will be assigned to a service engineer soon
+        </div>
       </div>
 
       <!--  ASSIGNED SERVICE ENGINNER -->
@@ -84,7 +110,6 @@
             <img [src]="installation.assignedServiceEngineerPicUrl || 'assets/imgs/default_pic.png'">
           </ion-thumbnail>
           <h4>{{installation.assignedServiceEngineerName}}</h4>
-          <!-- <p><ion-icon item-start name="call" color="primary"></ion-icon>1234567890</p> -->
         </ion-item>
 
         <div>
@@ -106,11 +131,11 @@
 
       <!-- INSTALLED -->
       <div *ngSwitchCase="11">
-        <ion-item>
+        <!-- <ion-item>
           <ion-icon item-start name="hammer" color="primary"></ion-icon>
           <ion-label>Installed On: </ion-label>
           <p item-end>{{installation.productInstallationDateTime | date}}</p>
-        </ion-item>
+        </ion-item> -->
         <ion-card>
           <ion-list-header> Engineer Details </ion-list-header>
           <ion-item>
@@ -127,8 +152,6 @@
           </div>
         </ion-card>
       </div>
-
     </div>
-
   </div>
 </ion-content>

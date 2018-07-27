@@ -14,21 +14,19 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-  <ion-list>
-    <ion-item *ngFor="let p of installations;let i=index" (click)="openInstallationDetailPage(i)">
-      <ion-thumbnail item-start>
-        <img [src]="p.registeredProductPicUrl">
-      </ion-thumbnail>
-      <h3>
-        <b>Name: </b>{{p.productName}}</h3>
-        <h3>
-            <b>Model: </b>{{p.productModelNumber}}</h3>
-      <h3>
-        <b>Purchase Date: </b>{{p.productPurchaseDate | date:'mediumDate'}}
-      </h3>
-
-    </ion-item>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-  </ion-list>
+   <ion-grid>
+    <ion-row>
+      <ion-col text-center class="prductDetails" col-6 *ngFor="let p of installations;let i=index" (click)="openInstallationDetailPage(i)">
+        <img [src]="p.registeredProductPicUrl" width="50%;" />
+        <h6 no-margin>{{p.productModelNumber}}</h6>
+        <p no-margin>{{p.productName}}</p>
+         <ion-badge *ngIf="p.productInstallationDateTime">I</ion-badge>
+        <ion-badge *ngIf="p.productInstallationDateTime">{{p.productInstallationDateTime | date:'mediumDate'}}</ion-badge>
+        <ion-badge *ngIf="!p.productInstallationDateTime">Not Installed</ion-badge> 
+      </ion-col>
+    </ion-row>
+  </ion-grid> 
+ 
 
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
