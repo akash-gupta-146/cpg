@@ -90,8 +90,8 @@
 
   <ion-card>
     <ion-list no-lines>
-      <div class="addproduct">
-        <ion-icon name="cube" class="icon" color="primary"></ion-icon>
+      <div class="addproduct centerIcon">
+        <ion-icon name="cube" class="iconSize" color="primary"></ion-icon>
         <div>Product</div>
       </div>
       <div class="purchaseDetail">
@@ -114,8 +114,8 @@
 
   <ion-card class="dealer">
     <ion-list>
-      <div class="addproduct ">
-        <ion-icon name="contact" class="icon" color="primary"></ion-icon>
+      <div class="addproduct centerIcon ">
+        <ion-icon name="contact" class="iconSize" color="primary"></ion-icon>
         <div color="primary">Dealer</div>
       </div>
       <ion-item>
@@ -136,8 +136,8 @@
         <ion-input [(ngModel)]="billNumber"></ion-input>
       </ion-item>
 
-      <div *ngIf="!billPic;else image" (click)="onBillUpload()" class="addproduct uploadBill">
-        <ion-icon name="cloud-upload"></ion-icon>
+      <div *ngIf="!billPic;else image" (click)="onBillUpload()" class="centerIcon uploadBill ">
+        <ion-icon name="cloud-upload" class="iconSize"></ion-icon>
         <br>
         <div>Upload Bill</div>
       </div>

@@ -1,26 +1,18 @@
-
-
-page-product-detail {
+page-product-detail,
+page-installation,
+page-incident {
   .warrantyCard {
-    .warrantyIcon {
-      text-align: center;
-      .timeIcon {
-        font-size: 3em;
-      }
-    }
     .border-right {
       position: relative;
       &:before {
         position: absolute;
         content: '';
-        /* width: 1px; */
         height: 50px;
         border-right: 1px solid $borderColor;
         right: 0;
         top: 50%;
         transform: translatey(-50%);
-      } // border-right: 1px solid $borderColor;
-      // text-align: center;
+      }
     }
     .gridrow {
       ion-row {
@@ -30,7 +22,7 @@ page-product-detail {
         &:before {
           position: absolute;
           content: '';
-          width: 50%; // height: 50px;
+          width: 50%;
           border-bottom: 1px solid $borderColor;
           bottom: 0;
           left: 50%;
@@ -45,21 +37,12 @@ page-product-detail {
     }
   }
   .dealerDetails {
-    .dealerIcon {
-      text-align: center;
-    }
     .dealerName {
       color: color($colors, primary);
     }
     ion-item {
       .item-inner {
         border-bottom: 1px solid $borderColor !important;
-      }
-    }
-    .dealer {
-      text-align: center;
-      .dealerIcon {
-        font-size: 3em;
       }
     }
     .billDetails {
