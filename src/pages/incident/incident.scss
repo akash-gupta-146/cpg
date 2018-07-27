@@ -1,3 +1,31 @@
 page-incident {
+    ion-row{
+        text-align: center;
+    }
+   
+    small {
+        color: color($colors,primary);
+    }
+    .historyfeedback{
+     background: color($colors,primary);
+     color: white;
+     padding: 2px;
+     .history{
+         border-right: 1px solid white;
+     }
+    }
+    .fixed{
+        text-align: center;
+        .fixcolor{
+            color: color($colors,secondary);
+        }
+    }
+
+    .history{
+        width: 100%;
+    }
+    .notFixed{
+        color: color($colors,danger)!important;
+    }
 
 }

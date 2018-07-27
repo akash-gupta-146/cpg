@@ -163,3 +163,23 @@ ion-card{
     margin: auto;
   }
 }
+.notePrimary{
+  border-radius: 8px;
+  background: lighten(color($colors,primary),39);
+  padding: 13px;
+  margin: 10px;
+  color: color($colors,primary);
+  border: 0.5px solid color($colors,primary);
+}
+.centerIcon {
+  text-align: center;
+  color: color($colors,primary);
+
+}
+  .iconSize {
+    font-size: 3em;
+  }
+  .flex-space-between{
+     display: flex;
+     justify-content: space-between;
+  }
