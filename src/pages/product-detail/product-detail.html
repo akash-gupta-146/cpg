@@ -4,6 +4,7 @@
   </ion-navbar>
 </ion-header>
 
+
 <ion-content class="background-color">
   <div *ngIf="product">
     <ion-card class="product-card">
@@ -18,10 +19,10 @@
             {{product.productName}}
             <p>
               <p>
-                <b> Product type</b>:{{product.productType}}
+                <b> Product type : </b >{{product.productType}}
               </p>
               <p>
-                <b>Barcode</b>:{{product.productBarcode}}
+                <b>Barcode : </b>{{product.productBarcode}}
               </p>
 
         </ion-card-title>
@@ -30,6 +31,7 @@
     <ion-card class="warrantyCard">
       <div class="centerIcon ">
         <ion-icon name="time" color="primary" class="iconSize"></ion-icon>
+        <div><b>Important Dates</b></div>
       </div>
       <ion-grid class="gridrow">
         <ion-row>
@@ -53,28 +55,29 @@
       <ion-grid class="warantyRow">
         <ion-row>
           <p col-6 class="border-right">
-            <b>WarantyStart</b>
+            <b>Waranty Start</b>
             <br> {{product.warrentyPeriodStart}}
           </p>
           <p col-6>
-            <b>WarantyEnd</b>
+            <b>Waranty End</b>
             <br> {{product.warrantyPeriodEnd}}
           </p>
         </ion-row>
       </ion-grid>
     </ion-card>
-    <ion-card class="dealerDetails">
-      <div class=" centerIcon">
+
+    <ion-card class="dealerDetails" *ngIf="product.dealerName || product.dealerContact">
+      <div class="centerIcon">
         <ion-icon color="primary" name="md-contacts" class="iconSize"></ion-icon>
         <br>
-        <span class="dealerName">Dealer</span>
+        <span class="dealerName"><b>Dealer</b></span>
       </div>
-      <ion-item>
-        <ion-icon item-start name="person" color="primary"></ion-icon>
+      <ion-item *ngIf="product.dealerName">
+        <ion-icon  item-start name="person" color="primary"></ion-icon>
         <ion-label>Name </ion-label>
         <p item-end>{{product.dealerName}}</p>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="product.dealerContact">
         <ion-icon item-start name="call" color="primary"></ion-icon>
         <ion-label>Phone </ion-label>
         <p item-end>{{product.dealerContact}}</p>
@@ -84,6 +87,7 @@
         <img [src]="product.billPicUrl">
       </div>
     </ion-card>
+
   </div>
   <div *ngIf="product">
 
@@ -92,7 +96,7 @@
       <div class="customerpic">
         <ion-icon name="md-contact" color="primary" *ngIf="!customerPicUrl"></ion-icon>
         <img *ngIf="customerPicUrl" [src]="product.customerPicUrl" />
-        <div color="primary" class="customerName">Customer</div>
+        <div color="primary" class="customerName"><b>Customer</b></div>
       </div>
       <ion-item>
         <ion-icon item-start name="person" color="primary"></ion-icon>
