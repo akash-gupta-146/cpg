@@ -20,7 +20,7 @@
             {{installation.productName}}
             <p>
               <p>
-                <b> Purchase Date</b>{{installation.productPurchaseDate | date:'mediumDate'}}
+                <b> Purchase Date :</b> {{installation.productPurchaseDate | date:'mediumDate'}}
               </p>
         </ion-card-title>
       </ion-card-content>
@@ -29,17 +29,17 @@
         <ion-card *ngSwitchCase="11">
             <div class="centerIcon">
                 <ion-icon  name="hammer" color="primary" class="iconSize"></ion-icon>
-                <div>Installed On </div>
+                <div><b>Installed On </b></div>
                 </div>
-                <div text-center margin>{{installation.productInstallationDateTime | date}}</div>
-                
-            </ion-card>
+                <div text-center margin-bottom>{{installation.productInstallationDateTime | date}}</div> 
+          </ion-card>
 
     </div>
 
     <ion-card class="warrantyCard">
       <div class="centerIcon">
         <ion-icon name="time" color="primary" class="iconSize"></ion-icon>
+         <div><b>Important Dates</b></div>
       </div>
       <ion-grid class="gridrow">
         <ion-row>
@@ -63,11 +63,11 @@
       <ion-grid class="warantyRow">
         <ion-row>
           <p col-6 class="border-right">
-            <b>WarantyStart</b>
+            <b>Waranty Start</b>
             <br> {{installation.productWarrantyStart}}
           </p>
           <p col-6>
-            <b>WarantyEnd</b>
+            <b>Waranty End</b>
             <br> {{installation.productWarrantyEnd}}
           </p>
         </ion-row>
@@ -136,7 +136,7 @@
           <ion-label>Installed On: </ion-label>
           <p item-end>{{installation.productInstallationDateTime | date}}</p>
         </ion-item> -->
-        <ion-card>
+        <!-- <ion-card>
           <ion-list-header> Engineer Details </ion-list-header>
           <ion-item>
             <ion-thumbnail item-start>
@@ -150,7 +150,35 @@
           <div text-center *ngIf="!installation.rating">
             <button ion-button small round (click)="onFeedback()">Feedback</button>
           </div>
+        </ion-card> -->
+        <ion-card class="cusomerDetails">
+
+          <div class="customerpic">
+            <ion-icon name="md-contact" color="primary" *ngIf="!customerPicUrl"></ion-icon>
+            <img *ngIf="assignedServiceEngineerPicUrl" [src]="installation.assignedServiceEngineerPicUrl" />
+            <div color="primary" class="customerName"><b>Engineer Details</b></div>
+          </div>
+          <ion-item>
+            <ion-icon item-start name="person" color="primary"></ion-icon>
+            <small class="primaryColor">Name </small>
+            <div>{{installation.assignedServiceEngineerName}}</div>
+          </ion-item>
+
+          <ion-item>
+            <ion-icon item-start name="call" color="primary"> </ion-icon>
+            <small class="primaryColor">Phone</small>
+            <div>{{installation.assignedServiceEngineerContactNo}}</div>
+          </ion-item>
+          <ion-item>
+            <ion-icon item-start name="md-mail" color="primary"></ion-icon>
+            <small class="primaryColor">Email</small>
+            <div>{{installation.assignedServiceEngineerEmail}}</div>
+          </ion-item>
         </ion-card>
+        <div padding>
+          <button ion-button round (click)="onHistory()" class="history">History</button>
+        </div>
+        
       </div>
     </div>
   </div>
