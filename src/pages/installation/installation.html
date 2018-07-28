@@ -26,20 +26,24 @@
       </ion-card-content>
     </ion-card>
     <div [ngSwitch]="installation.statusId">
-        <ion-card *ngSwitchCase="11">
-            <div class="centerIcon">
-                <ion-icon  name="hammer" color="primary" class="iconSize"></ion-icon>
-                <div><b>Installed On </b></div>
-                </div>
-                <div text-center margin-bottom>{{installation.productInstallationDateTime | date}}</div> 
-          </ion-card>
+      <ion-card *ngSwitchCase="11">
+        <div class="centerIcon">
+          <ion-icon name="hammer" color="primary" class="iconSize"></ion-icon>
+          <div>
+            <b>Installed On </b>
+          </div>
+        </div>
+        <div text-center margin-bottom>{{installation.productInstallationDateTime | date}}</div>
+      </ion-card>
 
     </div>
 
     <ion-card class="warrantyCard">
       <div class="centerIcon">
         <ion-icon name="time" color="primary" class="iconSize"></ion-icon>
-         <div><b>Important Dates</b></div>
+        <div>
+          <b>Important Dates</b>
+        </div>
       </div>
       <ion-grid class="gridrow">
         <ion-row>
@@ -131,32 +135,13 @@
 
       <!-- INSTALLED -->
       <div *ngSwitchCase="11">
-        <!-- <ion-item>
-          <ion-icon item-start name="hammer" color="primary"></ion-icon>
-          <ion-label>Installed On: </ion-label>
-          <p item-end>{{installation.productInstallationDateTime | date}}</p>
-        </ion-item> -->
-        <!-- <ion-card>
-          <ion-list-header> Engineer Details </ion-list-header>
-          <ion-item>
-            <ion-thumbnail item-start>
-              <img [src]="installation.assignedServiceEngineerPicUrl || 'assets/imgs/default_pic.png'">
-            </ion-thumbnail>
-            <h4>{{installation.assignedServiceEngineerName}}</h4>
-          </ion-item>
-          <ion-col col-4>
-            <button ion-button small round (click)="onHistory()">History</button>
-          </ion-col>
-          <div text-center *ngIf="!installation.rating">
-            <button ion-button small round (click)="onFeedback()">Feedback</button>
-          </div>
-        </ion-card> -->
         <ion-card class="cusomerDetails">
-
           <div class="customerpic">
             <ion-icon name="md-contact" color="primary" *ngIf="!customerPicUrl"></ion-icon>
             <img *ngIf="assignedServiceEngineerPicUrl" [src]="installation.assignedServiceEngineerPicUrl" />
-            <div color="primary" class="customerName"><b>Engineer Details</b></div>
+            <div color="primary" class="customerName">
+              <b>Engineer Details</b>
+            </div>
           </div>
           <ion-item>
             <ion-icon item-start name="person" color="primary"></ion-icon>
@@ -178,7 +163,6 @@
         <div padding>
           <button ion-button round (click)="onHistory()" class="history">History</button>
         </div>
-        
       </div>
     </div>
   </div>
