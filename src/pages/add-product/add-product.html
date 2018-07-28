@@ -49,13 +49,13 @@
           </h4>
 
           <p>
-            <b>Category</b>{{selectedProduct.categoryName}}
+            <b>Category : </b>{{selectedProduct.categoryName}}
           </p>
           <p>
-            <b>Name</b>{{selectedProduct.name}}
+            <b>Name : </b>{{selectedProduct.name}}
           </p>
           <p>
-            <b>Type</b>{{selectedProduct.typeName}}
+            <b>Type : </b>{{selectedProduct.typeName}}
           </p>
         </ion-card-title>
       </ion-card-content>
@@ -92,7 +92,7 @@
     <ion-list no-lines>
       <div class="addproduct centerIcon">
         <ion-icon name="cube" class="iconSize" color="primary"></ion-icon>
-        <div>Product</div>
+        <div><b>Product</b></div>
       </div>
       <div class="purchaseDetail">
         <ion-item>
@@ -116,7 +116,7 @@
     <ion-list>
       <div class="addproduct centerIcon ">
         <ion-icon name="contact" class="iconSize" color="primary"></ion-icon>
-        <div color="primary">Dealer</div>
+        <div color="primary"><b>Dealer</b></div>
       </div>
       <ion-item>
         <ion-icon item-start name="md-person" color="primary"></ion-icon>
@@ -139,9 +139,9 @@
       <div *ngIf="!billPic;else image" (click)="onBillUpload()" class="centerIcon uploadBill ">
         <ion-icon name="cloud-upload" class="iconSize"></ion-icon>
         <br>
-        <div>Upload Bill</div>
+        <div><b>Upload Bill</b></div>
       </div>
-      <ion-spinner name="bubbles" *ngIf="showSpinner"></ion-spinner>
+      <ion-spinner name="bubbles" *ngIf="showSpinner" text-center color="primary"></ion-spinner>
 
       <ng-template #image *ngIf="billPic">
         <ion-card>
