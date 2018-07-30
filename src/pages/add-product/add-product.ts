@@ -338,7 +338,7 @@ export class AddProductPage {
         this.getProductIdUsingBarcode(barcodeData.text);  // REMOVE LATER
       }).catch(err => {
         this.customService.showToast('Error occured in scanning barcode');
-        this.getProductIdUsingBarcode('5');  // REMOVE LATE
+        // this.getProductIdUsingBarcode('5');  // REMOVE LATERy
       });
   }
 
