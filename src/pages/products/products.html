@@ -12,8 +12,8 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row>
-      <ion-col text-center class="prductDetails" col-6 *ngFor="let p of products; let i=index" (click)="openProductDetailPage(i)">
+    <ion-row >
+      <ion-col text-center class="prductDetails activeItem" col-6 *ngFor="let p of products; let i=index" (click)="openProductDetailPage(i)">
         <img [src]="p.productPicUrl" width="50%;" />
         <h6 no-margin>{{p.productBrand}}</h6>
         <p no-margin>{{p.productName}}</p>
