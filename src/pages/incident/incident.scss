@@ -1,31 +1,30 @@
 page-incident {
-    ion-row{
-        text-align: center;
+  ion-row {
+    text-align: center;
+  }
+  .historyfeedback {
+    color: white;
+    padding: 2px;
+    .history {
+      border-right: 1px solid white;
     }
-   
-    small {
-        color: color($colors,primary);
+  }
+  .fixed {
+    text-align: center;
+    .fixcolor {
+      color: color($colors, secondary);
     }
-    .historyfeedback{
-     background: color($colors,primary);
-     color: white;
-     padding: 2px;
-     .history{
-         border-right: 1px solid white;
-     }
+    .fixDate {
+      margin-top: 4px;
     }
-    .fixed{
-        text-align: center;
-        .fixcolor{
-            color: color($colors,secondary);
-        }
-    }
-
-    .history{
-        width: 100%;
-    }
-    .notFixed{
-        color: color($colors,danger)!important;
-    }
-
+  }
+  .history {
+    width: 100%;
+  }
+  .notFixed {
+    color: color($colors, danger) !important;
+  }
+  .discription {
+    white-space: pre-line;
+  }
 }
