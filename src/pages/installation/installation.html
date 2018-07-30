@@ -149,12 +149,12 @@
             <div>{{installation.assignedServiceEngineerName}}</div>
           </ion-item>
 
-          <ion-item>
+          <ion-item *ngIf="installation.assignedServiceEngineerContactNo">
             <ion-icon item-start name="call" color="primary"> </ion-icon>
             <small class="primaryColor">Phone</small>
             <div>{{installation.assignedServiceEngineerContactNo}}</div>
           </ion-item>
-          <ion-item>
+          <ion-item *ngIf="installation.assignedServiceEngineerEmail">
             <ion-icon item-start name="md-mail" color="primary"></ion-icon>
             <small class="primaryColor">Email</small>
             <div>{{installation.assignedServiceEngineerEmail}}</div>
