@@ -24,7 +24,9 @@
               <p>
                 <b>Barcode : </b>{{product.productBarcode}}
               </p>
-
+              <div padding-top>
+                  <button ion-button round small full (click)="openReportIncidentPage()">Report Incident</button>
+                </div>
         </ion-card-title>
       </ion-card-content>
     </ion-card>
@@ -116,7 +118,7 @@
       </ion-item>
     </ion-card>
   </div>
-  <div padding>
+  <!-- <div padding>
     <button ion-button block (click)="openReportIncidentPage()">Report Incident</button>
-  </div>
+  </div> -->
 </ion-content>

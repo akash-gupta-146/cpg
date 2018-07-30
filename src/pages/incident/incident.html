@@ -26,7 +26,7 @@
       <div [ngSwitch]="incident.statusId">
         <div *ngSwitchCase="4" padding-left padding-right padding-bottom>
           <button ion-button small full (click)="onChangePriority()" round [style.background]="incident.statusColor">
-            Increase Priority </button>
+            Escalate </button>
         </div>
       </div>
     </ion-card>
@@ -49,9 +49,9 @@
       <ion-card *ngSwitchCase="4">
         <div class="centerIcon">
           <ion-icon name="alarm" [style.color]="incident.statusColor" class="iconSize"></ion-icon>
-          <div [style.color]="incident.statusColor">Scheduled</div>
+          <div [style.color]="incident.statusColor" >Scheduled</div>
         </div>
-        <div>{{incident.lastScheduleDate | date:'short'}}</div>
+        <div margin-bottom>{{incident.lastScheduleDate | date:'short'}}</div>
       </ion-card>
     </div>
 
