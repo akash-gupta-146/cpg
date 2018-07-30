@@ -1,27 +1,48 @@
 page-history {
-  .history {
-    text-align: center;
-    background: color($colors, primary);
-    margin-top: -15px;
-    padding-bottom: 8px;
-    .toolbar-title {
-      color: color($colors, light) !important;
+
+
+  .timeline{
+    padding:5px;
+    margin-bottom:25px;
+    .history{
+      .status{
+        padding:1px 5px;
+        border-radius:25px;
+        background:yellow;
+        display:-webkit-inline-box;
+      }
+      .comment{
+        border-left:2px solid color($colors,primary);
+        padding:20px 0 20px 5px;
+        margin-left:20px;
+        p{
+          margin:0px;
+        }
+        .date{
+          color: slategray;
+    font-weight: 500;
+    font-size: 12px;
+        }
+        position:relative;
+      }
+      &:last-child{
+        &:after{
+          position:absolute;
+          content:'';
+          width:15px;
+          height:15px;
+          border-radius:50%;
+          background:color($colors,primary);
+          left: 19px;
+        } 
+      }
     }
-    ion-title {
-      margin-top: -35px;
-    }
   }
-  img {
-    width: 50%;
-    position: relative;
-    top: -35px;
-  }
-  .discription {
-    white-space: pre-line;
-    color: black !important;
-  }
-  .date {
-    color: gray !important;
-    font-size: 14px;
-  }
+}
+
+.pageImg{
+  padding:5px;
+  width:40%;
+  display:block;
+  margin:auto;
 }
