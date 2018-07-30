@@ -183,3 +183,8 @@ ion-card{
      display: flex;
      justify-content: space-between;
   }
+  .activeItem:active{
+    background: #ececec;
+    transition: 0.2s;
+
+}

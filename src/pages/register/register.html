@@ -16,14 +16,14 @@
 
   <div class="bakgroundContent">
     <div>
-      <ion-buttons start>
-        <button ion-button color="light" clear (click)="dismiss()">
-          <span>
+      
+        <div  color="light" clear (click)="dismiss()" text-right padding>
+          <span >
             <ion-icon name="close" class="closeIcon"></ion-icon>
           </span>
-        </button>
-      </ion-buttons>
-      <ion-title style="text-align: center;" class="registerTitlle">Register</ion-title>
+        </div>
+      
+      <ion-title style="text-align: center;" class="registerTitlle"><b>Register</b></ion-title>
     </div>
 
     <ion-list>
@@ -41,7 +41,7 @@
         <ion-item class="regiterFiled">
           <ion-icon name="call" color="primary" item-left class="registerIcon"></ion-icon>
           <ion-label floating>Contact No.</ion-label>
-          <ion-input type="number" [class.invalid]="(contactNo.dirty || submitAttempt) && !contactNo.valid" formControlName="contactNo"></ion-input>
+          <ion-input class="placeholderColor" type="number" [class.invalid]="(contactNo.dirty || submitAttempt) && !contactNo.valid" formControlName="contactNo"></ion-input>
         </ion-item>
         <div no-lines *ngIf="(contactNo.dirty || submitAttempt) && !contactNo.valid" class="contactValidform">
           <span>Please enter a valid Contact No.</span>
@@ -85,9 +85,9 @@
 
         <div *ngIf="addresses" formArrayName="addresses">
           <ion-card *ngFor="let address of addresses.controls;let i=index" class="addressform">
-            <button ion-button clear right icon-only (click)="removeAddress()">
+            <div (click)="removeAddress()" text-right padding>
               <ion-icon name="close" class="registerIcon"></ion-icon>
-            </button>
+            </div>
             <div [formGroupName]="i">
               <ion-list>
                 <ion-list-header padding-left:9px class="addressFiled addresBorder ">Address {{i+1}}</ion-list-header>

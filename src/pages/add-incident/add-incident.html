@@ -54,12 +54,13 @@
       <div>Add Image</div>
     </div>
 
-    <ion-spinner name="bubbles" class="center-block" color="primary" *ngIf="showSpinner" ></ion-spinner>
+    <ion-spinner name="bubbles" class="center-block" color="primary" *ngIf="showSpinner"></ion-spinner>
 
     <ng-template #image>
       <ion-card>
         <img [src]="img">
-        <button type="button" ion-button full (click)="onRemoveImage()" icon start><ion-icon name="md-trash"></ion-icon>Remove Image</button>
+        <button type="button" ion-button full (click)="onRemoveImage()" icon start>
+          <ion-icon name="md-trash"></ion-icon>Remove Image</button>
       </ion-card>
     </ng-template>
 
@@ -69,7 +70,9 @@
           <!-- <ion-list-header>Select Address</ion-list-header> -->
           <div class="centerIcon ">
             <ion-icon name="home" class="iconSize"></ion-icon>
-            <div><b>Select Address</b></div>
+            <div>
+              <b>Select Address</b>
+            </div>
           </div>
           <ion-row *ngFor="let addr of addresses" (tap)="selectedAddress=addr">
             <ion-col col-10 text-wrap padding>
