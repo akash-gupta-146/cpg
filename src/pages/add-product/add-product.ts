@@ -301,7 +301,7 @@ export class AddProductPage {
       .catch((err: any) => {
         console.log('inside finally submit catch');
         this.customService.hideLoader();
-        alert(JSON.stringify(err));
+        // alert(JSON.stringify(err));
 
         try {
           let error = JSON.parse(err.body);

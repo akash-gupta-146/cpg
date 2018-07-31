@@ -1,15 +1,12 @@
 <ion-menu [content]="myContent">
-    <!-- <ion-header tappable (tap)="openPage()" menuClose>
-        <div>
-            <img [src]="userImage || defaultUserImage" class="center-block" width="100px" height="100px" margin-top>
-            <h2 text-center>{{userName | titlecase}}</h2>
-        </div>
-    </ion-header> -->
     <ion-content class="sidebar">
      <div class="bgcolorDiv">
         
         <ion-list class="sideMenu" >
-            <div class="sideImage"><img src="assets/imgs/avatar.png" class="sideBarAvatar"></div>
+            <div class="sideImage"  (tap)="openAccountPage()">
+                <img [src]="userImage || 'assets/imgs/avatar.png'" class="sideBarAvatar">
+                    <h4>{{userName}}</h4>
+            </div>
             <button   class="sidebarContent" ion-item *ngFor="let option of sideMenuOptions" (click)="openPage(option)" [ngClass]="{'activePage': activePage == option.component}">
                 <ion-icon  [name]="option.icon"  item-left></ion-icon>{{option.title}}
             </button>

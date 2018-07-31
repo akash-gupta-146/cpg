@@ -30,7 +30,7 @@ import { InstallationService } from '../providers/installation.service';
       preloadModules: true
     }),
     HttpClientModule,
-
+    ionicGalleryModal.GalleryModalModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
