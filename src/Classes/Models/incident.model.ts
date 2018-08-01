@@ -6,7 +6,10 @@ export interface Incident {
     assignedEmployeePicUrl: string;
     assignedServiceEngineerId:number;
     assignedServiceEngineerName: string;
+    assignedServiceEngineerNickName: string;
     assignedServiceEngineerPicUrl: string;
+    assignedServiceEngineerContactNo:string | number;
+    assignedServiceEngineerEmail:string;
     billNumber: string;
     closedOn:string;
     createdAt: string;

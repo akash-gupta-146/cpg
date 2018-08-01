@@ -14,7 +14,6 @@ export class MyApp extends UserSessionManage {
   // rootPage:any = "LoginPage";
 
   @ViewChild(Nav) nav: Nav;
-  activePage: any;
   // defaultUserImage: string = "assets/imgs/user.png";
 
   constructor(
@@ -62,5 +61,11 @@ export class MyApp extends UserSessionManage {
     this.nav.setRoot(page.component);
 
   }
+
+  openAccountPage() {
+    this.menu.close();
+    this.nav.setRoot('AccountPage');
+  }
+
 }
 

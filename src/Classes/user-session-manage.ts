@@ -13,6 +13,8 @@ export class UserSessionManage {
     sideMenuOptions: Array<any>;
     userImage: string;
     userName: string;
+    activePage: any;
+
 
     constructor(
         public events: Events,
@@ -55,13 +57,16 @@ export class UserSessionManage {
         if (this.authService.isLoggedIn()) {
             this.authService.fetchUserDetails()
                 .subscribe((res) => {
-                    // no need to do any thing as userdetails would have been saved in service
                     this.rootPage = "HomePage";
+                    this.activePage = "HomePage";
                     this.decideSideMenuContent();
                     this.menu.enable(true);
+                    this.imageUpdate();
                     // this.enablePushNotifications();
                 }, (err: any) => {
-                    this.customService.showToast('Some error occured, Please Reopen the App or Logout');
+                    // open the login page again if some error occurs
+                    localStorage.clear();
+                    this.appCtrl.getRootNavs()[0].setRoot("LoginPage",{},{animate:true,direction:'forward'});
                 });
 
         } else {
@@ -73,9 +78,10 @@ export class UserSessionManage {
         // this.setRootPage();
         this.appCtrl.getRootNavs()[0].setRoot("HomePage",{},{animate:true,direction:'forward'});
         this.decideSideMenuContent();
+        this.activePage = "HomePage";
         this.menu.enable(true);
+        this.imageUpdate();
         // this.enablePushNotifications();
-        // this.imageUpdate();
     }
 
     // enablePushNotifications() {
@@ -99,7 +105,7 @@ export class UserSessionManage {
     public imageUpdate() {
 
         this.userImage = JSON.parse(localStorage.getItem('userInfo')).picUrl;
-        this.userName = JSON.parse(localStorage.getItem('userInfo')).username || '';
+        this.userName = JSON.parse(localStorage.getItem('userInfo')).name || '';
     }
 
     public logout() {

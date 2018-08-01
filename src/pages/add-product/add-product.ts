@@ -235,7 +235,7 @@ export class AddProductPage {
   onRemoveImage() { this.billPic = null; }
 
   onProductAdd(addressForm: any) {
-    console.log(addressForm);
+    // console.log(addressForm);
     
     //validations
     if (!this.selectedProduct) { this.customService.showToast('Please enter product details'); return; }
@@ -301,7 +301,7 @@ export class AddProductPage {
       .catch((err: any) => {
         console.log('inside finally submit catch');
         this.customService.hideLoader();
-        alert(JSON.stringify(err));
+        // alert(JSON.stringify(err));
 
         try {
           let error = JSON.parse(err.body);
@@ -338,7 +338,7 @@ export class AddProductPage {
         this.getProductIdUsingBarcode(barcodeData.text);  // REMOVE LATER
       }).catch(err => {
         this.customService.showToast('Error occured in scanning barcode');
-        this.getProductIdUsingBarcode('5');  // REMOVE LATE
+        // this.getProductIdUsingBarcode('5');  // REMOVE LATERy
       });
   }
 

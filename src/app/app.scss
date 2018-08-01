@@ -25,7 +25,7 @@
 .sidebar{
     background-size: cover;
     background-position: right;
-    background-image: url("/assets/imgs/loginImage.jpg");
+    background-image: url("../assets/imgs/loginImage.jpg");
 }
 .sidebarContent{
     padding-right: px;
@@ -49,6 +49,8 @@
 .sideImage{
     margin-bottom: 30px;
     text-align: center;
+    width: 50%;
+    margin: auto;
 }
 .sidebarContent:last-child{
     border-bottom: 0px !important;
