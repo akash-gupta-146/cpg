@@ -1,18 +1,17 @@
-
 <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>
-          Register Product
-      </ion-title>
-      <ion-buttons start>
-        <button ion-button (click)="dismiss()">
-          <span ion-text  showWhen="ios">Cancel</span>
-          <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
-        </button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
+  <ion-toolbar color="primary">
+    <ion-title>
+      Register Product
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 
 <ion-content class="background-color">
 
@@ -92,7 +91,9 @@
     <ion-list no-lines>
       <div class="addproduct centerIcon">
         <ion-icon name="cube" class="iconSize" color="primary"></ion-icon>
-        <div><b>Product</b></div>
+        <div>
+          <b>Product</b>
+        </div>
       </div>
       <div class="purchaseDetail">
         <ion-item>
@@ -116,7 +117,9 @@
     <ion-list>
       <div class="addproduct centerIcon ">
         <ion-icon name="contact" class="iconSize" color="primary"></ion-icon>
-        <div color="primary"><b>Dealer</b></div>
+        <div color="primary">
+          <b>Dealer</b>
+        </div>
       </div>
       <ion-item>
         <ion-icon item-start name="md-person" color="primary"></ion-icon>
@@ -139,7 +142,9 @@
       <div *ngIf="!billPic;else image" (click)="onBillUpload()" class="centerIcon uploadBill ">
         <ion-icon name="cloud-upload" class="iconSize"></ion-icon>
         <br>
-        <div><b>Upload Bill</b></div>
+        <div>
+          <b>Upload Bill</b>
+        </div>
       </div>
       <ion-spinner name="bubbles" *ngIf="showSpinner" text-center color="primary"></ion-spinner>
 
@@ -152,7 +157,85 @@
     </ion-list>
   </ion-card>
 
-  <div padding>
+  <ion-card>
+    <ion-item>
+      <ion-label>Request Installation </ion-label>
+      <ion-toggle [(ngModel)]="installationRequest"></ion-toggle>
+    </ion-item>
+    <p style="font-size: small" *ngIf="installationRequest"> Your request for installation will be forwarded. Please make sure you have provided your address .</p>
+  </ion-card>
+
+  <ion-item *ngIf="installationRequest">
+    <ion-label stacked>Comment (optional)</ion-label>
+    <ion-input placeholder="Write any comment regarding installation" [(ngModel)]="installationComment"></ion-input>
+  </ion-item>
+
+  <!-- /////////// -->
+  <ion-card *ngIf="installationRequest">
+    <div *ngIf="addresses.length">
+      <ion-list radio-group [(ngModel)]="selectedAddress" name="address" required>
+        <ion-list-header>Select Address</ion-list-header>
+        <ion-row *ngFor="let addr of addresses" (tap)="selectedAddress=addr">
+
+          <ion-col col-10 text-wrap padding>
+            <h5 style="font-weight: bold">{{addr.addressType}}</h5>
+            <p>{{addr.address}}, {{addr.postalCode}}</p>
+            <p>{{addr.city}}, {{addr.state}}, {{addr.country}}</p>
+            <div *ngIf="addr.phone">
+              <ion-icon name="call" float-left></ion-icon>
+              {{addr.phone}}
+            </div>
+          </ion-col>
+          <ion-col col-2>
+            <ion-radio style="top:50%;left: 50%;transform: translate(-50%,-50%)" [value]="addr"></ion-radio>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+      <button ion-button full (click)="onProductAdd()">Register</button>
+
+    </div>
+
+    <div *ngIf="!addresses.length">
+
+      <form #addressForm="ngForm" novalidate>
+        <ion-list>
+          <ion-list-header>Address (Fill all fields)</ion-list-header>
+          <ion-item>
+            <ion-label>Type</ion-label>
+            <ion-select interface="popover" [(ngModel)]="selectedAddress.addressType" name="addressType" required>
+              <ion-option *ngFor="let type of addressTypes" [value]="type">
+                {{type}}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="Address" [(ngModel)]="selectedAddress.address" name="address" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="City" [(ngModel)]="selectedAddress.city" name="city" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="State" [(ngModel)]="selectedAddress.state" name="state" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="Country" [(ngModel)]="selectedAddress.country" name="country" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="number" placeholder="Postal Code" [(ngModel)]="selectedAddress.postalCode" name="postalCode" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="tel" placeholder="Phone" [(ngModel)]="selectedAddress.phone" name="phone"></ion-input>
+          </ion-item>
+        </ion-list>
+      </form>
+
+
+
+      <button ion-button full (click)="onProductAdd(addressForm)">Register</button>
+    </div>
+  </ion-card>
+  <!-- //////////// -->
+  <div padding *ngIf="!installationRequest">
     <button ion-button full (click)="onProductAdd()" round>Register</button>
   </div>
 </ion-content>

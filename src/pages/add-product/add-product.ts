@@ -235,7 +235,7 @@ export class AddProductPage {
   onRemoveImage() { this.billPic = null; }
 
   onProductAdd(addressForm: any) {
-    console.log(addressForm);
+    // console.log(addressForm);
     
     //validations
     if (!this.selectedProduct) { this.customService.showToast('Please enter product details'); return; }
