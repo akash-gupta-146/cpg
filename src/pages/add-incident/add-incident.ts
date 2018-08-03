@@ -141,7 +141,7 @@ product:any=null; // product detail when navigated via product-detail page
   postWithImg() {
 
     let payLoad: any = {
-      title: this.title,
+      // title: this.title,
       description: this.description,
       againstCategoryId: this.selectedCategory.id,
       productRegistrationId: this.selectedProduct.id
@@ -180,7 +180,7 @@ product:any=null; // product detail when navigated via product-detail page
   postWithoutImg() {
     // prepare payload
     const fd: FormData = new FormData();
-    fd.append('title', this.title);
+    // fd.append('title', this.title);
     fd.append('description', this.description);
     fd.append('againstCategoryId', this.selectedCategory.id);
     fd.append('productRegistrationId', this.selectedProduct.id);

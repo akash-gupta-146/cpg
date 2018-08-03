@@ -42,7 +42,10 @@ export interface Installation {
     statusColor: string;
     assignedServiceEngineerId: number;
     assignedServiceEngineerName: string;
+    assignedServiceEngineerNickName:string;
     assignedServiceEngineerPicUrl: string;
+    assignedServiceEngineerContactNo:string | number;
+    assignedServiceEngineerEmail:string ;
     billNumber: string;
     createdAt: string;
     customerContactNo: string;

@@ -28,7 +28,7 @@ export class HistoryPage {
 
   openImage(historyItem: any) {
     const photos = [{
-      url: historyItem.picUrl
+      url: historyItem.fileUrl
     }];
 
 

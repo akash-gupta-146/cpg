@@ -13,7 +13,6 @@ import { NetworkService } from '../providers/network.service';
 import { Network } from '@ionic-native/network';
 import { ProductService } from '../providers/product.service';
 import { IncidentService } from '../providers/incidents.service';
-import { EngineerIncidentService } from '../providers/engineer.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
@@ -31,7 +30,7 @@ import { InstallationService } from '../providers/installation.service';
       preloadModules: true
     }),
     HttpClientModule,
-
+    ionicGalleryModal.GalleryModalModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -49,7 +48,6 @@ import { InstallationService } from '../providers/installation.service';
     ProductService,
     IncidentService,
     InstallationService,
-    EngineerIncidentService,
     BarcodeScanner,
     Camera,
     FileTransfer,

@@ -21,9 +21,9 @@
         <img [src]="p.registeredProductPicUrl" width="50%;" />
         <h6 no-margin>{{p.productModelNumber}}</h6>
         <p no-margin>{{p.productName}}</p>
-         <ion-badge *ngIf="p.productInstallationDateTime">I</ion-badge>
-        <ion-badge *ngIf="p.productInstallationDateTime">{{p.productInstallationDateTime | date:'mediumDate'}}</ion-badge>
-        <ion-badge *ngIf="!p.productInstallationDateTime">Not Installed</ion-badge> 
+         <ion-badge *ngIf="p.statusId==11">I</ion-badge>
+        <ion-badge *ngIf="p.statusId==11">{{p.productInstallationDateTime | date:'mediumDate'}}</ion-badge>
+        <ion-badge *ngIf="p.statusId!=11">{{p.statusName}}</ion-badge> 
       </ion-col>
     </ion-row>
   </ion-grid> 

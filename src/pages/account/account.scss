@@ -1,0 +1,17 @@
+page-account {
+    .accountImage{
+        position: relative;
+        display: -webkit-inline-box;
+    }
+    .updateImage{
+        background: white;
+    bottom: 0;
+    position: absolute;
+    right: -7px;
+    border-radius: 50%;
+    height: 47px;
+    ion-icon{
+      font-size: 2.2em
+    }
+    }
+}

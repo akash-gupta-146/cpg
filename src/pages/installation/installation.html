@@ -64,18 +64,11 @@
           </p>
         </ion-row>
       </ion-grid>
-      <ion-grid class="warantyRow">
-        <ion-row>
-          <p col-6 class="border-right">
-            <b>Waranty Start</b>
-            <br> {{installation.productWarrantyStart}}
-          </p>
-          <p col-6>
-            <b>Waranty End</b>
-            <br> {{installation.productWarrantyEnd}}
-          </p>
-        </ion-row>
-      </ion-grid>
+      <ion-item>
+        <ion-icon item-start name="checkmark-circle" color="primary"></ion-icon>
+        <ion-label>Warranty : </ion-label>
+        <ion-label item-end style="font-size: small">{{giveWarranty(installation.productWarrantyEnd)}}</ion-label>
+      </ion-item>
     </ion-card>
 
 
@@ -137,8 +130,8 @@
       <div *ngSwitchCase="11">
         <ion-card class="cusomerDetails">
           <div class="customerpic">
-            <ion-icon name="md-contact" color="primary" *ngIf="!assignedServiceEngineerPicUrl"></ion-icon>
-            <img *ngIf="assignedServiceEngineerPicUrl" [src]="installation.assignedServiceEngineerPicUrl" />
+            <!-- <ion-icon name="md-contact" color="primary" *ngIf="!customerPicUrl"></ion-icon> -->
+            <img [src]="installation.assignedServiceEngineerPicUrl || 'assets/imgs/default_pic.png'" />
             <div color="primary" class="customerName">
               <b>Engineer Details</b>
             </div>
