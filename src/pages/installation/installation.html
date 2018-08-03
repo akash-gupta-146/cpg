@@ -50,8 +50,8 @@
           <p col-4 class="border-right">
             <b>Installation</b>
             <br>
-            <span *ngIf="installation.installationDateTime"> {{installation.installationDateTime | date:'mediumDate'}}</span>
-            <span *ngIf="!installation.installationDateTime"> Not Installed</span>
+            <span *ngIf="installation.productInstallationDateTime"> {{installation.productInstallationDateTime | date:'mediumDate'}}</span>
+            <span *ngIf="!installation.productInstallationDateTime"> Not Installed</span>
           </p>
 
           <p col-4 class="border-right">
@@ -137,7 +137,7 @@
       <div *ngSwitchCase="11">
         <ion-card class="cusomerDetails">
           <div class="customerpic">
-            <ion-icon name="md-contact" color="primary" *ngIf="!customerPicUrl"></ion-icon>
+            <ion-icon name="md-contact" color="primary" *ngIf="!assignedServiceEngineerPicUrl"></ion-icon>
             <img *ngIf="assignedServiceEngineerPicUrl" [src]="installation.assignedServiceEngineerPicUrl" />
             <div color="primary" class="customerName">
               <b>Engineer Details</b>

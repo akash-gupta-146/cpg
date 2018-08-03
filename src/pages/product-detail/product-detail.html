@@ -97,7 +97,7 @@
 
       <div class="customerpic">
         <ion-icon name="md-contact" color="primary" *ngIf="!customerPicUrl"></ion-icon>
-        <img *ngIf="customerPicUrl" [src]="product.customerPicUrl" />
+        <img  [src]="product.customerPicUrl" />
         <div color="primary" class="customerName"><b>Customer</b></div>
       </div>
       <ion-item>
@@ -105,7 +105,6 @@
         <small class="primaryColor">Name </small>
         <div>{{product.customerName}}</div>
       </ion-item>
-
       <ion-item>
         <ion-icon item-start name="call" color="primary"> </ion-icon>
         <small class="primaryColor">Phone</small>
@@ -116,6 +115,7 @@
         <small class="primaryColor">Email</small>
         <div>{{product.customerEmail}}</div>
       </ion-item>
+      
     </ion-card>
   </div>
   <!-- <div padding>

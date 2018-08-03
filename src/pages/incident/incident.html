@@ -121,7 +121,7 @@
         <ion-card class="cusomerDetails">
 
           <div class="customerpic">
-            <ion-icon name="md-contact" [style.color]="incident.statusColor" *ngIf="!customerPicUrl"></ion-icon>
+            <ion-icon name="md-contact" [style.color]="incident.statusColor" *ngIf="!assignedServiceEngineerPicUrl"></ion-icon>
             <img *ngIf="assignedServiceEngineerPicUrl" [src]="incident.assignedServiceEngineerPicUrl" />
             <div [style.color]="incident.statusColor" class="customerName">
               <b>Engineer Details</b>
@@ -211,7 +211,7 @@
 
         <ion-card class="cusomerDetails">
           <div class="customerpic">
-            <ion-icon name="md-contact" [style.color]="incident.statusColor" *ngIf="!customerPicUrl"></ion-icon>
+            <ion-icon name="md-contact" [style.color]="incident.statusColor" *ngIf="!assignedServiceEngineerPicUrl"></ion-icon>
             <img *ngIf="assignedServiceEngineerPicUrl" [src]="incident.assignedServiceEngineerPicUrl" />
             <div [style.color]="incident.statusColor" class="customerName">
               <b>Engineer Details</b>
