@@ -38,4 +38,11 @@ page-add-product {
   .star {
     color: color($colors, danger);
   }
+  .comment{
+    ion-input{
+      border-bottom: 1px solid $borderColor;
+    }
+  }
+  
+
 }

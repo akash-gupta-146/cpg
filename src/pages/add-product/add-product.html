@@ -162,19 +162,24 @@
       <ion-label>Request Installation </ion-label>
       <ion-toggle [(ngModel)]="installationRequest"></ion-toggle>
     </ion-item>
-    <p style="font-size: small" *ngIf="installationRequest"> Your request for installation will be forwarded. Please make sure you have provided your address .</p>
   </ion-card>
+  <p class="notePrimary" *ngIf="installationRequest"> Your request for installation will be forwarded. Please make sure you have provided your address .</p>
 
-  <ion-item *ngIf="installationRequest">
-    <ion-label stacked>Comment (optional)</ion-label>
+  <ion-card *ngIf="installationRequest" padding class="comment">
+    <ion-label stacked color="primary">Comment (optional)</ion-label>
     <ion-input placeholder="Write any comment regarding installation" [(ngModel)]="installationComment"></ion-input>
-  </ion-item>
+  </ion-card>
 
   <!-- /////////// -->
   <ion-card *ngIf="installationRequest">
     <div *ngIf="addresses.length">
       <ion-list radio-group [(ngModel)]="selectedAddress" name="address" required>
-        <ion-list-header>Select Address</ion-list-header>
+        <div class="centerIcon ">
+          <ion-icon name="home" class="iconSize"></ion-icon>
+          <div>
+            <b>Select Address</b>
+          </div>
+         </div>
         <ion-row *ngFor="let addr of addresses" (tap)="selectedAddress=addr">
 
           <ion-col col-10 text-wrap padding>
@@ -191,7 +196,7 @@
           </ion-col>
         </ion-row>
       </ion-list>
-      <button ion-button full (click)="onProductAdd()">Register</button>
+      <!-- <button ion-button full (click)="onProductAdd()">Registers</button> -->
 
     </div>
 
@@ -228,14 +233,15 @@
           </ion-item>
         </ion-list>
       </form>
-
-
-
       <button ion-button full (click)="onProductAdd(addressForm)">Register</button>
     </div>
   </ion-card>
+  <div>
+    
+  </div>
+  
   <!-- //////////// -->
-  <div padding *ngIf="!installationRequest">
+  <div padding >
     <button ion-button full (click)="onProductAdd()" round>Register</button>
   </div>
 </ion-content>
