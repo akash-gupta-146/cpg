@@ -6,15 +6,21 @@ page-register {
       position: absolute; // overflow: scroll;
       width: 100%;
       height: fit-content;
-      background-color: rgba(0, 0, 0, 0.38);
+      // 
     }
     ion-item{
     ion-input{
         font-weight: 400;
         border-bottom: 1px solid $borderColor;
-
+// background-color: rgba(0, 0, 0, 0.38);
   }
   
+}
+.registerBackgorund{
+  background: rgba(0, 0, 0, 0.73);
+}
+ion-item:last-child {
+  border-bottom: 0!important;
 }
   }
 }

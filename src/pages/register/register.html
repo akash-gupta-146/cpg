@@ -28,7 +28,7 @@
 
     <ion-list>
       <form [formGroup]="registerForm" novalidate>
-
+   <ion-card class="registerBackgorund">
         <ion-item class="regiterFiled">
           <ion-icon name="person" color="primary" item-left class="registerIcon"></ion-icon>
           <ion-label floating>Name</ion-label>
@@ -79,7 +79,7 @@
         <div no-lines *ngIf="(email.dirty || submitAttempt) && !email.valid" class="contactValidform">
           <span>Please enter a valid email.</span>
         </div>
-
+      </ion-card>
 
 
 
