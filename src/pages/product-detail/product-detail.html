@@ -19,21 +19,23 @@
             {{product.productName}}
             <p>
               <p>
-                <b> Product type : </b >{{product.productType}}
+                <b> Product type : </b>{{product.productType}}
               </p>
               <p>
                 <b>Barcode : </b>{{product.productBarcode}}
               </p>
               <div padding-top>
-                  <button ion-button round small full (click)="openReportIncidentPage()">Report Incident</button>
-                </div>
+                <button ion-button round small full (click)="openReportIncidentPage()">Report Incident</button>
+              </div>
         </ion-card-title>
       </ion-card-content>
     </ion-card>
     <ion-card class="warrantyCard">
       <div class="centerIcon ">
         <ion-icon name="time" color="primary" class="iconSize"></ion-icon>
-        <div><b>Important Dates</b></div>
+        <div>
+          <b>Important Dates</b>
+        </div>
       </div>
       <ion-grid class="gridrow">
         <ion-row>
@@ -72,10 +74,12 @@
       <div class="centerIcon">
         <ion-icon color="primary" name="md-contacts" class="iconSize"></ion-icon>
         <br>
-        <span class="dealerName"><b>Dealer</b></span>
+        <span class="dealerName">
+          <b>Dealer</b>
+        </span>
       </div>
       <ion-item *ngIf="product.dealerName">
-        <ion-icon  item-start name="person" color="primary"></ion-icon>
+        <ion-icon item-start name="person" color="primary"></ion-icon>
         <ion-label>Name </ion-label>
         <p item-end>{{product.dealerName}}</p>
       </ion-item>
@@ -96,9 +100,11 @@
     <ion-card class="cusomerDetails">
 
       <div class="customerpic">
-        <ion-icon name="md-contact" color="primary" *ngIf="!customerPicUrl"></ion-icon>
-        <img  [src]="product.customerPicUrl" />
-        <div color="primary" class="customerName"><b>Customer</b></div>
+        <ion-icon name="md-contact" color="primary" *ngIf="!product.customerPicUrl"></ion-icon>
+        <img [src]="product.customerPicUrl" *ngIf="product.customerPicUrl" />
+        <div color="primary" class="customerName">
+          <b>Customer</b>
+        </div>
       </div>
       <ion-item>
         <ion-icon item-start name="person" color="primary"></ion-icon>
@@ -115,10 +121,7 @@
         <small class="primaryColor">Email</small>
         <div>{{product.customerEmail}}</div>
       </ion-item>
-      
+
     </ion-card>
   </div>
-  <!-- <div padding>
-    <button ion-button block (click)="openReportIncidentPage()">Report Incident</button>
-  </div> -->
 </ion-content>

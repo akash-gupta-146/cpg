@@ -51,7 +51,7 @@
       <ion-card *ngSwitchCase="4">
         <div class="centerIcon">
           <ion-icon name="alarm" [style.color]="incident.statusColor" class="iconSize"></ion-icon>
-          <div [style.color]="incident.statusColor" >Scheduled</div>
+          <div [style.color]="incident.statusColor">Scheduled</div>
         </div>
         <div margin-bottom>{{incident.lastScheduleDate | date:'short'}}</div>
       </ion-card>
@@ -65,11 +65,23 @@
         </div>
       </div>
 
-      <ion-item>
-          <ion-icon item-start name="checkmark-circle" color="primary"></ion-icon>
-          <ion-label>Warranty : </ion-label>
-          <ion-label item-end style="font-size: small">{{giveWarranty(incident.productWarrantyEnd)}}</ion-label>
-        </ion-item>
+      <ion-grid class="warantyRow">
+        <ion-row>
+          <p col-6 class="border-right">
+            <b>Waranty Start</b>
+            <br *ngIf="incident.productWarrantyStart"> {{incident.productWarrantyStart }}
+            <br *ngIf="!incident.productWarrantyStart">N.A
+            <br>
+          </p>
+          <p col-6>
+            <b>Waranty End</b>
+            <br *ngIf="incident.productWarrantyEnd"> {{incident.productWarrantyEnd}}
+            <br *ngIf="!incident.productWarrantyEnd">N.A
+            <br>
+
+          </p>
+        </ion-row>
+      </ion-grid>
     </ion-card>
 
     <ion-card>
@@ -80,10 +92,7 @@
         </div>
       </div>
 
-      <!-- <ion-item>
-        <small [style.color]="incident.statusColor">Title</small>
-        <p>{{incident.title}}</p>
-      </ion-item> -->
+
       <ion-item>
         <small [style.color]="incident.statusColor">Description</small>
         <p class="discription">{{incident.description}}</p>
@@ -107,14 +116,14 @@
       <ion-card *ngIf="incident.statusId==2 ||incident.statusId==4 || incident.statusId==6 || incident.statusId==7 " class="cusomerDetails">
 
         <div class="customerpic">
-          <!-- <ion-icon name="md-contact" [style.color]="incident.statusColor" *ngIf="!customerPicUrl"></ion-icon> -->
-          <img [src]="incident.assignedServiceEngineerPicUrl || 'assets/imgs/default_pic.png'" />
+          <ion-icon name="md-contact" [style.color]="incident.statusColor" *ngIf="!incident.assignedServiceEngineerPicUrl"></ion-icon>
+          <img [src]="incident.assignedServiceEngineerPicUrl" *ngIf="incident.assignedServiceEngineerPicUrl" />
           <div [style.color]="incident.statusColor" class="customerName">
             <b>Engineer Details</b>
           </div>
         </div>
         <ion-item>
-          <ion-icon item-start name="person" color="primary"></ion-icon>
+          <ion-icon item-start name="person" [style.color]="incident.statusColor"></ion-icon>
           <small [style.color]="incident.statusColor">Name </small>
           <div>{{incident.assignedServiceEngineerName}}</div>
         </ion-item>

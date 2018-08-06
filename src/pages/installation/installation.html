@@ -24,6 +24,13 @@
               </p>
         </ion-card-title>
       </ion-card-content>
+      <!-- ESCALATE BUTTON -->
+      <div [ngSwitch]="installation.statusId">
+          <div *ngSwitchCase="4" padding-left padding-right padding-bottom>
+            <button ion-button small full (click)="onChangePriority()" round color="primary">
+              Escalate </button>
+          </div>
+        </div>
     </ion-card>
     <div [ngSwitch]="installation.statusId">
       <ion-card *ngSwitchCase="11">
@@ -35,9 +42,17 @@
         </div>
         <div text-center margin-bottom>{{installation.productInstallationDateTime | date}}</div>
       </ion-card>
-
+      <ion-card *ngSwitchCase="4">
+          <div class="centerIcon">
+              <ion-icon name="ios-alarm" color="primary" class="iconSize"></ion-icon>
+              <div>
+                <b>Scheduled</b>
+              </div>
+            </div>
+            <div text-center margin-bottom>{{installation.lastScheduleDate | date:'short'}}</div>
+       </ion-card>
     </div>
-
+   
     <ion-card class="warrantyCard">
       <div class="centerIcon">
         <ion-icon name="time" color="primary" class="iconSize"></ion-icon>
@@ -64,11 +79,18 @@
           </p>
         </ion-row>
       </ion-grid>
-      <ion-item>
-        <ion-icon item-start name="checkmark-circle" color="primary"></ion-icon>
-        <ion-label>Warranty : </ion-label>
-        <ion-label item-end style="font-size: small">{{giveWarranty(installation.productWarrantyEnd)}}</ion-label>
-      </ion-item>
+      <ion-grid class="warantyRow">
+          <ion-row>
+            <p col-6 class="border-right">
+              <b>Waranty Start</b>
+              <br> {{installation.productWarrantyStart}}
+            </p>
+            <p col-6>
+              <b>Waranty End</b>
+              <br> {{installation.productWarrantyEnd}}
+            </p>
+          </ion-row>
+        </ion-grid>
     </ion-card>
 
 
@@ -82,60 +104,66 @@
       </div>
 
       <!--  ASSIGNED SERVICE ENGINNER -->
-      <div *ngSwitchCase="10">
-        <ion-card>
-          <ion-list-header> Engineer Details </ion-list-header>
-          <ion-item>
-            <ion-thumbnail item-start>
-              <img [src]="installation.assignedServiceEngineerPicUrl || 'assets/imgs/default_pic.png'">
-            </ion-thumbnail>
-            <h4>{{installation.assignedServiceEngineerName}}</h4>
+      <ion-card *ngSwitchCase="10" class="cusomerDetails">
+          <div class="customerpic">
+              <ion-icon name="md-contact" color="primary" *ngIf="!installation.assignedServiceEngineerPicUrl "></ion-icon>
+              <img *ngIf="installation.assignedServiceEngineerPicUrl" [src]="installation.assignedServiceEngineerPicUrl " />
+              <div color="primary" class="customerName">
+                <b>Engineer Details</b>
+              </div>
+            </div>
+            <ion-item>
+                <ion-icon item-start name="person" color="primary"></ion-icon>
+                <small color="primary">Name </small>
+                <div>{{installation.assignedServiceEngineerName}}</div>
           </ion-item>
-        </ion-card>
-      </div>
-
-      <!-- SCHEDULED -->
-      <ion-card *ngSwitchCase="4">
-        <ion-item>
-          <ion-icon item-start name="time" color="primary"></ion-icon>
-          <ion-label>Scheduled : </ion-label>
-          <p item-end>{{installation.lastScheduleDate | date:'short'}}</p>
-        </ion-item>
-        <ion-list-header> Engineer Details </ion-list-header>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img [src]="installation.assignedServiceEngineerPicUrl || 'assets/imgs/default_pic.png'">
-          </ion-thumbnail>
-          <h4>{{installation.assignedServiceEngineerName}}</h4>
-        </ion-item>
-
-        <div>
-          <button ion-button small clear (click)="onHistory()">History</button>
-        </div>
-
-        <ion-grid>
-          <ion-row>
-            <ion-col col-6>
-              <button ion-button small (click)="onNotAvailableBtn()" round>Reschedule</button>
-            </ion-col>
-            <ion-col col-6>
-              <button ion-button small (click)="onChangePriority()" round>Increase Priority </button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-
       </ion-card>
 
-      <!-- INSTALLED -->
-      <div *ngSwitchCase="11">
-        <ion-card class="cusomerDetails">
-          <div class="customerpic">
-            <!-- <ion-icon name="md-contact" color="primary" *ngIf="!customerPicUrl"></ion-icon> -->
-            <img [src]="installation.assignedServiceEngineerPicUrl || 'assets/imgs/default_pic.png'" />
+      <!-- SCHEDULED -->
+      <ion-card *ngSwitchCase="4" class="cusomerDetails">
+        <div class="customerpic">
+            <!-- <ion-icon name="md-contact" [style.color]="incident.statusColor" *ngIf="!customerPicUrl"></ion-icon> -->
+            <ion-icon name="md-contact" color="primary" *ngIf="!installation.assignedServiceEngineerPicUrl "></ion-icon>
+            <img *ngIf="installation.assignedServiceEngineerPicUrl" [src]="installation.assignedServiceEngineerPicUrl " />
             <div color="primary" class="customerName">
               <b>Engineer Details</b>
             </div>
           </div>
+
+          <ion-item>
+          <ion-icon item-start name="person" color="primary"></ion-icon>
+          <small color="primary">Name </small>
+          <div>{{installation.assignedServiceEngineerName}}</div>
+          </ion-item>
+        
+      </ion-card>
+      <div class="historyfeedback" *ngSwitchCase="4" >
+
+          <ion-grid>
+            <ion-row>
+  
+              <ion-col class="history">
+                <div (click)="onHistory()">History</div>
+              </ion-col>
+              <ion-col>
+                <div (click)="onNotAvailableBtn()">Reschedule</div>
+              </ion-col>
+  
+            </ion-row>
+          </ion-grid>
+      </div>
+
+
+      <!-- INSTALLED -->
+      <div *ngSwitchCase="11">
+        <ion-card class="cusomerDetails">
+            <div class="customerpic">
+                <ion-icon name="md-contact" color="primary" *ngIf="!installation.assignedServiceEngineerPicUrl "></ion-icon>
+                <img *ngIf="installation.assignedServiceEngineerPicUrl" [src]="installation.assignedServiceEngineerPicUrl " />
+                <div color="primary" class="customerName">
+                  <b>Engineer Details</b>
+                </div>
+            </div>
           <ion-item>
             <ion-icon item-start name="person" color="primary"></ion-icon>
             <small class="primaryColor">Name </small>

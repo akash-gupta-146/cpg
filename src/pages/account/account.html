@@ -24,12 +24,10 @@
 
   <div class="background-color">
     <ion-list>
-      
         <!-- <ion-item>
          <ion-icon item-start name="md-contact" color="primary" ></ion-icon>
         <ion-label>{{userInfo.name}} </ion-label>
       </ion-item> -->
-
       <ion-item>
         <ion-icon item-start name="call" color="primary"></ion-icon>
         <small class="primaryColor">Name </small>
@@ -46,7 +44,7 @@
         <h6 style="font-weight: bold">{{addr.addressType}}</h6>
         <p>{{addr.address}}, {{addr.postalCode}}</p>
         <p>{{addr.city}}, {{addr.state}}, {{addr.country}}</p>
-        <div *ngIf="addr.phone">
+        <div *ngIf="addr.phone" style="font-size: 14px;">
           <ion-icon name="call" float-left></ion-icon>
           {{addr.phone}}
         </div>
