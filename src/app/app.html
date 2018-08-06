@@ -6,7 +6,7 @@
             <div class="sideImage"  (tap)="openAccountPage()" style="border-radius: 50%;">
                 <img [src]="userImage || 'assets/imgs/avatar.png'" class="sideBarAvatar">
                    <p class="userName"><b>{{userName}}</b></p>
-                   <p class="userEmail">{{userEmail}}</p>
+                   <p class="userEmail">sfva@bgd.ch</p>
                    
             </div>
             <button   class="sidebarContent" ion-item *ngFor="let option of sideMenuOptions" (click)="openPage(option)" [ngClass]="{'activePage': activePage == option.component}">
