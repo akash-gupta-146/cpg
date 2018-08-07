@@ -85,12 +85,14 @@
 
         <div *ngIf="addresses" formArrayName="addresses">
           <ion-card *ngFor="let address of addresses.controls;let i=index" class="addressform">
-            <div (click)="removeAddress()" text-right margin-right margin-top>
-              <ion-icon name="close" class="registerIcon"></ion-icon>
-            </div>
-            <div [formGroupName]="i">
+          <div [formGroupName]="i">
+         <div margin-top>
+            <ion-badge class="addressFiled addresBorder "  margin-left>Address {{i+1}}</ion-badge>
+            <span (click)="removeAddress()" float-right margin-right >
+            <ion-icon name="close" class="registerIcon"></ion-icon>
+            </span>
+          </div>
               <div>
-                <div class="addressFiled addresBorder ">Address {{i+1}}</div>
                 <ion-item class="addressFiled">
                   <ion-label> Address Type</ion-label>
                   <ion-select interface="popover" formControlName="addressType" [class.invalid]="(typeControl(i).dirty || submitAttempt) && !typeControl(i).valid">
@@ -105,7 +107,7 @@
                 </ion-item>
 
                 <ion-item class="addressFiled margin-top" >
-                  <ion-label floating color="primary">Address</ion-label>
+                  <ion-label floating color="primary" no-margin>Address</ion-label>
                   <ion-input  [class.invalid]="(addressControl(i).dirty || submitAttempt) && !addressControl(i).valid"
                     formControlName="address"></ion-input>
                 </ion-item>
@@ -114,7 +116,7 @@
                 </ion-item>
 
                 <ion-item class="addressFiled">
-                  <ion-label floating color="primary"> City</ion-label>
+                  <ion-label floating color="primary" no-margin> City</ion-label>
                   <ion-input formControlName="city" [class.invalid]="(cityControl(i).dirty || submitAttempt) && !cityControl(i).valid"></ion-input>
                 </ion-item>
                 <ion-item no-lines *ngIf="(cityControl(i).dirty || submitAttempt) && !cityControl(i).valid" class="addressFiled">
@@ -122,7 +124,7 @@
                 </ion-item>
 
                 <ion-item class="addressFiled">
-                  <ion-label floating color="primary">State</ion-label>
+                  <ion-label floating color="primary" no-margin>State</ion-label>
                   <ion-input  formControlName="state" [class.invalid]="(stateControl(i).dirty || submitAttempt) && !stateControl(i).valid"></ion-input>
                 </ion-item>
                 <ion-item no-lines *ngIf="(stateControl(i).dirty || submitAttempt) && !stateControl(i).valid" class="addressFiled">
@@ -130,7 +132,7 @@
                 </ion-item>
 
                 <ion-item class="addressFiled">
-                  <ion-label floating color="primary">Country</ion-label>
+                  <ion-label floating color="primary" no-margin>Country</ion-label>
                   <ion-input formControlName="country" [class.invalid]="(countryControl(i).dirty || submitAttempt) && !countryControl(i).valid"></ion-input>
                 </ion-item>
                 <ion-item no-lines *ngIf="(countryControl(i).dirty || submitAttempt) && !countryControl(i).valid" class="addressFiled">
@@ -138,7 +140,7 @@
                 </ion-item>
 
                 <ion-item class="addressFiled">
-                  <ion-label floating color="primary">Postal-Code</ion-label>
+                  <ion-label floating color="primary" no-margin>Postal-Code</ion-label>
                   <ion-input type="number"  formControlName="postalCode" [class.invalid]="(postalCodeControl(i).dirty || submitAttempt) && !postalCodeControl(i).valid"></ion-input>
                 </ion-item>
                 <ion-item no-lines *ngIf="(postalCodeControl(i).dirty || submitAttempt) && !postalCodeControl(i).valid" class="addressFiled">
@@ -146,7 +148,7 @@
                 </ion-item>
 
                 <ion-item class="addressFiled">
-                  <ion-label floating color="primary">Phone</ion-label>
+                  <ion-label floating color="primary" no-margin>Phone</ion-label>
                   <ion-input type="tel"  formControlName="phone"></ion-input>
                 </ion-item>
               </div>
@@ -155,7 +157,7 @@
         </div>
 
         <div text-right>
-          <button *ngIf=" addresses.controls.length <= addressTypes.length-1" ion-button clear (click)="addAddress()" margin-right>Add {{addresses.controls.length==0?'Address':'Another Address'}}</button>
+          <button *ngIf=" addresses.controls.length <= addressTypes.length-1" ion-button round small (click)="addAddress()" margin-right margin-bottom>Add {{addresses.controls.length==0?'Address':'Another Address'}}</button>
         </div>
 
         <button ion-button full (click)="onSubmit()" round class="submitBtn" small>Register</button>
