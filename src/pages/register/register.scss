@@ -3,100 +3,74 @@ page-register {
     background-image: url("../assets/imgs/loginImage.jpg");
     background-size: cover;
     .bakgroundContent {
-      position: absolute; // overflow: scroll;
+      position: absolute;
       width: 100%;
       height: fit-content;
-      // 
     }
-    ion-item{
-    ion-input{
-        font-weight: 400;
+    ion-item {
+      ion-input {
         border-bottom: 1px solid $borderColor;
-// background-color: rgba(0, 0, 0, 0.38);
+      }
+    }
+    ion-item:last-child {
+      border-bottom: 0 !important;
+    }
+    .margin-top {
+      margin-top: -10px;
+    }
+  }
+  ion-navbar {
+    background-color: transparent;
   }
   
-}
-.registerBackgorund{
-  background: rgba(0, 0, 0, 0.73);
-}
-ion-item:last-child {
-  border-bottom: 0!important;
-}
+  .registerTitlle .toolbar-title {
+    font-size: 1.5em;
+    color: white;
+  }
+  
+  .closeIcon {
+    color: white;
+    font-size: 2em;
+  }
+  
+  .regiterFiled {
+    padding-right: 33px;
+    background: transparent;
+    margin-bottom: 10px;
+  }
+  
+  .submitBtn {
+    padding: 17px;
+    font-size: 18px;
+    background-color: color($colors, transparent);
+    border: 2px solid color($colors, light);
+    width: 92%;
+    margin: auto;
+    letter-spacing: 2px;
+    color: color($colors, light);
+  }
+  
+  .contactValidform {
+    text-align: center;
+    color: gray;
+    margin: auto;
+  }
+  
+  .addressFiled {
+    background: transparent;
+  }
+  
+  .list-header-md {
+    border-top: none !important;
+  }
+  
+  .addressform {
+    border: 2px solid #ffffff78; // background:rgba(0, 0, 0, 0.73);
+  }
+  
+  .addresBorder {
+    text-align: right;
   }
 }
 
-ion-navbar {
-  background-color: transparent;
-}
 
-.registerTitlle .toolbar-title {
-  font-size: 1.5em;
-  font-weight: 300;
-  color: white;
-}
-
-.closeIcon {
-  color: white;
-  font-size: 2em;
-}
-
-.regiterFiled {
-  padding-right: 33px;
-  background: transparent;
-  color: white;
-  font-weight: 200;
-  margin-bottom: 10px;
-}
-
-.submitBtn {
-  padding: 17px;
-  font-size: 18px;
-  background-color: color($colors, transparent);
-  border: 2px solid color($colors, light); // border-radius: 20px;
-  width: 92%;
-  margin: auto;
-  letter-spacing: 2px;
-  color: color($colors, light);
-}
-
-.contactValidform {
-  text-align: center;
-  color: gray;
-  margin: auto;
-}
-
-.addressFiled {
-  color: white;
-  background:transparent;
-}
-
-.list-header-md {
-  border-top: none !important;
-}
-
-.registerIcon {
-  color: white;
-}
-
-.addressform {
-  border: 2px solid #ffffff78;
-  background:rgba(0, 0, 0, 0.73);
-}
-
-
-
-
-
-// .label-md[stacked],
-// .label-md[floating] {
-//   color: white;
-// }
-
-.addresBorder {
-  text-align: right;
-  border-bottom: 2px solid white;
-}
-.placeholderColor::placeholder {
-  color: white !important;
-   font-weight: 200;
- }

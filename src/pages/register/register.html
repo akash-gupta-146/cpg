@@ -28,11 +28,11 @@
 
     <ion-list>
       <form [formGroup]="registerForm" novalidate>
-   <ion-card class="registerBackgorund">
-        <ion-item class="regiterFiled">
+   <ion-card >
+        <ion-item class="regiterFiled" >
           <ion-icon name="person" color="primary" item-left class="registerIcon"></ion-icon>
-          <ion-label floating>Name</ion-label>
-          <ion-input [class.invalid]="(name.dirty || submitAttempt) && !name.valid" formControlName="name"></ion-input>
+          <ion-label floating color="primary">Name</ion-label>
+          <ion-input  [class.invalid]="(name.dirty || submitAttempt) && !name.valid" formControlName="name"></ion-input>
         </ion-item>
         <div no-lines *ngIf="(name.dirty || submitAttempt) && !name.valid" class="contactValidform">
           <span>Please enter a valid name.</span>
@@ -40,7 +40,7 @@
 
         <ion-item class="regiterFiled">
           <ion-icon name="call" color="primary" item-left class="registerIcon"></ion-icon>
-          <ion-label floating>Contact No.</ion-label>
+          <ion-label floating color="primary">Contact No.</ion-label>
           <ion-input class="placeholderColor" type="number" [class.invalid]="(contactNo.dirty || submitAttempt) && !contactNo.valid" formControlName="contactNo"></ion-input>
         </ion-item>
         <div no-lines *ngIf="(contactNo.dirty || submitAttempt) && !contactNo.valid" class="contactValidform">
@@ -50,7 +50,7 @@
 
         <ion-item class="regiterFiled">
           <ion-icon name="lock" color="primary" item-left class="registerIcon"></ion-icon>
-          <ion-label floating>Password</ion-label>
+          <ion-label floating color="primary">Password</ion-label>
           <ion-input type="password" [class.invalid]="(password.dirty || submitAttempt) && !password.valid" formControlName="password"></ion-input>
         </ion-item>
         <div no-lines *ngIf="(password.dirty || submitAttempt) && !password.valid" class="contactValidform">
@@ -59,7 +59,7 @@
 
         <ion-item class="regiterFiled">
           <ion-icon name="lock" color="primary" item-left class="registerIcon"></ion-icon>
-          <ion-label floating>Confirm Password</ion-label>
+          <ion-label floating color="primary">Confirm Password</ion-label>
           <ion-input [class.invalid]="(confirmPassword.dirty || submitAttempt) && (!confirmPassword.valid || !isSameAsPassword())"
             formControlName="confirmPassword"></ion-input>
         </ion-item>
@@ -73,7 +73,7 @@
 
         <ion-item class="regiterFiled">
           <ion-icon name="mail" color="primary" item-left class="registerIcon"></ion-icon>
-          <ion-label floating>Email</ion-label>
+          <ion-label floating color="primary">Email</ion-label>
           <ion-input [class.invalid]="(email.dirty || submitAttempt) && !email.valid" formControlName="email"></ion-input>
         </ion-item>
         <div no-lines *ngIf="(email.dirty || submitAttempt) && !email.valid" class="contactValidform">
@@ -85,12 +85,12 @@
 
         <div *ngIf="addresses" formArrayName="addresses">
           <ion-card *ngFor="let address of addresses.controls;let i=index" class="addressform">
-            <div (click)="removeAddress()" text-right padding>
+            <div (click)="removeAddress()" text-right margin-right margin-top>
               <ion-icon name="close" class="registerIcon"></ion-icon>
             </div>
             <div [formGroupName]="i">
-              <ion-list>
-                <ion-list-header padding-left:9px class="addressFiled addresBorder ">Address {{i+1}}</ion-list-header>
+              <div>
+                <div class="addressFiled addresBorder ">Address {{i+1}}</div>
                 <ion-item class="addressFiled">
                   <ion-label> Address Type</ion-label>
                   <ion-select interface="popover" formControlName="addressType" [class.invalid]="(typeControl(i).dirty || submitAttempt) && !typeControl(i).valid">
@@ -99,12 +99,14 @@
                     </ion-option>
                   </ion-select>
                 </ion-item>
+
                 <ion-item no-lines *ngIf="(typeControl(i).dirty || submitAttempt) && !typeControl(i).valid" class="addressFiled">
                   <p>Please enter a valid type.</p>
                 </ion-item>
 
-                <ion-item class="addressFiled">
-                  <ion-input placeholder="Address" [class.invalid]="(addressControl(i).dirty || submitAttempt) && !addressControl(i).valid"
+                <ion-item class="addressFiled margin-top" >
+                  <ion-label floating color="primary">Address</ion-label>
+                  <ion-input  [class.invalid]="(addressControl(i).dirty || submitAttempt) && !addressControl(i).valid"
                     formControlName="address"></ion-input>
                 </ion-item>
                 <ion-item no-lines *ngIf="(addressControl(i).dirty || submitAttempt) && !addressControl(i).valid" class="addressFiled">
@@ -112,37 +114,42 @@
                 </ion-item>
 
                 <ion-item class="addressFiled">
-                  <ion-input placeholder="City" formControlName="city" [class.invalid]="(cityControl(i).dirty || submitAttempt) && !cityControl(i).valid"></ion-input>
+                  <ion-label floating color="primary"> City</ion-label>
+                  <ion-input formControlName="city" [class.invalid]="(cityControl(i).dirty || submitAttempt) && !cityControl(i).valid"></ion-input>
                 </ion-item>
                 <ion-item no-lines *ngIf="(cityControl(i).dirty || submitAttempt) && !cityControl(i).valid" class="addressFiled">
                   <p>Please enter a valid city.</p>
                 </ion-item>
 
                 <ion-item class="addressFiled">
-                  <ion-input placeholder="State" formControlName="state" [class.invalid]="(stateControl(i).dirty || submitAttempt) && !stateControl(i).valid"></ion-input>
+                  <ion-label floating color="primary">State</ion-label>
+                  <ion-input  formControlName="state" [class.invalid]="(stateControl(i).dirty || submitAttempt) && !stateControl(i).valid"></ion-input>
                 </ion-item>
                 <ion-item no-lines *ngIf="(stateControl(i).dirty || submitAttempt) && !stateControl(i).valid" class="addressFiled">
                   <p>Please enter a valid state.</p>
                 </ion-item>
 
                 <ion-item class="addressFiled">
-                  <ion-input placeholder="Country" formControlName="country" [class.invalid]="(countryControl(i).dirty || submitAttempt) && !countryControl(i).valid"></ion-input>
+                  <ion-label floating color="primary">Country</ion-label>
+                  <ion-input formControlName="country" [class.invalid]="(countryControl(i).dirty || submitAttempt) && !countryControl(i).valid"></ion-input>
                 </ion-item>
                 <ion-item no-lines *ngIf="(countryControl(i).dirty || submitAttempt) && !countryControl(i).valid" class="addressFiled">
                   <p>Please enter a valid country.</p>
                 </ion-item>
 
                 <ion-item class="addressFiled">
-                  <ion-input type="number" placeholder="Postal Code" formControlName="postalCode" [class.invalid]="(postalCodeControl(i).dirty || submitAttempt) && !postalCodeControl(i).valid"></ion-input>
+                  <ion-label floating color="primary">Postal-Code</ion-label>
+                  <ion-input type="number"  formControlName="postalCode" [class.invalid]="(postalCodeControl(i).dirty || submitAttempt) && !postalCodeControl(i).valid"></ion-input>
                 </ion-item>
                 <ion-item no-lines *ngIf="(postalCodeControl(i).dirty || submitAttempt) && !postalCodeControl(i).valid" class="addressFiled">
                   <p>Please enter a valid Postal code.</p>
                 </ion-item>
 
                 <ion-item class="addressFiled">
-                  <ion-input type="tel" placeholder="Phone" formControlName="phone"></ion-input>
+                  <ion-label floating color="primary">Phone</ion-label>
+                  <ion-input type="tel"  formControlName="phone"></ion-input>
                 </ion-item>
-              </ion-list>
+              </div>
             </div>
           </ion-card>
         </div>
