@@ -196,7 +196,7 @@
           </ion-col>
         </ion-row>
       </ion-list>
-      <!-- <button ion-button full (click)="onProductAdd()">Registers</button> -->
+      <button ion-button full  class="register-btn"  (click)="onProductAdd()">Registers</button>
 
     </div>
 
@@ -233,7 +233,7 @@
           </ion-item>
         </ion-list>
       </form>
-      <button ion-button full (click)="onProductAdd(addressForm)">Register</button>
+      <button ion-button full class="register-btn"  (click)="onProductAdd(addressForm)">Register</button>
     </div>
   </ion-card>
   <div>
@@ -241,7 +241,7 @@
   </div>
   
   <!-- //////////// -->
-  <div padding >
+  <div padding *ngIf="!installationRequest">
     <button ion-button full (click)="onProductAdd()" round>Register</button>
   </div>
 </ion-content>
