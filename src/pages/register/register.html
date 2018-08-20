@@ -60,7 +60,7 @@
         <ion-item class="regiterFiled">
           <ion-icon name="lock" color="primary" item-left class="registerIcon"></ion-icon>
           <ion-label floating color="primary">Confirm Password</ion-label>
-          <ion-input [class.invalid]="(confirmPassword.dirty || submitAttempt) && (!confirmPassword.valid || !isSameAsPassword())"
+          <ion-input  type="password" [class.invalid]="(confirmPassword.dirty || submitAttempt) && (!confirmPassword.valid || !isSameAsPassword())"
             formControlName="confirmPassword"></ion-input>
         </ion-item>
         <div no-lines *ngIf="(confirmPassword.dirty || submitAttempt) && !confirmPassword.valid" class="contactValidform">
