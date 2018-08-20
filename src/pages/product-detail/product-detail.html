@@ -40,7 +40,7 @@
       <ion-grid class="gridrow">
         <ion-row>
           <p col-4 class="border-right">
-            <b> Purchase</b>
+            <b> Purchased</b>
             <br> {{product.purchaseDate | date:'mediumDate'}}
           </p>
 
@@ -49,7 +49,7 @@
             <br> {{product.registeredAt | date:'mediumDate'}}
           </p>
           <p col-4>
-            <b> Installation </b>
+            <b>Installad</b>
             <br>
             <span *ngIf="product.installationDateTime"> {{product.installationDateTime | date:'mediumDate'}}</span>
             <span *ngIf="!product.installationDateTime"> Not Installed</span>
