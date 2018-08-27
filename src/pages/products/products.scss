@@ -2,9 +2,31 @@ page-products {
     ion-grid{
         padding: 0px!important;
     }
+    .imageProduct{
+        display: grid;
+        height: 100%;
+        place-content: center;
+        img{
+            // width: auto;
+            // height: 151px;
+            height: auto;
+            width: 100px;
+          
+        }
+    }
 
+// div{
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+
+// }
 }
 .prductDetails{
+    display: flex;
+     flex-direction: column;
+   justify-content: space-between;
+
     border: 1px solid rgba(128, 128, 128, 0.2);
     // border-bottom:  1px solid rgba(128, 128, 128, 0.2);
   

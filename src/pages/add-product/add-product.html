@@ -241,7 +241,7 @@
   </div>
 
   <!-- //////////// -->
-  <div padding>
+  <div padding *ngIf="!installationRequest">
     <button ion-button full (click)="onProductAdd()" round>Register</button>
   </div>
 </ion-content>
