@@ -11,23 +11,26 @@ import { Product } from '../../Classes/Models/product.model';
 })
 export class ProductsPage {
 
-  products: Array<Product>=[];   
+  products: Array<Product> = [];
+  isEmpty = false;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private modalCtrl: ModalController,
     private productService: ProductService,
-    private customService:CustomService
+    private customService: CustomService
   ) { }
 
-  ionViewDidLoad() {this.getProductList();  }
-  
-  getProductList(){
+  ionViewDidLoad() { this.getProductList(); }
+
+  getProductList() {
     this.customService.showLoader();
     this.productService.getProducts()
       .subscribe((res: any) => {
         this.customService.hideLoader();
         this.products = res;
+        this.isEmpty = this.products.length == 0;
       }, (err: any) => {
         this.customService.hideLoader();
         this.customService.showToast(err.msg);
@@ -38,8 +41,8 @@ export class ProductsPage {
   openAddProductPage() {
     const modal = this.modalCtrl.create("AddProductPage");
     modal.present();
-    modal.onDidDismiss((newProduct:any)=>{
-      if(newProduct){
+    modal.onDidDismiss((newProduct: any) => {
+      if (newProduct) {
         this.products.push(newProduct);
       }
     });

@@ -6,22 +6,26 @@
 
 
 <ion-content>
-    <img src="assets/imgs/history.png" class="pageImg">
-    <div class="timeline">
-        <div class="history" *ngFor="let h of history">
-            <ion-badge [style.background]="h.statusColor">{{h.statusName}}</ion-badge>
-        <div class="comment">
-              <b>{{h.comment}}</b>
-            <p>
-                {{h.autoComment}}
-            </p>
-            <p padding-top *ngIf="h.fileUrl">
-                <a (click)='openImage(h)'>View Attachment</a>
-              </p>
-             <div class="date">
-               {{h.createdAt | date}}
-            </div>
-        </div>
+  <img src="assets/imgs/history.png" class="pageImg">
+  <div class="timeline">
+    <div class="history" *ngFor="let h of history">
+      <ion-badge [style.background]="h.statusColor">{{h.statusName}}</ion-badge>
+      <div class="comment">
+        <b>{{h.comment}}</b>
+        <p>
+          {{h.autoComment}}
+        </p>
+        <p padding-top *ngIf="h.fileUrl">
+          <a (click)='openImage(h)'>View Attachment</a>
+        </p>
+        <div class="date">
+          {{h.createdAt | date}}
         </div>
       </div>
+    </div>
+    <div class="emptyData" *ngIf="!history || !history.length">
+      <img src="/assets/imgs/notfound.png">
+     <h2 color="gray">No Records Found</h2>
+    </div>
+  </div>
 </ion-content>
