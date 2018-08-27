@@ -179,7 +179,7 @@
           <div>
             <b>Select Address</b>
           </div>
-         </div>
+        </div>
         <ion-row *ngFor="let addr of addresses" (tap)="selectedAddress=addr">
 
           <ion-col col-10 text-wrap padding>
@@ -237,11 +237,11 @@
     </div>
   </ion-card>
   <div>
-    
+
   </div>
-  
+
   <!-- //////////// -->
-  <div padding *ngIf="!installationRequest">
+  <div padding>
     <button ion-button full (click)="onProductAdd()" round>Register</button>
   </div>
 </ion-content>

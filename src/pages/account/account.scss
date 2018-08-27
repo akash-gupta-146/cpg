@@ -2,17 +2,18 @@ page-account {
   .accountImage {
     position: relative;
     display: -webkit-inline-box;
+    background: color($colors,primary);
   }
   .updateImage {
-    background: color($colors, primary); // bottom: 0;
+    background: white; // bottom: 0;
     bottom: -17px;
     position: absolute; // right: -7px;
     right: 20px;
     border-radius: 50%;
     height: 50px;
-    border: 2px solid color($colors, primary);
+    border: 2px solid white;
     z-index: 5;
-    color: white;
+    color: color($colors, primary);
     ion-icon {
       font-size: 2.2em
     }
