@@ -1,0 +1,72 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #editForm="ngForm">
+
+    <ion-item *ngIf="editInfo=='name'">
+      <ion-label stacked>Name</ion-label>
+      <ion-input [ngModel]="oldValue" name="name" required></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="editInfo=='email'">
+      <ion-label stacked>Email</ion-label>
+      <ion-input [ngModel]="oldValue" name="email" required></ion-input>
+    </ion-item>
+
+    <div *ngIf="editInfo=='address'">
+      <ion-card class="addressform">
+        <ion-item class="addressFiled">
+          <ion-label color="primary"> Address Type</ion-label>
+          <ion-select interface="popover" [ngModel]="oldValue?.addressType" name="addressType">
+            <ion-option *ngFor="let type of addressTypes" [value]="type">
+              {{type}}
+            </ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item class="addressFiled margin-top">
+          <ion-label stacked color="primary">Address</ion-label>
+          <ion-input [ngModel]="oldValue?.address" name="address" required></ion-input>
+        </ion-item>
+
+        <ion-item class="addressFiled">
+          <ion-label stacked color="primary">City</ion-label>
+          <ion-input [ngModel]="oldValue?.city" name="city" required></ion-input>
+        </ion-item>
+
+
+        <ion-item class="addressFiled">
+          <ion-label stacked color="primary">State</ion-label>
+          <ion-input [ngModel]="oldValue?.state" name="state" required></ion-input>
+        </ion-item>
+
+
+        <ion-item class="addressFiled">
+          <ion-label stacked color="primary">Country</ion-label>
+          <ion-input [ngModel]="oldValue?.country" name="country" required></ion-input>
+        </ion-item>
+
+        <ion-item class="addressFiled">
+          <ion-label stacked color="primary">Postal-Code</ion-label>
+          <ion-input type="number" [ngModel]="oldValue?.postalCode" name="postalCode" required></ion-input>
+        </ion-item>
+
+        <ion-item class="addressFiled">
+          <ion-label stacked color="primary">Phone</ion-label>
+          <ion-input type="tel" [ngModel]="oldValue?.phone" name="phone"></ion-input>
+        </ion-item>
+
+      </ion-card>
+    </div>
+
+    <button ion-button full rounded [disabled]="editForm.invalid" (click)="onSave(editForm.value)">Save</button>
+  </form>
+
+</ion-content>

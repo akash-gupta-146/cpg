@@ -42,7 +42,7 @@
      <h2 color="gray">No Records Found</h2>
   </div>
 
-  <ion-fab right bottom>
+  <ion-fab right bottom *ngIf="!emptyProductList">
     <button ion-fab (click)="openNewIncidentPage()" color="secondary">
       <ion-icon name="add"></ion-icon>
     </button>
