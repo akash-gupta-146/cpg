@@ -14,18 +14,14 @@ export class AuthService {
         private fileTransfer: FileTransfer
     ) { }
 
-    // Notification token update after user login
-    // tokenUpdate(token) {
-    //     const notificationToken: Object = {
-    //         notificationToken: token
-    //     }
-    //     return this.http.put('/update', notificationToken)
-    // }
-
     login(loginCredentials: any) {
         const xAccountHeader = new HttpHeaders()
             .set('x-account', 'customer');
         return this.http.post(`/oauth/token?grant_type=password&username=${loginCredentials.contactNo}&password=${loginCredentials.password}`, {}, xAccountHeader);
+    }
+
+    logout() {
+        return this.http.get('/c/logout');
     }
 
     register(data: any) {
@@ -52,8 +48,20 @@ export class AuthService {
         localStorage.setItem('userInfo', JSON.stringify(userInfo));
     }
 
+    editUserDetails(data: any) {
+        return this.http.put('/c', data);
+    }
+
+    /**edit address if present, otherwise add that address */
+    editUserAddress(data: any, addId?: number) {
+        if(addId){
+            return this.http.put(`/c/address/${addId}`, data);
+        }
+        return this.http.post(`/c/address`, data);
+    }
+
     // PROFILE PIC ADDITION
-    uploadPic( image: any) {
+    uploadPic(image: any) {
         let myFileName: string = this.generateImageName();
 
         let options: FileUploadOptions = {
