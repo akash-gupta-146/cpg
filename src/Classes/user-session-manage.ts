@@ -36,9 +36,7 @@ export class UserSessionManage {
         this.events.subscribe('user:login', () => {
             this.login();
         });
-        // this.events.subscribe('session:expired', () => {
-        //     this.sessionExpired();
-        // });
+
         this.events.subscribe('user:logout', () => {
             this.logout();
         });
@@ -50,6 +48,9 @@ export class UserSessionManage {
         });
         this.events.subscribe("user:image", () => {
             this.imageUpdate();
+        });
+        this.events.subscribe('rootPageChange', (newRootPage: string) => {
+            this.activePage = newRootPage;
         });
     }
 
@@ -67,7 +68,7 @@ export class UserSessionManage {
                 }, (err: any) => {
                     // open the login page again if some error occurs
                     localStorage.clear();
-                    this.appCtrl.getRootNavs()[0].setRoot("LoginPage",{},{animate:true,direction:'forward'});
+                    this.appCtrl.getRootNavs()[0].setRoot("LoginPage", {}, { animate: true, direction: 'forward' });
                 });
 
         } else {
@@ -77,7 +78,7 @@ export class UserSessionManage {
 
     public login() {
         // this.setRootPage();
-        this.appCtrl.getRootNavs()[0].setRoot("HomePage",{},{animate:true,direction:'forward'});
+        this.appCtrl.getRootNavs()[0].setRoot("HomePage", {}, { animate: true, direction: 'forward' });
         this.decideSideMenuContent();
         this.activePage = "HomePage";
         this.menu.enable(true);
@@ -100,7 +101,7 @@ export class UserSessionManage {
             { title: 'Incidents', component: "IncidentsPage", icon: 'alert' },
             { title: 'Logout', component: 'Logout', icon: 'log-out' }
         ];
-    
+
     }
 
     public imageUpdate() {
@@ -113,10 +114,10 @@ export class UserSessionManage {
     public logout() {
 
         localStorage.clear();
-        
+
         // URLPREFIX = undefined;
         // ROLE = undefined;
-        this.appCtrl.getRootNavs()[0].setRoot("LoginPage",{},{animate:true,direction:'forward'});
+        this.appCtrl.getRootNavs()[0].setRoot("LoginPage", {}, { animate: true, direction: 'forward' });
     }
 
     public offline() {

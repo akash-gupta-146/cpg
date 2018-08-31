@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Events } from 'ionic-angular';
 
 declare var ROLE;
 
@@ -15,14 +15,16 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private modalCtrl: ModalController
+    private events: Events
   ) {
-    console.log(this.role);
-    
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
+  }
+
+  openPage(page: string) {
+    this.navCtrl.setRoot(page, {}, { animate: true, direction: 'forward' });
+    this.events.publish('rootPageChange', page);
   }
 
 
