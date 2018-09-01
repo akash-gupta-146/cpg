@@ -10,4 +10,6 @@ import { IncidentPage } from './incident';
     IonicPageModule.forChild(IncidentPage),
   ],
 })
+
+
 export class IncidentPageModule {}

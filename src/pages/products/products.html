@@ -27,6 +27,22 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <!-- <ion-grid>
+    <ion-row >
+      <ion-col text-center class="prductDetails activeItem" col-6 *ngFor="let p of products; let i=index" (click)="openProductDetailPage(i)">
+     
+        <img [src]="p.productPicUrl"  />
+      
+     
+        <h6 no-margin>{{p.productBrand}}</h6>
+        <p no-margin>{{p.productName}}</p>
+        <ion-badge *ngIf="p.warrantyPeriodEnd">W</ion-badge>
+        <ion-badge *ngIf="p.warrantyPeriodEnd">{{p.warrantyPeriodEnd}}</ion-badge>
+        <ion-badge *ngIf="!p.warrantyPeriodEnd">Warranty Expired</ion-badge>
+    
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
 
   <div text-center *ngIf="isEmpty">
     <img src="/assets/imgs/notfound.png" class="emptyData">
