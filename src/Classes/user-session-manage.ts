@@ -2,11 +2,8 @@ import { AlertController, Events, App, MenuController } from 'ionic-angular';
 import { AuthService } from '../providers/auth.service';
 import { NetworkService } from '../providers/network.service';
 
-// import { LoginPage } from '../pages/login/login';
 import { CustomService } from '../providers/custom.service';
 
-// declare var URLPREFIX;
-declare var ROLE;
 export class UserSessionManage {
 
     rootPage: any;
@@ -46,8 +43,8 @@ export class UserSessionManage {
         this.events.subscribe("online", () => {
             this.online();
         });
-        this.events.subscribe("user:image", () => {
-            this.imageUpdate();
+        this.events.subscribe("user:data", () => {
+            this.userDataUpdate();
         });
         this.events.subscribe('rootPageChange', (newRootPage: string) => {
             this.activePage = newRootPage;
@@ -63,7 +60,7 @@ export class UserSessionManage {
                     this.activePage = "HomePage";
                     this.decideSideMenuContent();
                     this.menu.enable(true);
-                    this.imageUpdate();
+                    this.userDataUpdate();
                     // this.enablePushNotifications();
                 }, (err: any) => {
                     // open the login page again if some error occurs
@@ -82,7 +79,7 @@ export class UserSessionManage {
         this.decideSideMenuContent();
         this.activePage = "HomePage";
         this.menu.enable(true);
-        this.imageUpdate();
+        this.userDataUpdate();
         // this.enablePushNotifications();
     }
 
@@ -104,7 +101,7 @@ export class UserSessionManage {
 
     }
 
-    public imageUpdate() {
+    public userDataUpdate() {
 
         this.userImage = JSON.parse(localStorage.getItem('userInfo')).picUrl;
         this.userName = JSON.parse(localStorage.getItem('userInfo')).name || '';

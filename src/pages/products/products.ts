@@ -44,6 +44,7 @@ export class ProductsPage {
     modal.onDidDismiss((newProduct: any) => {
       if (newProduct) {
         this.products.push(newProduct);
+        this.isEmpty = this.products.length == 0;
       }
     });
   }

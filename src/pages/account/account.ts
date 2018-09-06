@@ -138,7 +138,7 @@ export class AccountPage {
     //update img of account page itself
     this.userInfo.picUrl = img;
     // update img at sidebar 
-    this.event.publish('user:image');
+    this.event.publish('user:data');
 
   }
 

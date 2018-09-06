@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { AuthService } from '../../../providers/auth.service';
 import { CustomService } from '../../../providers/custom.service';
 
@@ -21,7 +21,8 @@ export class EditInfoPage {
     private navCtrl: NavController,
     private navParams: NavParams,
     private authService: AuthService,
-    private customService: CustomService
+    private customService: CustomService,
+    private events:Events
   ) {
   }
 
@@ -43,7 +44,7 @@ export class EditInfoPage {
       info[this.editInfo] = formValue[this.editInfo];
       this.saveChanges(info);
     } else { // in case address
-      console.log(formValue);
+      // console.log(formValue);
       this.editAddress(formValue);
     }
   }
@@ -56,6 +57,8 @@ export class EditInfoPage {
         this.customService.hideLoader();
         this.customService.showToast(`${this.toTitleCase(this.editInfo)} edited successfully`);
         this.updateInfoInMemory(this.editInfo, res[this.editInfo]);
+        // to update changed email or name in sidebar
+        this.events.publish('user:data');
         this.navCtrl.pop();
       }, (err: any) => {
         this.customService.hideLoader();
@@ -70,6 +73,7 @@ export class EditInfoPage {
         this.customService.hideLoader();
         this.customService.showToast(`${this.toTitleCase(this.editInfo)} edited successfully`);
         this.updateInfoInMemory(this.editInfo, value, this.addressIndex);
+        this.events.publish('user:data');
         this.navCtrl.pop();
       }, (err: any) => {
         this.customService.hideLoader();
