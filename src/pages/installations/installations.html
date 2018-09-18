@@ -17,12 +17,16 @@
    <ion-grid>
     <ion-row>
       <ion-col text-center class="prductDetails activeItem" col-6 *ngFor="let p of installations;let i=index" (click)="openInstallationDetailPage(i)">
+         <div class="imageProduct">
         <img [src]="p.registeredProductPicUrl"  />
+        </div>
+        <div>
         <h6 no-margin>{{p.productModelNumber}}</h6>
         <p no-margin>{{p.productName}}</p>
          <ion-badge *ngIf="p.statusId==11">I</ion-badge>
         <ion-badge *ngIf="p.statusId==11">{{p.productInstallationDateTime | date:'mediumDate'}}</ion-badge>
         <ion-badge *ngIf="p.statusId!=11">{{p.statusName}}</ion-badge> 
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid> 

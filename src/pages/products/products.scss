@@ -1,16 +1,20 @@
-page-products {
+page-products  {
     ion-grid{
         padding: 0px!important;
     }
     .imageProduct{
-        display: grid;
+       
+        // display: grid;
         height: 100%;
-        place-content: center;
+        // place-content: center;
         img{
             // width: auto;
             // height: 151px;
             height: auto;
             width: 100px;
+            top: 50%;
+            transform: translateY(-50%);
+            position: relative;
           
         }
     }

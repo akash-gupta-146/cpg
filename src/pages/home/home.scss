@@ -8,13 +8,16 @@ page-home {
             justify-content: space-around;
             margin-top:40px;
             .home-nav-col{
+                margin: auto;
+                // text-align: center;
                 width:130px;
                 height:130px;
                 background:white;
                 border-radius:5px;
-                display:grid;
-                place-content: center;
-                place-items: center;
+                // display:grid;
+                // display: inline-grid;
+                // place-content: center;
+                // place-items: center;
                 transition:0.2s;
                 color:#4e4e4e;
                 ion-icon{

@@ -27,5 +27,6 @@ export class HomePage {
     this.events.publish('rootPageChange', page);
   }
 
+  
 
 }
