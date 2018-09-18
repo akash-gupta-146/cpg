@@ -34,10 +34,17 @@ export class AccountPage {
     private customService: CustomService,
     private authService: AuthService,
     private event: Events
-  ) {
+  ) { }
 
+  ionViewDidEnter() {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
   }
+
+  /**common for name,contact,email and address */
+  onOtherEdit(editInfo: string, currentValue?: any,index?:number/**used in case of address only*/) {
+    this.navCtrl.push('EditInfoPage', {editInfo:editInfo, oldValue:currentValue,index:index});
+  }
+
 
   onPicEdit() {
     const actionSheet = this.actionSheetCtrl.create({

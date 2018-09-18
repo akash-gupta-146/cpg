@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { IncidentService } from '../../providers/incidents.service';
 import { Incident } from '../../Classes/Models/incident.model';
 import { CustomService } from '../../providers/custom.service';
+import { ProductService } from '../../providers/product.service';
 
 
 @IonicPage()
@@ -14,6 +15,7 @@ export class IncidentsPage {
 
   incidents: Array<Incident>;
   page = 1;
+  emptyProductList = true; // fab btn to add incident shud be visible only when user has some registered products
 
 
   constructor(
@@ -21,10 +23,12 @@ export class IncidentsPage {
     public navParams: NavParams,
     private incidentService: IncidentService,
     private customService: CustomService,
+    private productService: ProductService
   ) { }
 
   ionViewDidLoad() {
     this.getIncidentList();
+    this.getProductList();
   }
 
 
@@ -42,6 +46,14 @@ export class IncidentsPage {
         refresher ? refresher.complete() : this.customService.hideLoader();
         this.customService.showToast(err.msg);
       });
+  }
+
+  getProductList() {
+    this.productService.getProducts()
+      .subscribe(
+        (res: Array<any>) => this.emptyProductList = res.length == 0,
+        (err: any) => this.customService.showToast('Couldn\'t detect the products status')
+      );
   }
 
 
@@ -73,7 +85,7 @@ export class IncidentsPage {
   openNewIncidentPage() {
     const clbkToAddNewIncident = (newIncident: Incident) => {
       console.log('callback called/////');
-      
+
       newIncident && this.incidents.unshift(newIncident);
     }
 

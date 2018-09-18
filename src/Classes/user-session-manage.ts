@@ -98,9 +98,9 @@ export class UserSessionManage {
             { title: 'Installations', component: "InstallationsPage", icon: 'build' },
             { title: 'Products', component: "ProductsPage", icon: 'md-cube' },
             { title: 'Incidents', component: "IncidentsPage", icon: 'alert' },
-            { title: 'Logout', component: 'NA', icon: 'log-out' }
+            { title: 'Logout', component: 'Logout', icon: 'log-out' }
         ];
-
+    
     }
 
     public imageUpdate() {

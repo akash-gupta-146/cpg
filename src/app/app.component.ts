@@ -48,18 +48,45 @@ export class MyApp extends UserSessionManage {
       return;
     }
 
-    if (page.component === 'NA') {
-      this.activePage = '';
+    if (page.component === 'Logout') {
       this.menu.close();
-      this.events.publish('user:logout');
+      this.handleLogout();
       return;
     }
-
 
     this.activePage = page.component;
     this.menu.close();
     this.nav.setRoot(page.component);
 
+  }
+
+  handleLogout() {
+    let confirm = this.alertCtrl.create({
+      title: 'Are you sure you want to logout?',
+      buttons: [{
+        text: 'Cancel',
+        handler: () => { }
+      }, {
+        text: 'Logout',
+        handler: () => {
+          this.sendLogoutRequest();
+        }
+      }]
+    });
+    confirm.present();
+  }
+
+  sendLogoutRequest() {
+    this.customSercvice.showLoader('Logging out...');
+    this.authService.logout()
+      .subscribe((res: any) => {
+        this.customSercvice.hideLoader();
+        this.activePage = '';
+        this.events.publish('user:logout');
+      }, (err: any) => {
+        this.customSercvice.hideLoader()
+        this.customSercvice.showToast(err.msg);
+      });
   }
 
   openAccountPage() {
