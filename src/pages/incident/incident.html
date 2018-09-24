@@ -17,7 +17,7 @@
           </h4>
           <p>
             {{incident.productName}}
-            <p>
+          </p>
               <p>
                 <b> Purchase Date : </b>{{incident.productPurchaseDate | date:'mediumDate'}}
               </p>
@@ -180,21 +180,33 @@
           </ion-row>
         </ion-grid>
       </div>
-      <div class="historyfeedback" *ngSwitchCase="7" [style.background]="incident.statusColor">
+      <div  *ngIf="!incident.rating">
+      <div class="historyfeedback" *ngSwitchCase="7"  [style.background]="incident.statusColor">
 
-        <ion-grid>
+        <ion-grid >
           <ion-row>
 
             <ion-col class="history">
-              <div (click)="onHistory()">History</div>
+              <div (click)="onHistory()" >History</div>
             </ion-col>
             <ion-col>
               <div (click)="onFeedback()" *ngIf="!incident.rating">Feedback</div>
             </ion-col>
-
           </ion-row>
         </ion-grid>
       </div>
+    </div>
+    <div *ngIf="incident.rating">
+      <div  *ngSwitchCase="7" class="historyfeedback" [style.background]="incident.statusColor">
+        <ion-grid >
+          <ion-row>
+            <ion-col >
+              <div (click)="onHistory()" >History</div>
+            </ion-col>
+          </ion-row>
+          </ion-grid>
+      </div>
+    </div>
     </div>
   </div>
 
