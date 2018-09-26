@@ -26,6 +26,7 @@ export class EditInfoPage {
   ) {
   }
 
+  
   ionViewDidLoad() {
     this.editInfo = this.navParams.get('editInfo');
     this.oldValue = this.navParams.get('oldValue');
