@@ -146,9 +146,11 @@
           <b>Upload Bill</b>
         </div>
       </div>
-      <ion-spinner name="bubbles" *ngIf="showSpinner" text-center color="primary"></ion-spinner>
+      <div text-center>
+        <ion-spinner name="bubbles" *ngIf="showSpinner" text-center color="primary"></ion-spinner>
+      </div>
 
-      <ng-template #image *ngIf="billPic">
+      <ng-template #image>
         <ion-card>
           <button ion-button clear float-right (click)="onRemoveImage()">Remove Bill</button>
           <img [src]="billPic" alt="Bill Pic">

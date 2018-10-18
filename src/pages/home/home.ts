@@ -23,8 +23,7 @@ export class HomePage {
   }
 
   openPage(page: string) {
-    this.navCtrl.setRoot(page, {}, { animate: true, direction: 'forward' });
-    this.events.publish('rootPageChange', page);
+    this.navCtrl.push(page);
   }
 
 

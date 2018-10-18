@@ -157,7 +157,7 @@ product:any=null; // product detail when navigated via product-detail page
       .then((res: any) => {
 
         this.customService.hideLoader();
-        // alert(JSON.stringify(res));
+        alert(JSON.stringify(res));
         // let res1 = JSON.parse(res.response);
         this.customService.showToast('Incident registerd successfully');
         this.addNewIncidentAndPop(res);

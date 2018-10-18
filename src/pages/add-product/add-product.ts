@@ -236,7 +236,7 @@ export class AddProductPage {
 
   onProductAdd(addressForm: any) {
     // console.log(addressForm);
-    
+
     //validations
     if (!this.selectedProduct) { this.customService.showToast('Please enter product details'); return; }
     if (!this.purchaseDate) { this.customService.showToast('Please enter purchase date'); return; }
@@ -265,19 +265,24 @@ export class AddProductPage {
     if (this.dealerName) { payLoad['dealerName'] = this.dealerName; }
     if (this.dealerContact) { payLoad['dealerContact'] = this.dealerContact; }
     if (this.billNumber) { payLoad['billNumber'] = this.billNumber; }
-    if(this.installationRequest){
+    if (this.installationRequest) {
       // following key names have been used as payLoad object is to be converted eventually into formdata object
-      payLoad['installation.description']=this.installationComment;
-      if(this.addresses.length){
+      payLoad['installation.description'] = this.installationComment;
+      if (this.addresses.length) {
         payLoad['installation.customerAddressId'] = this.selectedAddress.id
-      }else{
-        payLoad['installation.customerAddress'] = this.selectedAddress;
+      } else {
+
+        payLoad['installation.customerAddress.addressType'] = this.selectedAddress.addressType;
+        payLoad['installation.customerAddress.address'] = this.selectedAddress.address;
+        payLoad['installation.customerAddress.city'] = this.selectedAddress.city;
+        payLoad['installation.customerAddress.state'] = this.selectedAddress.state;
+        payLoad['installation.customerAddress.country'] = this.selectedAddress.country;
+        payLoad['installation.customerAddress.postalCode'] = this.selectedAddress.postalCode;
+        payLoad['installation.customerAddress.phone'] = this.selectedAddress.phone;
 
       }
     }
-
     // console.log(payLoad);
-
 
     if (this.billPic) {
       this.addWithBill(payLoad);
@@ -295,8 +300,10 @@ export class AddProductPage {
         this.customService.hideLoader();
         // alert(JSON.stringify(res));
         // let res1 = JSON.parse(res.response);
-        this.dismiss(JSON.parse(res.response));
         this.customService.showToast('Product registerd successfully');
+        // update address info in localstorage only when no address is present already
+        if (!this.addresses.length) { this.addNewAddressToLocalStorage(this.selectedAddress); }
+        this.dismiss(JSON.parse(res.response));
       })
       .catch((err: any) => {
         console.log('inside finally submit catch');
@@ -315,19 +322,28 @@ export class AddProductPage {
 
   addWithoutBill(payLoad) {
     const fd = new FormData();
-    for (let key in payLoad) {
+    for (const key in payLoad) {
       fd.append(key, payLoad[key]);
     }
     this.customService.showLoader();
     this.productService.registerProductWithoutBill(fd)
       .subscribe((res: any) => {
         this.customService.hideLoader();
-        this.dismiss(res);
         this.customService.showToast('Product registerd successfully');
+        // update address info in localstorage only when no address is present already
+        if (!this.addresses.length) { this.addNewAddressToLocalStorage(this.selectedAddress); }
+        this.dismiss(res);
       }, (err: any) => {
         this.customService.hideLoader();
         this.customService.showToast(err.msg);
       });
+  }
+
+  addNewAddressToLocalStorage(address: Address) {
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    // addr is empty array when no address is present
+    userInfo.addresses.push(address);
+    localStorage.setItem('userInfo', userInfo)
   }
 
   openScanner() {

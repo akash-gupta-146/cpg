@@ -25,12 +25,13 @@
         <ion-badge *ngIf="!p.warrantyPeriodEnd">Warranty Expired</ion-badge>
       </div>
       </ion-col>
-    </ion-row>
+    </ion-row>       
   </ion-grid>
 
   <div class="emptyData" *ngIf="isEmpty">
     <img src="assets/imgs/notfound.png">
-    <h2 color="gray">No Records Found</h2>
+    <h2 color="gray">No Products Registered Yet</h2>
+    <p></p>
   </div>
 
   <ion-fab right bottom>
