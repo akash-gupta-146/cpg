@@ -1,102 +1,90 @@
-<!-- <ion-header>
-    
-      <div>
-      <ion-buttons start>
-        <button ion-button color="light"  clear (click)="dismiss()">
-          <span><ion-icon name="close" class="closeIcon"></ion-icon></span>
-        </button>                                                                   
-      </ion-buttons>
-      <ion-title>Register</ion-title>
-      </div>
-
-</ion-header> -->
-
-
 <ion-content>
 
   <div class="bakgroundContent">
     <div>
-      
-        <div  color="light" clear (click)="dismiss()" text-right padding>
-          <span >
-            <ion-icon name="close" class="closeIcon"></ion-icon>
-          </span>
-        </div>
-      
+
+      <div color="light" clear (click)="dismiss()" text-right padding>
+        <span>
+          <ion-icon name="close" class="closeIcon"></ion-icon>
+        </span>
+      </div>
+
       <ion-title style="text-align: center;" class="registerTitlle"><b>Register</b></ion-title>
     </div>
 
     <ion-list>
       <form [formGroup]="registerForm" novalidate>
-   <ion-card >
-        <ion-item class="regiterFiled" >
-          <ion-icon name="person" color="primary" item-left class="registerIcon"></ion-icon>
-          <ion-label floating color="primary">Name</ion-label>
-          <ion-input  [class.invalid]="(name.dirty || submitAttempt) && !name.valid" formControlName="name"></ion-input>
-        </ion-item>
-        <div no-lines *ngIf="(name.dirty || submitAttempt) && !name.valid" class="contactValidform">
-          <span>Please enter a valid name.</span>
-        </div>
+        <ion-card>
+          <ion-item class="regiterFiled">
+            <ion-icon name="person" color="primary" item-left class="registerIcon"></ion-icon>
+            <ion-label floating color="primary">Name</ion-label>
+            <ion-input [class.invalid]="(name.dirty || submitAttempt) && !name.valid" formControlName="name"></ion-input>
+          </ion-item>
+          <div no-lines *ngIf="(name.dirty || submitAttempt) && !name.valid" class="contactValidform">
+            <span>Please enter a valid name.</span>
+          </div>
 
-        <ion-item class="regiterFiled">
-          <ion-icon name="call" color="primary" item-left class="registerIcon"></ion-icon>
-          <ion-label floating color="primary">Contact No.</ion-label>
-          <ion-input class="placeholderColor" type="number" [class.invalid]="(contactNo.dirty || submitAttempt) && !contactNo.valid" formControlName="contactNo"></ion-input>
-        </ion-item>
-        <div no-lines *ngIf="(contactNo.dirty || submitAttempt) && !contactNo.valid" class="contactValidform">
-          <span>Please enter a valid Contact No.</span>
-        </div>
-
-
-        <ion-item class="regiterFiled">
-          <ion-icon name="lock" color="primary" item-left class="registerIcon"></ion-icon>
-          <ion-label floating color="primary">Password</ion-label>
-          <ion-input type="password" [class.invalid]="(password.dirty || submitAttempt) && !password.valid" formControlName="password"></ion-input>
-        </ion-item>
-        <div no-lines *ngIf="(password.dirty || submitAttempt) && !password.valid" class="contactValidform">
-          <span>Please enter a valid password.</span>
-        </div>
-
-        <ion-item class="regiterFiled">
-          <ion-icon name="lock" color="primary" item-left class="registerIcon"></ion-icon>
-          <ion-label floating color="primary">Confirm Password</ion-label>
-          <ion-input  type="password" [class.invalid]="(confirmPassword.dirty || submitAttempt) && (!confirmPassword.valid || !isSameAsPassword())"
-            formControlName="confirmPassword"></ion-input>
-        </ion-item>
-        <div no-lines *ngIf="(confirmPassword.dirty || submitAttempt) && !confirmPassword.valid" class="contactValidform">
-          <span>Please enter a valid password.</span>
-        </div>
-        <div no-lines *ngIf="(confirmPassword.dirty || submitAttempt) && !isSameAsPassword()" class="contactValidform">
-          <span>Passwords don't match</span>
-        </div>
+          <ion-item class="regiterFiled">
+            <ion-icon name="call" color="primary" item-left class="registerIcon"></ion-icon>
+            <ion-label floating color="primary">Contact No.</ion-label>
+            <ion-input class="placeholderColor" type="number" [class.invalid]="(contactNo.dirty || submitAttempt) && !contactNo.valid"
+              formControlName="contactNo"></ion-input>
+          </ion-item>
+          <div no-lines *ngIf="(contactNo.dirty || submitAttempt) && !contactNo.valid" class="contactValidform">
+            <span>Please enter a valid Contact No.</span>
+          </div>
 
 
-        <ion-item class="regiterFiled">
-          <ion-icon name="mail" color="primary" item-left class="registerIcon"></ion-icon>
-          <ion-label floating color="primary">Email</ion-label>
-          <ion-input [class.invalid]="(email.dirty || submitAttempt) && !email.valid" formControlName="email"></ion-input>
-        </ion-item>
-        <div no-lines *ngIf="(email.dirty || submitAttempt) && !email.valid" class="contactValidform">
-          <span>Please enter a valid email.</span>
-        </div>
-      </ion-card>
+          <ion-item class="regiterFiled">
+            <ion-icon name="lock" color="primary" item-left class="registerIcon"></ion-icon>
+            <ion-label floating color="primary">Password</ion-label>
+            <ion-input type="password" [class.invalid]="(password.dirty || submitAttempt) && !password.valid"
+              formControlName="password"></ion-input>
+          </ion-item>
+          <div no-lines *ngIf="(password.dirty || submitAttempt) && !password.valid" class="contactValidform">
+            <span>Please enter a valid password.</span>
+          </div>
+
+          <ion-item class="regiterFiled">
+            <ion-icon name="lock" color="primary" item-left class="registerIcon"></ion-icon>
+            <ion-label floating color="primary">Confirm Password</ion-label>
+            <ion-input type="password" [class.invalid]="(confirmPassword.dirty || submitAttempt) && (!confirmPassword.valid || !isSameAsPassword())"
+              formControlName="confirmPassword"></ion-input>
+          </ion-item>
+          <div no-lines *ngIf="(confirmPassword.dirty || submitAttempt) && !confirmPassword.valid" class="contactValidform">
+            <span>Please enter a valid password.</span>
+          </div>
+          <div no-lines *ngIf="(confirmPassword.dirty || submitAttempt) && !isSameAsPassword()" class="contactValidform">
+            <span>Passwords don't match</span>
+          </div>
+
+
+          <ion-item class="regiterFiled">
+            <ion-icon name="mail" color="primary" item-left class="registerIcon"></ion-icon>
+            <ion-label floating color="primary">Email</ion-label>
+            <ion-input [class.invalid]="(email.dirty || submitAttempt) && !email.valid" formControlName="email"></ion-input>
+          </ion-item>
+          <div no-lines *ngIf="(email.dirty || submitAttempt) && !email.valid" class="contactValidform">
+            <span>Please enter a valid email.</span>
+          </div>
+        </ion-card>
 
 
 
         <div *ngIf="addresses" formArrayName="addresses">
           <ion-card *ngFor="let address of addresses.controls;let i=index" class="addressform">
-          <div [formGroupName]="i">
-         <div margin-top>
-            <ion-badge class="addressFiled addresBorder "  margin-left>Address {{i+1}}</ion-badge>
-            <span (click)="removeAddress()" float-right margin-right >
-            <ion-icon name="close" class="registerIcon"></ion-icon>
-            </span>
-          </div>
+            <div [formGroupName]="i">
+              <div margin-top>
+                <span (click)="removeAddress()" float-right margin-right>
+                  <ion-icon name="close" class="registerIcon"></ion-icon>
+                </span>
+              </div>
               <div>
                 <ion-item class="addressFiled">
                   <ion-label> Address Type</ion-label>
                   <ion-select interface="popover" formControlName="addressType" [class.invalid]="(typeControl(i).dirty || submitAttempt) && !typeControl(i).valid">
-                    <ion-option *ngFor="let type of addressTypes" [disabled]="isAddressTypeAlreadySelected(type)" [value]="type">
+                    <ion-option *ngFor="let type of addressTypes" [disabled]="isAddressTypeAlreadySelected(type)"
+                      [value]="type">
                       {{type}}
                     </ion-option>
                   </ion-select>
@@ -106,9 +94,9 @@
                   <p>Please enter a valid type.</p>
                 </ion-item>
 
-                <ion-item class="addressFiled margin-top" >
+                <ion-item class="addressFiled margin-top">
                   <ion-label floating color="primary" no-margin>Address</ion-label>
-                  <ion-input  [class.invalid]="(addressControl(i).dirty || submitAttempt) && !addressControl(i).valid"
+                  <ion-input [class.invalid]="(addressControl(i).dirty || submitAttempt) && !addressControl(i).valid"
                     formControlName="address"></ion-input>
                 </ion-item>
                 <ion-item no-lines *ngIf="(addressControl(i).dirty || submitAttempt) && !addressControl(i).valid" class="addressFiled">
@@ -125,7 +113,7 @@
 
                 <ion-item class="addressFiled">
                   <ion-label floating color="primary" no-margin>State</ion-label>
-                  <ion-input  formControlName="state" [class.invalid]="(stateControl(i).dirty || submitAttempt) && !stateControl(i).valid"></ion-input>
+                  <ion-input formControlName="state" [class.invalid]="(stateControl(i).dirty || submitAttempt) && !stateControl(i).valid"></ion-input>
                 </ion-item>
                 <ion-item no-lines *ngIf="(stateControl(i).dirty || submitAttempt) && !stateControl(i).valid" class="addressFiled">
                   <p>Please enter a valid state.</p>
@@ -141,23 +129,26 @@
 
                 <ion-item class="addressFiled">
                   <ion-label floating color="primary" no-margin>Postal-Code</ion-label>
-                  <ion-input type="number"  formControlName="postalCode" [class.invalid]="(postalCodeControl(i).dirty || submitAttempt) && !postalCodeControl(i).valid"></ion-input>
+                  <ion-input type="number" formControlName="postalCode" [class.invalid]="(postalCodeControl(i).dirty || submitAttempt) && !postalCodeControl(i).valid"></ion-input>
                 </ion-item>
-                <ion-item no-lines *ngIf="(postalCodeControl(i).dirty || submitAttempt) && !postalCodeControl(i).valid" class="addressFiled">
+                <ion-item no-lines *ngIf="(postalCodeControl(i).dirty || submitAttempt) && !postalCodeControl(i).valid"
+                  class="addressFiled">
                   <p>Please enter a valid Postal code.</p>
                 </ion-item>
 
                 <ion-item class="addressFiled">
                   <ion-label floating color="primary" no-margin>Phone</ion-label>
-                  <ion-input type="tel"  formControlName="phone"></ion-input>
+                  <ion-input type="tel" formControlName="phone"></ion-input>
                 </ion-item>
               </div>
             </div>
           </ion-card>
         </div>
 
+          <!-- FUNCTIONALITY CHANGED : ONLY 1 ADDRESS IS ALLOWED -->
         <div text-right>
-          <button *ngIf=" addresses.controls.length <= addressTypes.length-1" ion-button round small (click)="addAddress()" margin-right margin-bottom>Add {{addresses.controls.length==0?'Address':'Another Address'}}</button>
+          <button *ngIf=" addresses.controls.length ==0" ion-button round small (click)="addAddress()" margin-right
+            margin-bottom>Add {{addresses.controls.length==0?'Address':'Another Address'}}</button>
         </div>
 
         <button ion-button full (click)="onSubmit()" round class="submitBtn" small>Register</button>
